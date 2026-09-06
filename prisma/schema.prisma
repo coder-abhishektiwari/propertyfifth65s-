@@ -1,0 +1,220 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Admin {
+  id           String   @id @default(uuid()) @db.Uuid
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Customer {
+  id                   String                @id @default(uuid()) @db.Uuid
+  visitorId            String                @unique
+  name                 String?
+  email                String?
+  phone                String?
+  category             CustomerCategory?
+  city                 String?
+  state                String?
+  country              String?
+  latitude             Decimal?              @db.Decimal(10, 7)
+  longitude            Decimal?              @db.Decimal(10, 7)
+  locationCapturedAt   DateTime?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  callbackRequests     CallbackRequest[]
+  consultationRequests ConsultationRequest[]
+  contactInquiries     ContactInquiry[]
+  savedProperties      SavedProperty[]
+}
+
+model Property {
+  id                   String                @id @default(uuid()) @db.Uuid
+  name                 String
+  slug                 String                @unique
+  developerName        String?
+  propertyType         PropertyType
+  purpose              Purpose?
+  status               PropertyStatus
+  featured             Boolean               @default(false)
+  published            Boolean               @default(false)
+  address              String
+  locality             String
+  city                 String
+  state                String?
+  pincode              String?
+  latitude             Decimal?              @db.Decimal(10, 7)
+  longitude            Decimal?              @db.Decimal(10, 7)
+  mapUrl               String?
+  priceMin             Decimal               @db.Decimal(15, 2)
+  priceMax             Decimal?              @db.Decimal(15, 2)
+  priceLabel           String?
+  configuration        String?
+  areaMin              Decimal?              @db.Decimal(10, 2)
+  areaMax              Decimal?              @db.Decimal(10, 2)
+  areaUnit             String?
+  possession           String?
+  totalTowers          Int?
+  totalUnits           Int?
+  totalArea            String?
+  reraNumber           String?
+  legalNote            String?
+  shortDescription     String?
+  description          String?
+  highlights           Json?
+  amenities            Json?
+  specifications       Json?
+  bankApproved         Json?
+  videoUrl             String?
+  brochureUrl          String?
+  brochureName         String?
+  brochureSize         String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  callbackRequests     CallbackRequest[]
+  consultationRequests ConsultationRequest[]
+  images               PropertyImage[]
+  savedProperties      SavedProperty[]
+}
+
+model PropertyImage {
+  id         String   @id @default(uuid()) @db.Uuid
+  propertyId String   @db.Uuid
+  imageUrl   String
+  sortOrder  Int
+  isCover    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId])
+}
+
+model SavedProperty {
+  id         String   @id @default(uuid()) @db.Uuid
+  customerId String   @db.Uuid
+  propertyId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@unique([customerId, propertyId])
+  @@index([customerId])
+  @@index([propertyId])
+}
+
+model ConsultationRequest {
+  id            String                    @id @default(uuid()) @db.Uuid
+  customerId    String?                   @db.Uuid
+  propertyId    String?                   @db.Uuid
+  name          String
+  email         String
+  phone         String
+  category      CustomerCategory
+  requestType   ConsultationRequestType
+  preferredDate DateTime?
+  preferredTime String?
+  message       String?
+  status        ConsultationRequestStatus @default(NEW)
+  createdAt     DateTime                  @default(now())
+  updatedAt     DateTime                  @updatedAt
+  customer      Customer?                 @relation(fields: [customerId], references: [id])
+  property      Property?                 @relation(fields: [propertyId], references: [id])
+
+  @@index([customerId])
+  @@index([propertyId])
+  @@index([status])
+}
+
+model CallbackRequest {
+  id            String                @id @default(uuid()) @db.Uuid
+  customerId    String?               @db.Uuid
+  propertyId    String                @db.Uuid
+  name          String
+  email         String
+  phone         String
+  category      CustomerCategory
+  preferredDate DateTime?
+  preferredTime String
+  message       String?
+  status        CallbackRequestStatus @default(NEW)
+  createdAt     DateTime              @default(now())
+  updatedAt     DateTime              @updatedAt
+  customer      Customer?             @relation(fields: [customerId], references: [id])
+  property      Property              @relation(fields: [propertyId], references: [id])
+
+  @@index([customerId])
+  @@index([propertyId])
+  @@index([status])
+}
+
+model ContactInquiry {
+  id         String    @id @default(uuid()) @db.Uuid
+  customerId String?   @db.Uuid
+  name       String
+  email      String
+  phone      String?
+  interest   String?
+  message    String?
+  createdAt  DateTime  @default(now())
+  customer   Customer? @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
+}
+
+enum PropertyType {
+  APARTMENT
+  VILLA
+  PENTHOUSE
+  PLOT
+  COMMERCIAL
+  INDEPENDENT_FLOOR
+  OTHER
+}
+
+enum Purpose {
+  END_USE
+  INVESTMENT
+  BOTH
+}
+
+enum PropertyStatus {
+  NEW_LAUNCH
+  UNDER_CONSTRUCTION
+  READY_TO_MOVE
+  RESALE
+  SOLD_OUT
+  OTHER
+}
+
+enum CustomerCategory {
+  NRI_UHNI
+  DEFENCE_PERSONNEL
+}
+
+enum ConsultationRequestType {
+  CONSULTATION
+  SITE_VISIT
+}
+
+enum ConsultationRequestStatus {
+  NEW
+  CONTACTED
+  SCHEDULED
+  COMPLETED
+  CANCELLED
+}
+
+enum CallbackRequestStatus {
+  NEW
+  CONTACTED
+  CALLBACK_SCHEDULED
+  COMPLETED
+  CANCELLED
+}
