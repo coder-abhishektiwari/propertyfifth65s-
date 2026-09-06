@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: propertyfifth-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-PropertyFifth2024!}
+      POSTGRES_DB: propertyfifth
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: propertyfifth-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://postgres:${DB_PASSWORD:-PropertyFifth2024!}@db:5378/propertyfifth?schema=public
+      AUTH_SECRET: ${AUTH_SECRET:-7be7c34f8eb56cb04a913cdfabca01593c20e1874a751cf07bd8726905dd8811}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
