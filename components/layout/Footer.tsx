@@ -85,11 +85,11 @@ export default function Footer() {
               <ArrowRight className="w-4 h-4" />
             </Link>
             <a
-              href="tel:+919999950005"
+              href="tel:+919877155088"
               className="flex items-center gap-2 bg-white rounded-full px-5 py-2.5 shadow-md text-[var(--navy)] font-semibold text-sm hover:shadow-lg transition-shadow"
             >
               <Phone className="w-4 h-4" />
-              +91 99999 5 0005
+              +91 98771 55088
             </a>
           </div>
         </div>
