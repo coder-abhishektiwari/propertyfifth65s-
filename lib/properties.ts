@@ -92,16 +92,16 @@ export async function getProperties(
   }
 
   // Build orderBy
-  let orderBy: Prisma.PropertyOrderByWithRelationInput;
+  let orderBy: Prisma.PropertyOrderByWithRelationInput[];
   switch (sort.field) {
     case "featured":
       orderBy = [{ featured: "desc" }, { createdAt: "desc" }];
       break;
     case "createdAt":
-      orderBy = { createdAt: sort.order };
+      orderBy = [{ createdAt: sort.order }];
       break;
     case "priceMin":
-      orderBy = { priceMin: sort.order };
+      orderBy = [{ priceMin: sort.order }];
       break;
     default:
       orderBy = [{ featured: "desc" }, { createdAt: "desc" }];
