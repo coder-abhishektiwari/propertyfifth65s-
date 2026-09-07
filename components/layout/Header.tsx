@@ -41,11 +41,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        showSolid
-          ? "bg-[var(--navy)]/90 backdrop-blur-md border-b border-white/10 shadow-lg"
-          : "bg-transparent border-b border-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${showSolid
+          ? "bg-[var(--navy)]"
+          : "bg-transparent"
+        }`}
     >
       <div className="container-site flex items-center justify-between h-16 lg:h-[4.5rem]">
         {/* Logo */}
@@ -71,11 +70,10 @@ export default function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className={`relative text-[0.8rem] font-semibold tracking-wider uppercase transition-colors ${
-                isActive(link.href)
+              className={`relative text-[0.8rem] font-semibold tracking-wider uppercase transition-colors ${isActive(link.href)
                   ? "text-[var(--gold)]"
                   : "text-white/80 hover:text-white"
-              }`}
+                }`}
             >
               {link.label}
               {isActive(link.href) && (
@@ -113,11 +111,10 @@ export default function Header() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className={`py-3 px-3 rounded-lg text-sm font-medium tracking-wide transition-colors ${
-                  isActive(link.href)
+                className={`py-3 px-3 rounded-lg text-sm font-medium tracking-wide transition-colors ${isActive(link.href)
                     ? "text-[var(--gold)] bg-white/5"
                     : "text-white/80 hover:text-white hover:bg-white/5"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>

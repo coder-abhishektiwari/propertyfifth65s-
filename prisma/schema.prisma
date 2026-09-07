@@ -53,7 +53,7 @@ model Property {
   latitude             Decimal?              @db.Decimal(10, 7)
   longitude            Decimal?              @db.Decimal(10, 7)
   mapUrl               String?
-  priceMin             Decimal               @db.Decimal(15, 2)
+  priceMin             Decimal?              @db.Decimal(15, 2)
   priceMax             Decimal?              @db.Decimal(15, 2)
   priceLabel           String?
   configuration        String?

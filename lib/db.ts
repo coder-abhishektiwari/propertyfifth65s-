@@ -7,9 +7,11 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
+  // SSL is enabled automatically by `pg` when the connection string contains
+  // `ssl=true` or `sslmode=require|verify-*`. Do NOT force SSL here for local
+  // PostgreSQL servers that do not support TLS.
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL!,
-    ssl: { rejectUnauthorized: false },
   });
   const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });

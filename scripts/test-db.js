@@ -3,7 +3,6 @@ const { Pool } = require('pg');
 async function test() {
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false },
   });
   try {
     const r = await pool.query('SELECT count(*) FROM "Property"');

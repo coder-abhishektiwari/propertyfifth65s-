@@ -7,9 +7,9 @@
   --navy-light: #2465c5;  
   --navy-dark: #192e50; */
 
-  --navy: #274C77;
-  --navy-light: #4F7CAC;
-  --navy-dark: #1E3557;
+  --navy: #091c35;
+  --navy-light: #144a83;
+  --navy-dark: #04142b;
 
   /* Gold / Accent */
   --gold: #c8963e;
@@ -203,6 +203,31 @@ body {
 .btn-gold:hover {
   background-color: var(--gold);
   color: #ffffff;
+}
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #25D366;
+  color: #ffffff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  border: 1px solid #25D366;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1da851;
+  border-color: #1da851;
 }
 
 /* ─── Animations ───────────────────────────────────── */

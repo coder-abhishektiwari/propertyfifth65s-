@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { toMediaImageUrl } from "@/lib/property-utils";
 
 interface Property {
   id: string;
@@ -66,7 +67,7 @@ export default function FeaturedPropertiesCarousel({
         <div className="h-56 md:h-[400px] relative shrink-0 md:w-1/2">
           <Image
             key={currentProp.id + "-img"}
-            src={currentProp.coverImage || "/images/hero/hero-building.jpg"}
+            src={toMediaImageUrl(currentProp.coverImage || "/images/hero/hero-building.jpg")}
             alt={currentProp.name}
             fill
             className="object-cover"

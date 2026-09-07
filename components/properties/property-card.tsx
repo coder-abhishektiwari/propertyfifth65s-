@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ArrowRight } from "lucide-react";
+import { MapPin, ArrowRight, IndianRupee } from "lucide-react";
 import type { PropertyWithImages } from "@/lib/properties";
 import { formatPrice, getStatusLabel } from "@/lib/properties";
+import { toMediaImageUrl } from "@/lib/property-utils";
 
 interface PropertyCardProps {
   property: PropertyWithImages;
@@ -10,7 +11,7 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property }: PropertyCardProps) {
   const coverImage = property.images.find((img) => img.isCover);
-  const imageUrl = coverImage?.imageUrl || property.images[0]?.imageUrl || "/images/hero/hero-building.jpg";
+  const imageUrl = toMediaImageUrl(coverImage?.imageUrl || property.images[0]?.imageUrl || "/images/hero/hero-building.jpg");
 
   return (
     <Link
@@ -61,9 +62,16 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
         {/* Price */}
         <div className="flex items-baseline gap-1 mb-4">
-          <span className="text-[var(--gold)] text-lg font-bold">
-            ₹{formatPrice(Number(property.priceMin))}
-          </span>
+          {property.priceMin ? (
+            <span className="text-[var(--gold)] text-lg font-bold">
+              ₹{formatPrice(Number(property.priceMin))}
+            </span>
+          ) : (
+            <span className="flex items-center gap-1.5 text-[var(--text-muted)] text-sm font-bold">
+              <IndianRupee className="w-3.5 h-3.5" />
+              Price Not Disclosed
+            </span>
+          )}
           {property.priceLabel && (
             <span className="text-[var(--text-muted)] text-xs">
               {property.priceLabel}

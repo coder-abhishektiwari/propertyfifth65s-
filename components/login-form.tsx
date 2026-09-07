@@ -34,7 +34,7 @@ export default function LoginForm() {
     <div className="relative h-screen w-full overflow-hidden">
       {/* Full-screen background image — hidden on mobile */}
       <img
-        src="/images/admin/admin-login-bg.jpg"
+        src="/images/bg/admin-login-bg.png"
         alt=""
         className="hidden lg:block absolute inset-0 w-full h-full object-cover"
       />

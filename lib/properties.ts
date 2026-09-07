@@ -1,5 +1,7 @@
 import { db } from "@/lib/db";
 import { Prisma, PropertyType, Purpose, PropertyStatus } from "@prisma/client";
+export { formatPrice, getStatusLabel, getPropertyTypeLabel, getPurposeLabel } from "@/lib/property-utils";
+export type { PropertyImageRecord, PropertyBasic } from "@/lib/property-utils";
 
 export type PropertyWithImages = Prisma.PropertyGetPayload<{
   include: { images: { select: { imageUrl: true; isCover: true; sortOrder: true } } };
@@ -155,47 +157,15 @@ export async function getUniqueConfigurations(): Promise<string[]> {
   return result.map((r) => r.configuration).filter((c): c is string => c !== null);
 }
 
-export function formatPrice(price: number): string {
-  if (price >= 10000000) {
-    return `${(price / 10000000).toFixed(2)} Cr`;
-  } else if (price >= 100000) {
-    return `${(price / 100000).toFixed(2)} L`;
-  } else {
-    return price.toLocaleString("en-IN");
-  }
-}
-
-export function getStatusLabel(status: PropertyStatus): string {
-  const labels: Record<PropertyStatus, string> = {
-    NEW_LAUNCH: "New Launch",
-    UNDER_CONSTRUCTION: "Under Construction",
-    READY_TO_MOVE: "Ready to Move",
-    RESALE: "Resale",
-    SOLD_OUT: "Sold Out",
-    OTHER: "Other",
-  };
-  return labels[status] || status;
-}
-
-export function getPropertyTypeLabel(type: PropertyType): string {
-  const labels: Record<PropertyType, string> = {
-    APARTMENT: "Apartment",
-    VILLA: "Villa",
-    PENTHOUSE: "Penthouse",
-    PLOT: "Plot",
-    COMMERCIAL: "Commercial",
-    INDEPENDENT_FLOOR: "Independent Floor",
-    OTHER: "Other",
-  };
-  return labels[type] || type;
-}
-
-export function getPurposeLabel(purpose: Purpose | null): string | null {
-  if (!purpose) return null;
-  const labels: Record<Purpose, string> = {
-    END_USE: "End Use",
-    INVESTMENT: "Investment",
-    BOTH: "End Use & Investment",
-  };
-  return labels[purpose] || purpose;
+export async function getPropertyBySlug(slug: string): Promise<PropertyWithImages | null> {
+  const property = await db.property.findFirst({
+    where: { slug, published: true },
+    include: {
+      images: {
+        select: { imageUrl: true, isCover: true, sortOrder: true },
+        orderBy: { sortOrder: "asc" },
+      },
+    },
+  });
+  return property;
 }
