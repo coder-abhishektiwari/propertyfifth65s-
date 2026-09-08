@@ -1,4 +1,4 @@
-require("dotenv/config");
+try { require("dotenv/config"); } catch (e) { /* env vars set by platform */ }
 
 const fs = require("fs");
 const path = require("path");
