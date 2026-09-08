@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build && node scripts/seed-properties.js",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node scripts/seed-properties.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
