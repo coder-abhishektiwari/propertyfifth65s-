@@ -7,10 +7,12 @@ const { PrismaPg } = require("@prisma/adapter-pg");
 const { Pool } = require("pg");
 
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
-const STORAGE_ROOT = process.env.PROPERTY_STORAGE_PATH || "./storage/properties";
+const STORAGE_BASE = process.env.PROPERTY_STORAGE_PATH || "./storage";
+const STORAGE_ROOT = path.join(STORAGE_BASE, "properties");
 
 function getPropertyImages(folderName, coverFileName) {
-  const folderPath = path.join(process.cwd(), STORAGE_ROOT, folderName, "images");
+  const resolvedRoot = path.resolve(STORAGE_ROOT);
+  const folderPath = path.join(resolvedRoot, folderName, "images");
 
   if (!fs.existsSync(folderPath)) {
     throw new Error(`Image folder not found: ${folderPath}`);
@@ -43,7 +45,8 @@ function getPropertyImages(folderName, coverFileName) {
 }
 
 function getBrochure(folderName) {
-  const brochureDir = path.join(process.cwd(), STORAGE_ROOT, folderName, "brochure");
+  const resolvedRoot = path.resolve(STORAGE_ROOT);
+  const brochureDir = path.join(resolvedRoot, folderName, "brochure");
 
   if (!fs.existsSync(brochureDir)) {
     return null;
