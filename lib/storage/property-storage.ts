@@ -1,7 +1,8 @@
 import path from "path";
 import fs from "fs/promises";
 
-const STORAGE_ROOT = process.env.PROPERTY_STORAGE_PATH || "./storage/properties";
+const STORAGE_BASE = process.env.PROPERTY_STORAGE_PATH || "./storage";
+const STORAGE_ROOT = path.join(STORAGE_BASE, "properties");
 const ALLOWED_IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".webp"];
 const ALLOWED_BROCHURE_EXTENSIONS = [".pdf"];
 
