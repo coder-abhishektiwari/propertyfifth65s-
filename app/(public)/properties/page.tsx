@@ -1,16 +1,10 @@
-import { Suspense } from "react";
 import { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, ChevronRight } from "lucide-react";
 import { getProperties, getUniqueCities } from "@/lib/properties";
-import { toMediaImageUrl } from "@/lib/property-utils";
 import type { PropertyType, Purpose, PropertyStatus } from "@prisma/client";
 import PropertyFilters from "@/components/properties/property-filters";
 import PropertyGrid from "@/components/properties/property-grid";
 import PropertySort from "@/components/properties/property-sort";
 import PropertyPagination from "@/components/properties/property-pagination";
-import PropertyGridSkeleton from "@/components/properties/property-grid-skeleton";
 
 export const metadata: Metadata = {
   title: "Properties | Property Fifth",

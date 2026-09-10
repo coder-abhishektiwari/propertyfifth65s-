@@ -96,7 +96,7 @@ Property Detail page, Saved Properties page, and Admin Property Management.
 |---|---|---:|---|
 | `propertyType` | Enum | Yes | Property category |
 | `purpose` | Enum | No | Primary purpose |
-| `status` | Enum | Yes | Current property status |
+| `status` | Enum | No | Current property status |
 | `featured` | Boolean | Yes | Whether shown in featured sections |
 | `published` | Boolean | Yes | Whether publicly visible |
 

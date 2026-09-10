@@ -1,7 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
-import { ChevronRight, ArrowRight, CheckCircle } from "lucide-react";
+import { CheckCircle } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Services | Property Fifth",

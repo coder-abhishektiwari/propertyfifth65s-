@@ -128,3 +128,26 @@ export function toMediaBrochureUrl(dbUrl: string): string {
   }
   return dbUrl;
 }
+
+export function toAdminMediaImageUrl(dbUrl: string): string {
+  const match = dbUrl.match(/^\/images\/properties\/([^/]+)\/([^/]+)$/);
+  if (match) {
+    const [, slug, filename] = match;
+    return `/api/admin/media/images/${encodeURIComponent(slug)}/${encodeURIComponent(filename)}`;
+  }
+  return dbUrl;
+}
+
+export function toAdminMediaBrochureUrl(dbUrl: string): string {
+  const matchNew = dbUrl.match(/^\/images\/properties\/([^/]+)\/brochure\/([^/]+)$/);
+  if (matchNew) {
+    const [, slug, filename] = matchNew;
+    return `/api/admin/media/brochure/${encodeURIComponent(slug)}/${encodeURIComponent(filename)}`;
+  }
+  const matchOld = dbUrl.match(/^\/brochures\/([^/]+)\/([^/]+)$/);
+  if (matchOld) {
+    const [, slug, filename] = matchOld;
+    return `/api/admin/media/brochure/${encodeURIComponent(slug)}/${encodeURIComponent(filename)}`;
+  }
+  return dbUrl;
+}

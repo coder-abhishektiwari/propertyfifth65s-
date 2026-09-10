@@ -1,8 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import {
-  ArrowRight,
   Shield,
   Users,
   Award,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X, Camera } from "lucide-react";
 import { toMediaImageUrl } from "@/lib/property-utils";
@@ -129,8 +129,12 @@ export function PropertyLightbox({ images, propertyName, initialIndex, isOpen, o
   const sorted = [...images].sort((a, b) => a.sortOrder - b.sortOrder);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
+  const prevInitialIndex = useRef(initialIndex);
   useEffect(() => {
-    setCurrentIndex(initialIndex);
+    if (prevInitialIndex.current !== initialIndex) {
+      setCurrentIndex(initialIndex);
+      prevInitialIndex.current = initialIndex;
+    }
   }, [initialIndex]);
 
   const goNext = useCallback(() => {

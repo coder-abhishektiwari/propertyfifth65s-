@@ -23,7 +23,7 @@ export default function LoginForm() {
 
       if (result.success) {
         showSnackbar("Login successful!", "success");
-        setTimeout(() => router.push("/admin/dashboard"), 500);
+        setTimeout(() => router.push("/admin/properties"), 500);
       } else {
         showSnackbar(result.error, "error");
       }
@@ -156,7 +156,7 @@ export default function LoginForm() {
               ) : (
                 <>
                   <Lock className="w-4 h-4" />
-                  Login to Dashboard
+                  Login to Admin
                 </>
               )}
             </button>

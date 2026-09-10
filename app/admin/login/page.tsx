@@ -27,7 +27,7 @@ export default async function AdminLoginPage() {
   }
 
   if (hasValidSession) {
-    redirect("/admin/dashboard");
+    redirect("/admin/properties");
   }
 
   return <LoginForm />;

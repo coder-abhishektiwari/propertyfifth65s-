@@ -27,13 +27,6 @@ const STATUSES: { value: PropertyStatus; label: string }[] = [
   { value: "RESALE", label: "Resale" },
 ];
 
-const SORT_OPTIONS = [
-  { value: "featured", label: "Featured First" },
-  { value: "newest", label: "Newest First" },
-  { value: "price-low", label: "Price: Low to High" },
-  { value: "price-high", label: "Price: High to Low" },
-];
-
 interface PropertyFiltersProps {
   cities: string[];
 }
@@ -48,7 +41,6 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
   const currentType = searchParams.get("propertyType") || "";
   const currentPurpose = searchParams.get("purpose") || "";
   const currentStatus = searchParams.get("status") || "";
-  const currentSort = searchParams.get("sort") || "featured";
   const currentPriceMin = searchParams.get("priceMin") || "";
   const currentPriceMax = searchParams.get("priceMax") || "";
   const [searchInput, setSearchInput] = useState(currentSearch);

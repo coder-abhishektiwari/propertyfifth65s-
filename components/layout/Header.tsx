@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Calendar, Menu, X } from "lucide-react";
@@ -28,8 +28,12 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const prevPathname = useRef(pathname);
   useEffect(() => {
-    setMobileOpen(false);
+    if (prevPathname.current !== pathname) {
+      setMobileOpen(false);
+      prevPathname.current = pathname;
+    }
   }, [pathname]);
 
   function isActive(href: string) {

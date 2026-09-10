@@ -42,7 +42,7 @@ model Property {
   developerName        String?
   propertyType         PropertyType
   purpose              Purpose?
-  status               PropertyStatus
+  status               PropertyStatus?
   featured             Boolean               @default(false)
   published            Boolean               @default(false)
   address              String

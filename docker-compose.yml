@@ -28,11 +28,15 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DATABASE_URL: postgresql://postgres:${DB_PASSWORD:-PropertyFifth2024!}@db:5378/propertyfifth?schema=public
+      DATABASE_URL: postgresql://postgres:${DB_PASSWORD:-PropertyFifth2024!}@db:5432/propertyfifth?schema=public
       AUTH_SECRET: ${AUTH_SECRET:-7be7c34f8eb56cb04a913cdfabca01593c20e1874a751cf07bd8726905dd8811}
+      PROPERTY_STORAGE_PATH: ./storage/properties
+    volumes:
+      - appstorage:/app/storage
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   pgdata:
+  appstorage:

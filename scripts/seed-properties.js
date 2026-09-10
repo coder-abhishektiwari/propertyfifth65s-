@@ -84,6 +84,15 @@ async function main() {
   const prisma = new PrismaClient({ adapter });
 
   try {
+    // Check if admin already exists — if yes, skip seeding
+    const existingAdmin = await prisma.admin.findFirst();
+    if (existingAdmin) {
+      console.log("Database already seeded. Skipping.");
+      return;
+    }
+
+    console.log("First run detected. Seeding database...");
+
     await prisma.propertyImage.deleteMany();
     await prisma.property.deleteMany();
 

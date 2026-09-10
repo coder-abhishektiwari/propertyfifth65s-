@@ -4,7 +4,6 @@ import { useActionState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  ChevronRight,
   ArrowRight,
   Phone,
   Mail,
@@ -14,7 +13,6 @@ import {
   CheckCircle,
   Loader2,
 } from "lucide-react";
-import { toMediaImageUrl } from "@/lib/property-utils";
 import { submitContactInquiry } from "./actions/submit-contact";
 
 const INTEREST_OPTIONS = [
