@@ -31,7 +31,7 @@ COPY --from=builder /app/prisma7.config.ts ./prisma7.config.ts
 COPY --from=builder /app/scripts ./scripts
 COPY --from=deps /app/node_modules ./node_modules
 
-RUN mkdir -p /app/storage/properties && chown -R nextjs:nodejs /app/storage
+RUN mkdir -p /app/storage/properties /app/.next/cache && chown -R nextjs:nodejs /app/storage /app/.next
 
 USER nextjs
 EXPOSE 3000
