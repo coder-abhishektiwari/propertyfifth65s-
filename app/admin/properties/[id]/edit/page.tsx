@@ -32,7 +32,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
     developerName: property.developerName || undefined,
     propertyType: property.propertyType,
     purpose: property.purpose || undefined,
-    status: property.status,
+    status: property.status ?? undefined,
     address: property.address,
     locality: property.locality,
     city: property.city,

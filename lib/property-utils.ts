@@ -61,7 +61,8 @@ export function formatPrice(price: number): string {
   }
 }
 
-export function getStatusLabel(status: PropertyStatus): string {
+export function getStatusLabel(status: PropertyStatus | null): string {
+  if (!status) return "Other";
   const labels: Record<PropertyStatus, string> = {
     NEW_LAUNCH: "New Launch",
     UNDER_CONSTRUCTION: "Under Construction",
