@@ -157,6 +157,20 @@ export async function getUniqueConfigurations(): Promise<string[]> {
   return result.map((r) => r.configuration).filter((c): c is string => c !== null);
 }
 
+export async function getFeaturedProperties(): Promise<PropertyWithImages[]> {
+  return db.property.findMany({
+    where: { published: true, featured: true },
+    orderBy: { createdAt: "desc" },
+    take: 6,
+    include: {
+      images: {
+        select: { imageUrl: true, isCover: true, sortOrder: true },
+        orderBy: { sortOrder: "asc" },
+      },
+    },
+  });
+}
+
 export async function getPropertyBySlug(slug: string): Promise<PropertyWithImages | null> {
   const property = await db.property.findFirst({
     where: { slug, published: true },

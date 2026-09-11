@@ -10,117 +10,9 @@ import {
   Handshake,
 } from "lucide-react";
 import FeaturedPropertiesCarousel from "@/components/FeaturedPropertiesCarousel";
+import { getFeaturedProperties } from "@/lib/properties";
 
 export const dynamic = "force-dynamic";
-
-/* ─── Static Data ───────────────────────────────────── */
-
-const featuredProperties = [
-  {
-    id: "ascent-grandis",
-    name: "ASCENT GRANDIS",
-    slug: "ascent-grandis",
-    status: "NEW_LAUNCH",
-    city: "Zirakpur",
-    locality: "Chandigarh Airport Road (PR-7)",
-    configuration: "3 & 4 BHK Apartments | Penthouses | Duplex Apartments",
-
-    coverImage:
-      "/images/properties/ascent-grandis/ascent-grandis-exterior-03.jpg",
-
-    images: [
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-exterior-01.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-exterior-02.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-exterior-03.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-architecture-01.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-building-detail.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-building-view.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-clubhouse.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-lobby.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-living-room.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-bedroom.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-kitchen.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-bathroom.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-pool.jpg" },
-      { imageUrl: "/images/properties/ascent-grandis/ascent-grandis-spa.jpg" },
-    ],
-    projectScale: "31 Floors",
-    propertyType: "Luxury Residential",
-    developerName: "Vaneet Infra",
-    highlight: "102+ Lifestyle Amenities",
-  },
-
-  {
-    id: "the-mall-of-chandigarh",
-    name: "THE MALL OF CHANDIGARH",
-    slug: "the-mall-of-chandigarh",
-    status: "NEW_LAUNCH",
-    city: "Chandigarh",
-    locality: "Chandigarh International Airport Road (PR-08)",
-    configuration: "Premium Retail | F&B | Entertainment",
-
-    coverImage:
-      "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-03-image-01.jpeg",
-
-    images: [
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-01-image-01.jpeg" },
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-02-image-01.jpeg" },
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-02-image-02.jpeg" },
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-02-image-03.jpeg" },
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-03-image-01.jpeg" },
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-04-image-01.jpeg" },
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-05-image-01.jpeg" },
-      { imageUrl: "/images/properties/the-mall-of-chandigarh/mall-of-chandigarh-page-06-image-01.jpeg" },
-    ],
-    projectScale: "15,000 Sq. Ft. Club House",
-    propertyType: "Commercial Mall",
-    developerName: "Vaneet Infra",
-    highlight: "Approx. 500 Acres Green Area",
-  },
-
-  {
-    id: "fashiontv-parc",
-    name: "FashionTV Parc",
-    slug: "fashiontv-parc",
-    status: "NEW_LAUNCH",
-    city: "Derabassi",
-    locality: "PR-11 Chandigarh Airport Road",
-    configuration: "Luxury Residences",
-    badge: "India's First",
-    tagline: "India's First FashionTV Branded Residential Development",
-
-    coverImage:
-      "/images/properties/fashiontv-parc/fashiontv-parc-page-21-image-02.jpeg",
-
-    images: [
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-03-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-04-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-04-image-02.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-04-image-03.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-05-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-05-image-02.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-06-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-06-image-02.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-07-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-07-image-02.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-08-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-11-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-11-image-02.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-11-image-03.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-12-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-12-image-02.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-13-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-13-image-02.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-13-image-03.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-14-image-01.jpeg" },
-      { imageUrl: "/images/properties/fashiontv-parc/fashiontv-parc-page-15-image-01.jpeg" },
-    ],
-    projectScale: "19 Acres",
-    propertyType: "Retail & Lifestyle",
-    developerName: "Vaneet Infra",
-    highlight: "Open-Air Retail Destination",
-  },
-];
 
 const REASONS = [
   { num: "01", title: "Curated, Not Crowded", desc: "Carefully selected opportunities, not endless listings." },
@@ -174,6 +66,24 @@ const TESTIMONIALS = [
 /* ─── Page ──────────────────────────────────────────── */
 
 export default async function HomePage() {
+  const dbProperties = await getFeaturedProperties();
+
+  const featuredProperties = dbProperties.map((p) => {
+    const cover = p.images.find((img) => img.isCover) || p.images[0];
+    return {
+      id: p.id,
+      name: p.name,
+      slug: p.slug,
+      status: p.status || "NEW_LAUNCH",
+      city: p.city,
+      locality: p.locality || "",
+      configuration: p.configuration || "",
+      coverImage: cover?.imageUrl || "",
+      developerName: p.developerName || "",
+      propertyType: p.propertyType || "",
+      highlight: p.shortDescription || "",
+    };
+  });
   return (
     <>
       {/* ─── Hero Section ──────────────────────── */}

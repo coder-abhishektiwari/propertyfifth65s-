@@ -30,7 +30,7 @@ export async function GET(_request: NextRequest, { params }: RouteParams) {
       headers: {
         "Content-Type": contentType,
         "Content-Disposition": `inline; filename="${displayName}"`,
-        "Cache-Control": "public, max-age=86400, s-maxage=604800",
+        "Cache-Control": "public, max-age=604800, s-maxage=604800, stale-while-revalidate=86400",
         "X-Content-Type-Options": "nosniff",
       },
     });

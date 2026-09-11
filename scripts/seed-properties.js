@@ -15,7 +15,8 @@ function getPropertyImages(folderName, coverFileName) {
   const folderPath = path.join(resolvedRoot, folderName, "images");
 
   if (!fs.existsSync(folderPath)) {
-    throw new Error(`Image folder not found: ${folderPath}`);
+    console.warn(`  ⚠ Images folder not found: ${folderPath} — skipping images`);
+    return [];
   }
 
   const files = fs
@@ -26,21 +27,16 @@ function getPropertyImages(folderName, coverFileName) {
     .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
 
   if (files.length === 0) {
-    throw new Error(`No images found in ${folderPath}`);
+    console.warn(`  ⚠ No images in ${folderPath} — skipping images`);
+    return [];
   }
 
   const coverExists = files.includes(coverFileName);
 
-  if (!coverExists) {
-    throw new Error(
-      `Cover image "${coverFileName}" not found in ${folderPath}`
-    );
-  }
-
   return files.map((file, index) => ({
     imageUrl: `/images/properties/${folderName}/${file}`,
     sortOrder: index,
-    isCover: file === coverFileName,
+    isCover: coverExists ? file === coverFileName : index === 0,
   }));
 }
 
@@ -280,12 +276,14 @@ async function main() {
       "ascent-grandis-exterior-03.jpg"
     );
 
-    await prisma.propertyImage.createMany({
-      data: ascentImages.map((image) => ({
-        ...image,
-        propertyId: ascentGrandis.id,
-      })),
-    });
+    if (ascentImages.length > 0) {
+      await prisma.propertyImage.createMany({
+        data: ascentImages.map((image) => ({
+          ...image,
+          propertyId: ascentGrandis.id,
+        })),
+      });
+    }
 
     console.log(
       `Created ASCENT GRANDIS with ${ascentImages.length} images`
@@ -388,12 +386,14 @@ async function main() {
       "mall-of-chandigarh-page-03-image-01.jpeg"
     );
 
-    await prisma.propertyImage.createMany({
-      data: mallImages.map((image) => ({
-        ...image,
-        propertyId: mallOfChandigarh.id,
-      })),
-    });
+    if (mallImages.length > 0) {
+      await prisma.propertyImage.createMany({
+        data: mallImages.map((image) => ({
+          ...image,
+          propertyId: mallOfChandigarh.id,
+        })),
+      });
+    }
 
     console.log(
       `Created THE MALL OF CHANDIGARH with ${mallImages.length} images`
@@ -528,12 +528,14 @@ async function main() {
       "fashiontv-parc-page-21-image-02.jpeg"
     );
 
-    await prisma.propertyImage.createMany({
-      data: fashionImages.map((image) => ({
-        ...image,
-        propertyId: fashiontvParc.id,
-      })),
-    });
+    if (fashionImages.length > 0) {
+      await prisma.propertyImage.createMany({
+        data: fashionImages.map((image) => ({
+          ...image,
+          propertyId: fashiontvParc.id,
+        })),
+      });
+    }
 
     console.log(
       `Created FashionTV Parc with ${fashionImages.length} images`
