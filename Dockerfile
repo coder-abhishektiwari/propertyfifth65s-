@@ -32,10 +32,11 @@ COPY --from=builder /app/scripts ./scripts
 COPY --from=deps /app/node_modules ./node_modules
 
 RUN mkdir -p /app/storage/properties /app/.next/cache && chown -R nextjs:nodejs /app/storage /app/.next
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
-USER nextjs
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
-CMD ["sh", "-c", "npx prisma db push && node server.js"]
+CMD ["sh", "/app/entrypoint.sh"]
