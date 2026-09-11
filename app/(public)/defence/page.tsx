@@ -1,6 +1,6 @@
 import { Metadata } from "next";
-import Link from "next/link";
-import { Shield, ArrowRight, Phone, Mail, MapPin } from "lucide-react";
+import { Shield, Mail, MapPin, Phone } from "lucide-react";
+import DefenceCTA from "@/components/defence-cta";
 
 export const metadata: Metadata = {
   title: "Defence Personnel | Property Fifth",
@@ -55,22 +55,7 @@ export default function DefencePage() {
           </div>
 
           {/* CTA */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/properties"
-              className="inline-flex items-center gap-2 btn-gold"
-            >
-              Explore Properties
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <a
-              href="tel:+919877155088"
-              className="inline-flex items-center gap-2 btn-primary"
-            >
-              <Phone className="w-4 h-4" />
-              Call Us
-            </a>
-          </div>
+          <DefenceCTA />
 
           {/* Contact */}
           <div className="mt-12 pt-8 border-t border-gray-100">

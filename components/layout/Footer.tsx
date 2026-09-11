@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { MapPin, Phone, Mail, Globe, ArrowRight } from "lucide-react";
+import IdentityGate from "@/components/identity-gate-link";
 
 const QUICK_LINKS = [
   { href: "/", label: "Home" },
@@ -80,10 +83,10 @@ export default function Footer() {
             </p>
           </div>
           <div className="flex flex-col items-center gap-3 shrink-0">
-            <Link href="/consultation" className="btn-primary">
+            <IdentityGate href="/consultation" className="btn-primary inline-flex items-center gap-2">
               Book Your Consultation
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </IdentityGate>
             <a
               href="tel:+919877155088"
               className="flex items-center gap-2 bg-white rounded-full px-5 py-2.5 shadow-md text-[var(--navy)] font-semibold text-sm hover:shadow-lg transition-shadow"
@@ -160,12 +163,21 @@ export default function Footer() {
               <ul className="space-y-1.5">
                 {QUICK_LINKS.map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.href === "/properties" ? (
+                      <IdentityGate
+                        href={link.href}
+                        className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
+                      >
+                        {link.label}
+                      </IdentityGate>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -198,12 +210,12 @@ export default function Footer() {
               <ul className="space-y-1.5">
                 {LOCATIONS.map((l) => (
                   <li key={l}>
-                    <Link
+                    <IdentityGate
                       href="/properties"
                       className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
                     >
                       {l}
-                    </Link>
+                    </IdentityGate>
                   </li>
                 ))}
               </ul>

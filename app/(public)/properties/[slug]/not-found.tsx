@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import IdentityGate from "@/components/identity-gate-link";
 
 export default function PropertyNotFound() {
   return (
@@ -13,9 +15,9 @@ export default function PropertyNotFound() {
         <p className="text-sm text-[var(--text-muted)] mb-6 max-w-md mx-auto">
           The property you&apos;re looking for doesn&apos;t exist or is no longer available.
         </p>
-        <Link href="/properties" className="btn-primary">
+        <IdentityGate href="/properties" className="btn-primary inline-flex items-center gap-2">
           Browse Properties
-        </Link>
+        </IdentityGate>
       </div>
     </section>
   );
