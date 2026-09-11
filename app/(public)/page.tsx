@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import FeaturedPropertiesCarousel from "@/components/FeaturedPropertiesCarousel";
 import { getFeaturedProperties } from "@/lib/properties";
+import IdentityGate from "@/components/identity-gate-link";
 
 export const dynamic = "force-dynamic";
 
@@ -106,14 +107,14 @@ export default async function HomePage() {
               Premium real estate opportunities, strategic investments, and trusted advisory — curated for discerning buyers and their families.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/properties" className="btn-primary">
+              <IdentityGate href="/properties" className="btn-primary inline-flex items-center gap-2">
                 Explore Properties
                 <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/consultation" className="btn-gold">
+              </IdentityGate>
+              <IdentityGate href="/consultation" className="btn-gold inline-flex items-center gap-2">
                 Book a Consultation
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </IdentityGate>
             </div>
           </div>
         </div>
@@ -129,13 +130,13 @@ export default async function HomePage() {
               </p>
               <h2 className="heading-lg">Featured Opportunity</h2>
             </div>
-            <Link
+            <IdentityGate
               href="/properties"
               className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[var(--navy)] hover:text-[var(--gold)] transition-colors"
             >
               View All Properties
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </IdentityGate>
           </div>
 
           <FeaturedPropertiesCarousel properties={featuredProperties} />
@@ -218,18 +219,18 @@ export default async function HomePage() {
               <p className="mt-3 text-sm text-[var(--text-muted)] leading-relaxed max-w-xs">
                 Carefully selected locations with excellent connectivity, infrastructure and growth potential.
               </p>
-              <Link href="/properties" className="btn-primary mt-6">
+              <IdentityGate href="/properties" className="btn-primary mt-6 inline-flex items-center gap-2">
                 Explore All Locations
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </IdentityGate>
             </div>
             <div className="relative">
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 {LOCATIONS.map((loc) => (
-                  <Link
+                  <IdentityGate
                     key={loc.name}
                     href={`/properties?city=${encodeURIComponent(loc.name)}`}
-                    className="group relative rounded-lg overflow-hidden h-44 block"
+                    className="group relative rounded-lg overflow-hidden h-44 block text-left"
                   >
                     <Image
                       src={loc.image}
@@ -242,7 +243,7 @@ export default async function HomePage() {
                       <h3 className="text-white text-xs font-bold tracking-wider uppercase">{loc.name}</h3>
                       <p className="text-white/60 text-[0.65rem] mt-0.5">{loc.subtitle}</p>
                     </div>
-                  </Link>
+                  </IdentityGate>
                 ))}
               </div>
             </div>

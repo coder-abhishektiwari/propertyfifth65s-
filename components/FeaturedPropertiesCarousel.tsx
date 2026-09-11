@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { toMediaImageUrl } from "@/lib/property-utils";
+import IdentityGate from "@/components/identity-gate-link";
 
 interface Property {
   id: string;
@@ -173,13 +173,13 @@ export default function FeaturedPropertiesCarousel({
             </div>
           )}
 
-          <Link
+          <IdentityGate
             href={`/properties/${currentProp.slug}`}
             className="mt-5 inline-flex items-center gap-1.5 text-[var(--gold)] text-xs font-semibold tracking-wider uppercase hover:underline w-fit"
           >
             Explore Property
             <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
+          </IdentityGate>
         </div>
       </div>
 
