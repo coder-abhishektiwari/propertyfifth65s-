@@ -72,21 +72,45 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`relative text-[0.8rem] font-semibold tracking-wider uppercase transition-colors ${isActive(link.href)
-                  ? "text-[var(--gold)]"
-                  : "text-white/80 hover:text-white"
+          {NAV_LINKS.map((link) =>
+            link.href === "/properties" ? (
+              <button
+                key={link.href}
+                onClick={() => {
+                  if (isComplete) {
+                    window.location.href = link.href;
+                  } else {
+                    openDialog();
+                  }
+                }}
+                className={`relative text-[0.8rem] font-semibold tracking-wider uppercase transition-colors cursor-pointer ${
+                  isActive(link.href)
+                    ? "text-[var(--gold)]"
+                    : "text-white/80 hover:text-white"
                 }`}
-            >
-              {link.label}
-              {isActive(link.href) && (
-                <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-[var(--gold)]" />
-              )}
-            </Link>
-          ))}
+              >
+                {link.label}
+                {isActive(link.href) && (
+                  <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-[var(--gold)]" />
+                )}
+              </button>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative text-[0.8rem] font-semibold tracking-wider uppercase transition-colors ${
+                  isActive(link.href)
+                    ? "text-[var(--gold)]"
+                    : "text-white/80 hover:text-white"
+                }`}
+              >
+                {link.label}
+                {isActive(link.href) && (
+                  <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-[var(--gold)]" />
+                )}
+              </Link>
+            )
+          )}
         </nav>
 
         {/* Desktop CTA */}
@@ -118,19 +142,41 @@ export default function Header() {
       {mobileOpen && (
         <div className="lg:hidden bg-[var(--navy)]/95 backdrop-blur-md border-t border-white/10 animate-fade-in">
           <nav className="container-site flex flex-col py-4 gap-1">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className={`py-3 px-3 rounded-lg text-sm font-medium tracking-wide transition-colors ${isActive(link.href)
-                    ? "text-[var(--gold)] bg-white/5"
-                    : "text-white/80 hover:text-white hover:bg-white/5"
+            {NAV_LINKS.map((link) =>
+              link.href === "/properties" ? (
+                <button
+                  key={link.href}
+                  onClick={() => {
+                    setMobileOpen(false);
+                    if (isComplete) {
+                      window.location.href = link.href;
+                    } else {
+                      openDialog();
+                    }
+                  }}
+                  className={`py-3 px-3 rounded-lg text-sm font-medium tracking-wide transition-colors text-left cursor-pointer ${
+                    isActive(link.href)
+                      ? "text-[var(--gold)] bg-white/5"
+                      : "text-white/80 hover:text-white hover:bg-white/5"
                   }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+                >
+                  {link.label}
+                </button>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`py-3 px-3 rounded-lg text-sm font-medium tracking-wide transition-colors ${
+                    isActive(link.href)
+                      ? "text-[var(--gold)] bg-white/5"
+                      : "text-white/80 hover:text-white hover:bg-white/5"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
             <button
               onClick={() => {
                 setMobileOpen(false);
