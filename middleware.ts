@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const SESSION_COOKIE_NAME = "pf_admin_session";
+const IDENTITY_COOKIE_NAME = "identity_verified";
 
 function getAuthSecret(): string {
   const secret = process.env.AUTH_SECRET;
@@ -50,32 +51,47 @@ async function verifySessionToken(token: string): Promise<string | null> {
 
 const PUBLIC_ADMIN_PATHS = ["/admin/login"];
 
+const IDENTITY_PROTECTED_PATHS = ["/properties", "/consultation"];
+
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/properties/:path*", "/consultation"],
 };
 
 export async function middleware(request: NextRequest) {
   try {
     const { pathname } = request.nextUrl;
 
-    if (PUBLIC_ADMIN_PATHS.includes(pathname)) {
+    // --- Admin auth ---
+    if (pathname.startsWith("/admin")) {
+      if (PUBLIC_ADMIN_PATHS.includes(pathname)) {
+        return NextResponse.next();
+      }
+
+      const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME);
+      const token = sessionCookie?.value;
+
+      if (!token) {
+        return NextResponse.redirect(new URL("/admin/login", request.url));
+      }
+
+      const adminId = await verifySessionToken(token);
+      if (!adminId) {
+        const response = NextResponse.redirect(
+          new URL("/admin/login", request.url)
+        );
+        response.cookies.delete(SESSION_COOKIE_NAME);
+        return response;
+      }
+
       return NextResponse.next();
     }
 
-    const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME);
-    const token = sessionCookie?.value;
-
-    if (!token) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
-    }
-
-    const adminId = await verifySessionToken(token);
-    if (!adminId) {
-      const response = NextResponse.redirect(
-        new URL("/admin/login", request.url)
-      );
-      response.cookies.delete(SESSION_COOKIE_NAME);
-      return response;
+    // --- Customer identity check ---
+    if (IDENTITY_PROTECTED_PATHS.some((p) => pathname === p || pathname.startsWith(p + "/"))) {
+      const identityVerified = request.cookies.get(IDENTITY_COOKIE_NAME);
+      if (!identityVerified) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
     }
 
     return NextResponse.next();

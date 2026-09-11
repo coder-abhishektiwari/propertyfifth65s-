@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Calendar, Menu, X } from "lucide-react";
 import { useCustomer } from "@/components/providers/customer-context";
 
@@ -18,8 +18,10 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
   const isHome = pathname === "/";
-  const { isComplete, openDialog } = useCustomer();
+  const { isComplete, isLoading, openDialog } = useCustomer();
+  const pendingNav = useRef<string | null>(null);
 
   useEffect(() => {
     function onScroll() {
@@ -29,6 +31,14 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (isComplete && pendingNav.current) {
+      const target = pendingNav.current;
+      pendingNav.current = null;
+      router.push(target);
+    }
+  }, [isComplete, router]);
 
   const prevPathname = useRef(pathname);
   useEffect(() => {
@@ -77,9 +87,11 @@ export default function Header() {
               <button
                 key={link.href}
                 onClick={() => {
+                  if (isLoading) return;
                   if (isComplete) {
-                    window.location.href = link.href;
+                    router.push(link.href);
                   } else {
+                    pendingNav.current = link.href;
                     openDialog();
                   }
                 }}
@@ -116,9 +128,11 @@ export default function Header() {
         {/* Desktop CTA */}
         <button
           onClick={() => {
+            if (isLoading) return;
             if (isComplete) {
-              window.location.href = "/consultation";
+              router.push("/consultation");
             } else {
+              pendingNav.current = "/consultation";
               openDialog();
             }
           }}
@@ -148,9 +162,11 @@ export default function Header() {
                   key={link.href}
                   onClick={() => {
                     setMobileOpen(false);
+                    if (isLoading) return;
                     if (isComplete) {
-                      window.location.href = link.href;
+                      router.push(link.href);
                     } else {
+                      pendingNav.current = link.href;
                       openDialog();
                     }
                   }}
@@ -180,9 +196,11 @@ export default function Header() {
             <button
               onClick={() => {
                 setMobileOpen(false);
+                if (isLoading) return;
                 if (isComplete) {
-                  window.location.href = "/consultation";
+                  router.push("/consultation");
                 } else {
+                  pendingNav.current = "/consultation";
                   openDialog();
                 }
               }}

@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import { getCustomerIdentity } from "@/lib/actions/customer-actions";
 
 interface CustomerInfo {
@@ -37,6 +38,7 @@ export function useCustomer() {
 }
 
 export function CustomerProvider({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
   const [customer, setCustomer] = useState<CustomerInfo | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -47,15 +49,17 @@ export function CustomerProvider({ children }: { children: ReactNode }) {
         const result = await getCustomerIdentity();
         if (result.success && result.customer) {
           setCustomer(result.customer);
+        } else if (pathname === "/") {
+          setDialogOpen(true);
         }
       } catch {
-        // ignore
+        if (pathname === "/") setDialogOpen(true);
       } finally {
         setIsLoading(false);
       }
     }
     check();
-  }, []);
+  }, [pathname]);
 
   const openDialog = useCallback(() => setDialogOpen(true), []);
   const closeDialog = useCallback(() => setDialogOpen(false), []);
