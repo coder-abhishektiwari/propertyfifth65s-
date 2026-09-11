@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { X } from "lucide-react";
 import { submitCallbackRequest } from "@/lib/actions/property-actions";
+import { useCustomer } from "@/components/providers/customer-context";
 
 interface RequestCallbackDialogProps {
   propertyId: string;
@@ -12,6 +13,7 @@ interface RequestCallbackDialogProps {
 }
 
 export default function RequestCallbackDialog({ propertyId, propertyName, isOpen, onClose }: RequestCallbackDialogProps) {
+  const { customer } = useCustomer();
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -24,6 +26,18 @@ export default function RequestCallbackDialog({ propertyId, propertyName, isOpen
     message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (isOpen && customer) {
+      setForm((prev) => ({
+        ...prev,
+        name: customer.name || prev.name,
+        email: customer.email || prev.email,
+        phone: customer.phone || prev.phone,
+        category: (customer.category as "" | "NRI_UHNI" | "DEFENCE_PERSONNEL") || prev.category,
+      }));
+    }
+  }, [isOpen, customer]);
 
   function validate() {
     const errs: Record<string, string> = {};

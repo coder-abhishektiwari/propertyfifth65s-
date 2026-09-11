@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Calendar, Menu, X } from "lucide-react";
+import { useCustomer } from "@/components/providers/customer-context";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -18,6 +19,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const { isComplete, openDialog } = useCustomer();
 
   useEffect(() => {
     function onScroll() {
@@ -88,13 +90,19 @@ export default function Header() {
         </nav>
 
         {/* Desktop CTA */}
-        <Link
-          href="/consultation"
-          className="hidden lg:inline-flex items-center gap-2 btn-gold text-[0.7rem] py-2.5 px-5"
+        <button
+          onClick={() => {
+            if (isComplete) {
+              window.location.href = "/consultation";
+            } else {
+              openDialog();
+            }
+          }}
+          className="hidden lg:inline-flex items-center gap-2 btn-gold text-[0.7rem] py-2.5 px-5 cursor-pointer"
         >
           <Calendar className="w-3.5 h-3.5" />
           Book Consultation
-        </Link>
+        </button>
 
         {/* Mobile Toggle */}
         <button
@@ -123,14 +131,20 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <Link
-              href="/consultation"
-              onClick={() => setMobileOpen(false)}
-              className="mt-3 btn-gold text-center text-[0.7rem] py-3 inline-flex items-center justify-center gap-2"
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                if (isComplete) {
+                  window.location.href = "/consultation";
+                } else {
+                  openDialog();
+                }
+              }}
+              className="mt-3 btn-gold text-center text-[0.7rem] py-3 inline-flex items-center justify-center gap-2 cursor-pointer w-full"
             >
               <Calendar className="w-3.5 h-3.5" />
               Book Consultation
-            </Link>
+            </button>
           </nav>
         </div>
       )}

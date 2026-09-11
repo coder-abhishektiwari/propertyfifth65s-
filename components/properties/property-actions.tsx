@@ -1,6 +1,7 @@
 "use client";
 
 import { Phone } from "lucide-react";
+import { useCustomer } from "@/components/providers/customer-context";
 
 const ADMIN_WHATSAPP = "919877155088";
 
@@ -9,15 +10,20 @@ interface PropertyActionsProps {
 }
 
 export default function PropertyActions({ propertyName }: PropertyActionsProps) {
+  const { isComplete, openDialog } = useCustomer();
   const message = `Hi, I'm interested in *${propertyName}*.\n\nPlease share more details.\n\nLink: ${typeof window !== "undefined" ? window.location.href : ""}`;
 
   return (
     <div className="flex items-center gap-3">
       <button
         onClick={() => {
-          document.dispatchEvent(new CustomEvent("open-callback-dialog"));
+          if (isComplete) {
+            document.dispatchEvent(new CustomEvent("open-callback-dialog"));
+          } else {
+            openDialog();
+          }
         }}
-        className="flex-1 flex items-center justify-center gap-2 btn-primary"
+        className="flex-1 flex items-center justify-center gap-2 btn-primary cursor-pointer"
       >
         <Phone className="w-4 h-4" />
         Request Callback

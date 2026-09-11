@@ -10,7 +10,6 @@ import {
   Ruler,
   Calendar,
   Shield,
-  Heart,
   Share2,
   IndianRupee,
 } from "lucide-react";
@@ -19,6 +18,7 @@ import type { PropertyWithImages } from "@/lib/properties";
 import PropertyTabs from "@/components/properties/property-tabs";
 import PropertyDetailClient from "./property-detail-client";
 import PropertyActions from "@/components/properties/property-actions";
+import SavePropertyButton from "@/components/properties/save-property-button";
 import type { PropertyBasic } from "@/lib/property-utils";
 
 interface PropertyDetailPageProps {
@@ -198,12 +198,7 @@ function PropertyHeaderInfo({ property }: { property: PropertyWithImages }) {
           </span>
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
-          <button
-            className="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--gold)] hover:border-[var(--gold)] transition-colors cursor-pointer"
-            aria-label="Save property"
-          >
-            <Heart className="w-4 h-4" />
-          </button>
+          <SavePropertyButton propertyId={property.id} />
           <button
             className="w-9 h-9 rounded-full border border-[var(--border)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--gold)] hover:border-[var(--gold)] transition-colors cursor-pointer"
             aria-label="Share property"
