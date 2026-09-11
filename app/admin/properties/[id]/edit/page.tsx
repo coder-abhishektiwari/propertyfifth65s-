@@ -10,6 +10,24 @@ interface EditPropertyPageProps {
   params: Promise<{ id: string }>;
 }
 
+function normalizeSpecs(raw: unknown): { label: string; value: string }[] {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw as { label: string; value: string }[];
+  if (typeof raw === "object") {
+    return Object.entries(raw).map(([label, value]) => ({
+      label,
+      value: String(value),
+    }));
+  }
+  return [];
+}
+
+function normalizeBanks(raw: unknown): { name: string; logo?: string }[] {
+  if (!raw) return [];
+  if (Array.isArray(raw)) return raw as { name: string; logo?: string }[];
+  return [];
+}
+
 export default async function EditPropertyPage({ params }: EditPropertyPageProps) {
   const { id } = await params;
 
@@ -58,8 +76,8 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
     description: property.description || undefined,
     highlights: (property.highlights as string[]) || [],
     amenities: (property.amenities as string[]) || [],
-    specifications: (property.specifications as { label: string; value: string }[]) || [],
-    bankApproved: (property.bankApproved as { name: string; logo?: string }[]) || [],
+    specifications: normalizeSpecs(property.specifications),
+    bankApproved: normalizeBanks(property.bankApproved),
     videoUrl: property.videoUrl || undefined,
     published: property.published,
     featured: property.featured,

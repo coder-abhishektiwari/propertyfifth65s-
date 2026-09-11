@@ -255,17 +255,14 @@ async function main() {
           "Co-working Space",
         ],
 
-        specifications: {
-          floors: "31 Floors",
-          configurations:
-            "3 & 4 BHK Apartments | Penthouses | Duplex Apartments",
-          lifestyleAmenities: "102+ Experiential Lifestyle Amenities",
-          security:
-            "Biometric tower access, CCTV monitoring and 24x7 command centre",
-          parking:
-            "Double basement parking with stack provision; two car parks per residence",
-          mobility: "EV charging stations, golf cart mobility and smart boom barrier entry",
-        },
+        specifications: [
+          { label: "Floors", value: "31 Floors" },
+          { label: "Configurations", value: "3 & 4 BHK Apartments | Penthouses | Duplex Apartments" },
+          { label: "Lifestyle Amenities", value: "102+ Experiential Lifestyle Amenities" },
+          { label: "Security", value: "Biometric tower access, CCTV monitoring and 24x7 command centre" },
+          { label: "Parking", value: "Double basement parking with stack provision; two car parks per residence" },
+          { label: "Mobility", value: "EV charging stations, golf cart mobility and smart boom barrier entry" },
+        ],
 
         ...getBrochure("ascent-grandis"),
       },
@@ -366,16 +363,12 @@ async function main() {
           "Multi-storey Shop Clusters",
         ],
 
-        specifications: {
-          developmentSize: "19 Acres",
-          lakeSize: "2.32 Acres",
-          developmentType: "Open-Air Retail & Lifestyle Destination",
-          categories: [
-            "Retail",
-            "Entertainment",
-            "Food & Beverage",
-          ],
-        },
+        specifications: [
+          { label: "Development Size", value: "19 Acres" },
+          { label: "Lake Size", value: "2.32 Acres" },
+          { label: "Development Type", value: "Open-Air Retail & Lifestyle Destination" },
+          { label: "Categories", value: "Retail, Entertainment, Food & Beverage" },
+        ],
 
         ...getBrochure("the-mall-of-chandigarh"),
       },
@@ -498,26 +491,13 @@ async function main() {
           "Fire Alarms",
         ],
 
-        specifications: {
-          configurations: "2 & 3 BHK Luxury Residences",
-          clubhouse: "15,000 Sq. Ft.",
-          security:
-            "5-Level Security System — CCTV, Entry Guards, Tower Security, Smart Surveillance",
-          technology: [
-            "Smart Door Locks",
-            "App-Based Facility Booking",
-            "Guest Entry via App",
-            "High-Speed Wi-Fi Zones",
-          ],
-          infrastructure: [
-            "Premium Elevators",
-            "Intercom Connectivity",
-            "24x7 Power Backup",
-            "EV Charging Stations",
-            "Individual Car Parking",
-            "Cover Parking",
-          ],
-        },
+        specifications: [
+          { label: "Configurations", value: "2 & 3 BHK Luxury Residences" },
+          { label: "Clubhouse", value: "15,000 Sq. Ft." },
+          { label: "Security", value: "5-Level Security System — CCTV, Entry Guards, Tower Security, Smart Surveillance" },
+          { label: "Technology", value: "Smart Door Locks, App-Based Facility Booking, Guest Entry via App, High-Speed Wi-Fi Zones" },
+          { label: "Infrastructure", value: "Premium Elevators, Intercom Connectivity, 24x7 Power Backup, EV Charging Stations, Individual Car Parking, Cover Parking" },
+        ],
 
         ...getBrochure("fashiontv-parc"),
       },
