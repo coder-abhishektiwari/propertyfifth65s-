@@ -49,4 +49,7 @@ next-env.d.ts
 /storage/*
 !/storage/.gitkeep
 
+# design references
+/requirements/
+
 
