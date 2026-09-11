@@ -15,6 +15,8 @@ import {
   Trash2,
   ImageIcon,
   Eye,
+  Loader2,
+  CheckCircle2,
 } from "lucide-react";
 import {
   createProperty,
@@ -137,6 +139,15 @@ export default function PropertyForm({
   const [success, setSuccess] = useState<string | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadingBrochure, setUploadingBrochure] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<{
+    active: boolean;
+    type: "image" | "brochure";
+    current: number;
+    total: number;
+    fileName: string;
+    loaded: number;
+    totalSize: number;
+  } | null>(null);
   const [sections, setSections] = useState<Record<string, boolean>>({
     basic: true,
     location: true,
@@ -197,49 +208,117 @@ export default function PropertyForm({
 
   const handleImageUpload = async (files: FileList | null) => {
     if (!files || !propertyId) return;
+    const fileArray = Array.from(files);
     setUploadingImage(true);
     setError(null);
+    setUploadProgress({
+      active: true,
+      type: "image",
+      current: 0,
+      total: fileArray.length,
+      fileName: "",
+      loaded: 0,
+      totalSize: 0,
+    });
 
     try {
-      for (const file of Array.from(files)) {
+      for (let i = 0; i < fileArray.length; i++) {
+        const file = fileArray[i];
+        setUploadProgress((prev) =>
+          prev
+            ? { ...prev, current: i + 1, fileName: file.name, loaded: 0, totalSize: file.size }
+            : prev
+        );
+
         const formData = new FormData();
         formData.append("file", file);
         formData.append("propertyId", propertyId);
         formData.append("type", "image");
 
-        const res = await fetch("/api/admin/media", { method: "POST", body: formData });
-        const data = await res.json();
+        const data = await new Promise<{ success: boolean; image?: ImageRecord; error?: string }>(
+          (resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/api/admin/media");
+            xhr.upload.onprogress = (e) => {
+              if (e.lengthComputable) {
+                setUploadProgress((prev) =>
+                  prev ? { ...prev, loaded: e.loaded, totalSize: e.total } : prev
+                );
+              }
+            };
+            xhr.onload = () => {
+              try {
+                resolve(JSON.parse(xhr.responseText));
+              } catch {
+                reject(new Error("Invalid response"));
+              }
+            };
+            xhr.onerror = () => reject(new Error("Upload failed"));
+            xhr.send(formData);
+          }
+        );
 
-        if (!res.ok) {
+        if (!data.success || !data.image) {
           setError(data.error || "Image upload failed");
           return;
         }
 
-        setImages((prev) => [...prev, data.image]);
+        setImages((prev) => [...prev, data.image!]);
       }
     } catch {
       setError("Image upload failed");
     } finally {
       setUploadingImage(false);
+      setUploadProgress(null);
       if (imageInputRef.current) imageInputRef.current.value = "";
     }
   };
 
   const handleBrochureUpload = async (files: FileList | null) => {
     if (!files || !propertyId || files.length === 0) return;
+    const file = files[0];
     setUploadingBrochure(true);
     setError(null);
+    setUploadProgress({
+      active: true,
+      type: "brochure",
+      current: 1,
+      total: 1,
+      fileName: file.name,
+      loaded: 0,
+      totalSize: file.size,
+    });
 
     try {
       const formData = new FormData();
-      formData.append("file", files[0]);
+      formData.append("file", file);
       formData.append("propertyId", propertyId);
       formData.append("type", "brochure");
 
-      const res = await fetch("/api/admin/media", { method: "POST", body: formData });
-      const data = await res.json();
+      const data = await new Promise<{ success: boolean; brochure?: BrochureRecord; error?: string }>(
+        (resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open("POST", "/api/admin/media");
+          xhr.upload.onprogress = (e) => {
+            if (e.lengthComputable) {
+              setUploadProgress((prev) =>
+                prev ? { ...prev, loaded: e.loaded, totalSize: e.total } : prev
+              );
+            }
+          };
+          xhr.onload = () => {
+            try {
+              resolve(JSON.parse(xhr.responseText));
+            } catch {
+              reject(new Error("Invalid response"));
+            }
+          };
+          xhr.onerror = () => reject(new Error("Upload failed"));
+          xhr.send(formData);
+        }
+      );
 
-      if (!res.ok) {
+      if (!data.success || !data.brochure) {
         setError(data.error || "Brochure upload failed");
         return;
       }
@@ -249,6 +328,7 @@ export default function PropertyForm({
       setError("Brochure upload failed");
     } finally {
       setUploadingBrochure(false);
+      setUploadProgress(null);
       if (brochureInputRef.current) brochureInputRef.current.value = "";
     }
   };
@@ -1199,6 +1279,62 @@ export default function PropertyForm({
           </div>
         </div>
       </div>
+
+      {/* Upload Progress Dialog */}
+      {uploadProgress && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm mx-4 space-y-4">
+            <div className="flex items-center gap-3">
+              {uploadProgress.current === uploadProgress.total &&
+              uploadProgress.loaded >= uploadProgress.totalSize ? (
+                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+              ) : (
+                <Loader2 className="w-5 h-5 text-[var(--gold)] animate-spin shrink-0" />
+              )}
+              <h4 className="text-sm font-bold text-[var(--navy)]">
+                {uploadProgress.type === "image" ? "Uploading Images" : "Uploading Brochure"}
+              </h4>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-xs text-gray-600 truncate">
+                {uploadProgress.fileName}
+              </p>
+              {uploadProgress.type === "image" ? (
+                <p className="text-xs text-gray-500">
+                  Image {uploadProgress.current} of {uploadProgress.total}
+                </p>
+              ) : (
+                <p className="text-xs text-gray-500">
+                  {(uploadProgress.loaded / (1024 * 1024)).toFixed(1)} MB of{" "}
+                  {(uploadProgress.totalSize / (1024 * 1024)).toFixed(1)} MB
+                </p>
+              )}
+            </div>
+
+            {/* Linear Progress Bar */}
+            <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+              <div
+                className="h-full bg-[var(--gold)] rounded-full transition-all duration-300 ease-out"
+                style={{
+                  width: `${
+                    uploadProgress.totalSize > 0
+                      ? Math.min((uploadProgress.loaded / uploadProgress.totalSize) * 100, 100)
+                      : uploadProgress.current > 0
+                      ? ((uploadProgress.current - 1) / uploadProgress.total) * 100
+                      : 0
+                  }%`,
+                }}
+              />
+            </div>
+
+            <p className="text-[0.65rem] text-gray-400 text-center">
+              Please do not close this page
+            </p>
+          </div>
+        </div>
+      )}
     </form>
   );
 }
