@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { submitSiteVisit } from "@/lib/actions/property-actions";
+import { useCustomer } from "@/components/providers/customer-context";
 
 interface ScheduleSiteVisitProps {
   propertyId: string;
@@ -9,6 +10,7 @@ interface ScheduleSiteVisitProps {
 }
 
 export default function ScheduleSiteVisit({ propertyId, propertyName }: ScheduleSiteVisitProps) {
+  const { customer } = useCustomer();
   const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
@@ -19,6 +21,16 @@ export default function ScheduleSiteVisit({ propertyId, propertyName }: Schedule
     time: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (customer) {
+      setForm((prev) => ({
+        ...prev,
+        name: prev.name || customer.name || "",
+        phone: prev.phone || customer.phone || "",
+      }));
+    }
+  }, [customer]);
 
   function validate() {
     const errs: Record<string, string> = {};
@@ -35,9 +47,9 @@ export default function ScheduleSiteVisit({ propertyId, propertyName }: Schedule
     startTransition(async () => {
       const result = await submitSiteVisit({
         name: form.name,
-        email: `visitor@propertyfifth.com`,
+        email: customer?.email || `visitor@propertyfifth.com`,
         phone: form.phone,
-        category: "NRI_UHNI",
+        category: (customer?.category as "NRI_UHNI" | "DEFENCE_PERSONNEL") || "NRI_UHNI",
         propertyId,
         preferredDate: form.date || undefined,
         preferredTime: form.time || undefined,

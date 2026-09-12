@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { X, User, Mail, Phone, Globe, Shield, MapPin, Lock } from "lucide-react";
+import { X, User, Mail, Phone, Globe, Shield, MapPin, Lock, CheckCircle } from "lucide-react";
 import { submitCustomerIdentity } from "@/lib/actions/customer-actions";
 import { useCustomer } from "@/components/providers/customer-context";
 
@@ -11,12 +11,26 @@ export default function CustomerIdentityDialog() {
   const { dialogOpen, closeDialog, onIdentityComplete } = useCustomer();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
     category: "" as "" | "NRI_UHNI" | "DEFENCE_PERSONNEL",
   });
+
+  useEffect(() => {
+    if (!submitted) return;
+    const timer = setTimeout(() => {
+      setSubmitted(false);
+      closeDialog();
+      setTimeout(() => {
+        setError("");
+        setForm({ name: "", email: "", phone: "", category: "" });
+      }, 300);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [submitted, closeDialog]);
 
   function handleChange(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -53,9 +67,13 @@ export default function CustomerIdentityDialog() {
 
       if (result.success && result.customer) {
         onIdentityComplete(result.customer);
-        if (form.category === "DEFENCE_PERSONNEL") {
-          router.push("/defence");
-        }
+        setSubmitted(true);
+        const redirectCategory = form.category;
+        setTimeout(() => {
+          if (redirectCategory === "DEFENCE_PERSONNEL") {
+            router.push("/defence");
+          }
+        }, 3000);
       } else {
         setError(result.message);
       }
@@ -71,6 +89,22 @@ export default function CustomerIdentityDialog() {
   }
 
   if (!dialogOpen) return null;
+
+  if (submitted) {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center bg-white">
+        <div className="flex flex-col items-center gap-5">
+          <div className="w-20 h-20 rounded-full bg-green-500 flex items-center justify-center">
+            <CheckCircle className="w-10 h-10 text-white" />
+          </div>
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-900 mb-1">Submitted Successfully!</h2>
+            <p className="text-sm text-gray-500">We&apos;ll get back to you shortly.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-[1%]">
