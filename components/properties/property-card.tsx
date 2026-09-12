@@ -4,6 +4,7 @@ import { MapPin, ArrowRight, IndianRupee } from "lucide-react";
 import type { PropertyWithImages } from "@/lib/properties";
 import { formatPrice, getStatusLabel } from "@/lib/properties";
 import { toMediaImageUrl } from "@/lib/property-utils";
+import PropertyPlaceholder from "@/components/property-placeholder";
 
 interface PropertyCardProps {
   property: PropertyWithImages;
@@ -11,7 +12,8 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property }: PropertyCardProps) {
   const coverImage = property.images.find((img) => img.isCover);
-  const imageUrl = toMediaImageUrl(coverImage?.imageUrl || property.images[0]?.imageUrl || "/images/hero/hero-building.webp");
+  const rawUrl = coverImage?.imageUrl || property.images[0]?.imageUrl;
+  const imageUrl = rawUrl ? toMediaImageUrl(rawUrl) : null;
 
   return (
     <Link
@@ -20,13 +22,17 @@ export default function PropertyCard({ property }: PropertyCardProps) {
     >
       {/* Image */}
       <div className="relative aspect-[16/10] overflow-hidden">
-        <Image
-          src={imageUrl}
-          alt={property.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={property.name}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        ) : (
+          <PropertyPlaceholder className="absolute inset-0" />
+        )}
         {/* Status Badge */}
         <div className="absolute top-3 left-3 z-10">
           <span className="bg-[var(--gold)] text-white text-[0.6rem] font-bold tracking-wider uppercase px-2.5 py-1 rounded">

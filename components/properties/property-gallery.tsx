@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X, Camera } from "lucide-react";
 import { toMediaImageUrl } from "@/lib/property-utils";
+import PropertyPlaceholder from "@/components/property-placeholder";
 
 interface GalleryImage {
   imageUrl: string;
@@ -39,7 +40,13 @@ export default function PropertyGallery({ images, propertyName, onOpenLightbox }
     return () => window.removeEventListener("keydown", handleKey);
   }, [goNext, goPrev]);
 
-  if (sorted.length === 0) return null;
+  if (sorted.length === 0) {
+    return (
+      <div className="relative aspect-[16/10] rounded-lg overflow-hidden">
+        <PropertyPlaceholder className="absolute inset-0 rounded-lg" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative">

@@ -24,6 +24,7 @@ import {
   type PropertyFormData,
   type ActionResponse,
 } from "@/lib/actions/admin-property-actions";
+import PropertyPlaceholder from "@/components/property-placeholder";
 
 const PROPERTY_TYPES = [
   { value: "APARTMENT", label: "Apartment" },
@@ -1206,11 +1207,13 @@ export default function PropertyForm({
                           : "border-gray-100"
                       }`}
                     >
-                      <div className="w-16 h-12 rounded bg-gray-100 overflow-hidden shrink-0">
+                      <div className="w-16 h-12 rounded bg-gray-100 overflow-hidden shrink-0 relative">
+                        <PropertyPlaceholder className="absolute inset-0" />
                         <img
                           src={toAdminImage(img.imageUrl, propertySlug)}
                           alt=""
-                          className="w-full h-full object-cover"
+                          className="absolute inset-0 w-full h-full object-cover"
+                          onError={(e) => { e.currentTarget.style.display = "none"; }}
                         />
                       </div>
                       <div className="flex-1 min-w-0">

@@ -22,6 +22,7 @@ import {
   toggleFeatured,
   deleteProperty,
 } from "@/lib/actions/admin-property-actions";
+import PropertyPlaceholder from "@/components/property-placeholder";
 
 type PropertyRow = {
   id: string;
@@ -282,17 +283,15 @@ export default function PropertyTable({
                     >
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-14 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0">
-                            {coverImage ? (
+                          <div className="w-14 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 relative">
+                            <PropertyPlaceholder className="absolute inset-0" />
+                            {coverImage && (
                               <img
                                 src={toAdminImage(coverImage.imageUrl, property.slug)}
                                 alt={property.name}
-                                className="w-full h-full object-cover"
+                                className="absolute inset-0 w-full h-full object-cover"
+                                onError={(e) => { e.currentTarget.style.display = "none"; }}
                               />
-                            ) : (
-                              <div className="w-full h-full flex items-center justify-center">
-                                <Building2 className="w-5 h-5 text-gray-300" />
-                              </div>
                             )}
                           </div>
                           <div className="min-w-0">

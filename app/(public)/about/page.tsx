@@ -78,7 +78,7 @@ export default function AboutPage() {
 
           <div className="relative w-full lg:w-4/5 min-h-[300px] lg:min-h-auto">
             <Image
-              src="/images/hero/who-we-are.webp"
+              src="/images/hero/who-we-are.png"
               alt="Property Fifth Premium Lounge"
               fill
               className="object-cover object-center"

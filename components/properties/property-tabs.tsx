@@ -42,6 +42,7 @@ import {
 import type { PropertyBasic } from "@/lib/property-utils";
 import { getPropertyTypeLabel, formatPrice, toMediaImageUrl, toMediaBrochureUrl } from "@/lib/property-utils";
 import ScheduleSiteVisit from "@/components/properties/schedule-site-visit";
+import PropertyPlaceholder from "@/components/property-placeholder";
 
 interface PropertyTabsProps {
   property: PropertyBasic;
@@ -204,13 +205,17 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
                 className="flex items-center gap-3 p-3 bg-[var(--bg-muted)] rounded-lg hover:bg-[var(--bg-alt)] transition-colors"
               >
                 <div className="w-16 h-16 rounded overflow-hidden bg-[var(--border)] shrink-0 relative">
-                  <Image
-                    src={toMediaImageUrl(property.images[0]?.imageUrl || "")}
-                    alt={property.name}
-                    fill
-                    className="object-cover"
-                    sizes="64px"
-                  />
+                  {property.images[0]?.imageUrl ? (
+                    <Image
+                      src={toMediaImageUrl(property.images[0].imageUrl)}
+                      alt={property.name}
+                      fill
+                      className="object-cover"
+                      sizes="64px"
+                    />
+                  ) : (
+                    <PropertyPlaceholder className="absolute inset-0" />
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold text-[var(--text)] truncate uppercase">
@@ -540,13 +545,17 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
             onClick={() => setSelectedImage(i)}
             className="relative aspect-[4/3] rounded-lg overflow-hidden bg-[var(--bg-muted)] cursor-pointer group"
           >
-            <Image
-              src={toMediaImageUrl(img.imageUrl)}
-              alt={`${property.name} - Photo ${i + 1}`}
-              fill
-              className="object-cover transition-transform group-hover:scale-105"
-              sizes="(max-width: 640px) 50vw, 33vw"
-            />
+            {img.imageUrl ? (
+              <Image
+                src={toMediaImageUrl(img.imageUrl)}
+                alt={`${property.name} - Photo ${i + 1}`}
+                fill
+                className="object-cover transition-transform group-hover:scale-105"
+                sizes="(max-width: 640px) 50vw, 33vw"
+              />
+            ) : (
+              <PropertyPlaceholder className="absolute inset-0" />
+            )}
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
           </button>
         ))}
@@ -576,13 +585,17 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
           {/* Image */}
           <div className="flex-1 flex items-center justify-center px-4 min-h-0 w-full">
             <div className="relative w-full max-w-5xl aspect-[16/10]">
-              <Image
-                src={toMediaImageUrl(sorted[selectedImage].imageUrl)}
-                alt={`${property.name} - Photo ${selectedImage + 1}`}
-                fill
-                className="object-contain"
-                sizes="100vw"
-              />
+              {sorted[selectedImage].imageUrl ? (
+                <Image
+                  src={toMediaImageUrl(sorted[selectedImage].imageUrl)}
+                  alt={`${property.name} - Photo ${selectedImage + 1}`}
+                  fill
+                  className="object-contain"
+                  sizes="100vw"
+                />
+              ) : (
+                <PropertyPlaceholder className="absolute inset-0 rounded-lg" />
+              )}
             </div>
           </div>
 
@@ -630,13 +643,17 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
                       : "border-transparent opacity-50 hover:opacity-80"
                   }`}
                 >
-                  <Image
-                    src={toMediaImageUrl(img.imageUrl)}
-                    alt={`Thumbnail ${i + 1}`}
-                    fill
-                    className="object-cover"
-                    sizes="56px"
-                  />
+                  {img.imageUrl ? (
+                    <Image
+                      src={toMediaImageUrl(img.imageUrl)}
+                      alt={`Thumbnail ${i + 1}`}
+                      fill
+                      className="object-cover"
+                      sizes="56px"
+                    />
+                  ) : (
+                    <PropertyPlaceholder className="absolute inset-0" />
+                  )}
                 </button>
               ))}
             </div>

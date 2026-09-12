@@ -89,7 +89,7 @@ export default function ContactPage() {
           {/* Right Image */}
           <div className="relative w-full lg:w-4/5 min-h-[300px] lg:min-h-auto">
             <Image
-              src="/images/hero/contact-us.webp"
+              src="/images/hero/contact-us.png"
               alt="Property Fifth Premium Lounge"
               fill
               className="object-cover object-center"

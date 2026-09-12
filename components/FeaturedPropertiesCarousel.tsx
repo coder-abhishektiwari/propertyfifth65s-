@@ -5,6 +5,7 @@ import Image from "next/image";
 import { MapPin, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { toMediaImageUrl } from "@/lib/property-utils";
 import IdentityGate from "@/components/identity-gate-link";
+import PropertyPlaceholder from "@/components/property-placeholder";
 
 interface Property {
   id: string;
@@ -65,15 +66,19 @@ export default function FeaturedPropertiesCarousel({
       <div className="bg-[var(--navy)] rounded-lg overflow-hidden flex flex-col md:flex-row md:h-[400px]">
         {/* Image side */}
         <div className="h-56 md:h-[400px] relative shrink-0 md:w-1/2">
-          <Image
-            key={currentProp.id + "-img"}
-            src={toMediaImageUrl(currentProp.coverImage || "/images/hero/hero-building.webp")}
-            alt={currentProp.name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
-            priority
-          />
+          {currentProp.coverImage ? (
+            <Image
+              key={currentProp.id + "-img"}
+              src={toMediaImageUrl(currentProp.coverImage)}
+              alt={currentProp.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+            />
+          ) : (
+            <PropertyPlaceholder className="absolute inset-0" />
+          )}
 
           {/* Badge */}
           {currentProp.badge && (

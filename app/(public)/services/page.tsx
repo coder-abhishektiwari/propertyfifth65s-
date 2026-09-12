@@ -89,7 +89,7 @@ export default function ServicesPage() {
           {/* Right Image */}
           <div className="relative w-full lg:w-4/5 min-h-[300px] lg:min-h-auto">
             <Image
-              src="/images/hero/our-services.webp"
+              src="/images/hero/our-services.png"
               alt="Property Fifth Premium Lounge"
               fill
               className="object-cover object-center"
