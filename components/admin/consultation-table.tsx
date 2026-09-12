@@ -14,7 +14,7 @@ import type { ConsultationRequest, ConsultationRequestStatus } from "@prisma/cli
 
 type Request = ConsultationRequest & { property: { name: string; slug: string } | null };
 
-const STAT_ICONS = { total: Users, new: Clock, scheduled: CalendarCheck, completed: CheckCircle } as const;
+const STAT_ICONS = { total: Users, new: Clock, contacted: Phone, scheduled: CalendarCheck, completed: CheckCircle } as const;
 
 interface ConsultationTableProps {
   requests: Request[];
@@ -95,7 +95,6 @@ export default function ConsultationTable({ requests, total, stats }: Consultati
             <option value="CONTACTED">Contacted</option>
             <option value="SCHEDULED">Scheduled</option>
             <option value="COMPLETED">Completed</option>
-            <option value="CANCELLED">Cancelled</option>
           </select>
         </div>
       </div>

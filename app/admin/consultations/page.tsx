@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default async function AdminConsultationsPage() {
-  const [requests, total, newCount, scheduledCount, completedCount] =
+  const [requests, total, newCount, contactedCount, scheduledCount, completedCount] =
     await Promise.all([
       db.consultationRequest.findMany({
         orderBy: { createdAt: "desc" },
@@ -16,6 +16,7 @@ export default async function AdminConsultationsPage() {
       }),
       db.consultationRequest.count(),
       db.consultationRequest.count({ where: { status: "NEW" } }),
+      db.consultationRequest.count({ where: { status: "CONTACTED" } }),
       db.consultationRequest.count({ where: { status: "SCHEDULED" } }),
       db.consultationRequest.count({ where: { status: "COMPLETED" } }),
     ]);
@@ -23,8 +24,9 @@ export default async function AdminConsultationsPage() {
   const stats = [
     { key: "total" as const, value: total, label: "Total Requests", sub: "All time" },
     { key: "new" as const, value: newCount, label: "New Requests", sub: "Awaiting your action" },
+    { key: "contacted" as const, value: contactedCount, label: "Contacted", sub: "Reached out" },
     { key: "scheduled" as const, value: scheduledCount, label: "Scheduled", sub: "Consultations booked" },
-    { key: "completed" as const, value: completedCount, label: "Completed", sub: "This week" },
+    { key: "completed" as const, value: completedCount, label: "Completed", sub: "All done" },
   ];
 
   return (

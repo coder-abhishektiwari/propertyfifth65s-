@@ -6,7 +6,7 @@ export const metadata = {
 };
 
 export default async function AdminCallbacksPage() {
-  const [requests, total, pendingCount, contactedCount, closedCount] =
+  const [requests, total, newCount, contactedCount, scheduledCount, completedCount] =
     await Promise.all([
       db.callbackRequest.findMany({
         orderBy: { createdAt: "desc" },
@@ -17,16 +17,16 @@ export default async function AdminCallbacksPage() {
       db.callbackRequest.count(),
       db.callbackRequest.count({ where: { status: "NEW" } }),
       db.callbackRequest.count({ where: { status: "CONTACTED" } }),
-      db.callbackRequest.count({
-        where: { status: { in: ["COMPLETED", "CANCELLED"] } },
-      }),
+      db.callbackRequest.count({ where: { status: "CALLBACK_SCHEDULED" } }),
+      db.callbackRequest.count({ where: { status: "COMPLETED" } }),
     ]);
 
   const stats = [
     { key: "total" as const, value: total, label: "Total Requests", sub: "All callback requests" },
-    { key: "pending" as const, value: pendingCount, label: "Pending", sub: "Awaiting response" },
+    { key: "pending" as const, value: newCount, label: "New Requests", sub: "Awaiting response" },
     { key: "contacted" as const, value: contactedCount, label: "Contacted", sub: "We have called back" },
-    { key: "closed" as const, value: closedCount, label: "Closed", sub: "No further action needed" },
+    { key: "scheduled" as const, value: scheduledCount, label: "Scheduled", sub: "Callbacks booked" },
+    { key: "completed" as const, value: completedCount, label: "Completed", sub: "All done" },
   ];
 
   return (

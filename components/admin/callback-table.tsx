@@ -14,7 +14,7 @@ import type { CallbackRequest, CallbackRequestStatus } from "@prisma/client";
 
 type Request = CallbackRequest & { property: { name: string; slug: string; city: string; locality: string } | null };
 
-const STAT_ICONS = { total: Phone, pending: Clock, contacted: CheckCircle, closed: CheckCircle } as const;
+const STAT_ICONS = { total: Phone, pending: Clock, contacted: CheckCircle, scheduled: Phone, completed: CheckCircle } as const;
 
 interface CallbackTableProps {
   requests: Request[];
@@ -99,7 +99,6 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
             <option value="CONTACTED">Contacted</option>
             <option value="CALLBACK_SCHEDULED">Scheduled</option>
             <option value="COMPLETED">Completed</option>
-            <option value="CANCELLED">Closed</option>
           </select>
         </div>
       </div>
