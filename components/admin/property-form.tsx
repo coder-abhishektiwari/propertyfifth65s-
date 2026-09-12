@@ -147,6 +147,7 @@ export default function PropertyForm({
     fileName: string;
     loaded: number;
     totalSize: number;
+    status: string;
   } | null>(null);
   const [sections, setSections] = useState<Record<string, boolean>>({
     basic: true,
@@ -206,6 +207,33 @@ export default function PropertyForm({
     }
   };
 
+  function convertToWebP(file: File): Promise<File> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext("2d");
+        if (!ctx) { URL.revokeObjectURL(url); reject(new Error("Canvas error")); return; }
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(
+          (blob) => {
+            URL.revokeObjectURL(url);
+            if (!blob) { reject(new Error("Conversion failed")); return; }
+            const webpName = file.name.replace(/\.[^.]+$/, ".webp");
+            resolve(new File([blob], webpName, { type: "image/webp" }));
+          },
+          "image/webp",
+          0.82
+        );
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("Image load failed")); };
+      img.src = url;
+    });
+  }
+
   const handleImageUpload = async (files: FileList | null) => {
     if (!files || !propertyId) return;
     const fileArray = Array.from(files);
@@ -219,19 +247,32 @@ export default function PropertyForm({
       fileName: "",
       loaded: 0,
       totalSize: 0,
+      status: "",
     });
 
     try {
       for (let i = 0; i < fileArray.length; i++) {
         const file = fileArray[i];
+        const isWebP = file.type === "image/webp";
+
         setUploadProgress((prev) =>
           prev
-            ? { ...prev, current: i + 1, fileName: file.name, loaded: 0, totalSize: file.size }
+            ? { ...prev, current: i + 1, fileName: file.name, loaded: 0, totalSize: file.size, status: isWebP ? "Uploading..." : "Converting to WebP..." }
             : prev
         );
 
+        let uploadFile: File;
+        if (isWebP) {
+          uploadFile = file;
+        } else {
+          uploadFile = await convertToWebP(file);
+          setUploadProgress((prev) =>
+            prev ? { ...prev, loaded: 0, totalSize: uploadFile.size, status: "Uploading..." } : prev
+          );
+        }
+
         const formData = new FormData();
-        formData.append("file", file);
+        formData.append("file", uploadFile);
         formData.append("propertyId", propertyId);
         formData.append("type", "image");
 
@@ -287,6 +328,7 @@ export default function PropertyForm({
       fileName: file.name,
       loaded: 0,
       totalSize: file.size,
+      status: "Uploading...",
     });
 
     try {
@@ -1302,9 +1344,18 @@ export default function PropertyForm({
                 {uploadProgress.fileName}
               </p>
               {uploadProgress.type === "image" ? (
-                <p className="text-xs text-gray-500">
-                  Image {uploadProgress.current} of {uploadProgress.total}
-                </p>
+                <div className="flex items-center justify-between">
+                  <p className="text-xs text-gray-500">
+                    Image {uploadProgress.current} of {uploadProgress.total}
+                  </p>
+                  <p className={`text-[0.65rem] font-medium px-2 py-0.5 rounded-full ${
+                    uploadProgress.status.includes("Converting")
+                      ? "bg-amber-50 text-amber-600"
+                      : "bg-blue-50 text-blue-600"
+                  }`}>
+                    {uploadProgress.status}
+                  </p>
+                </div>
               ) : (
                 <p className="text-xs text-gray-500">
                   {(uploadProgress.loaded / (1024 * 1024)).toFixed(1)} MB of{" "}
@@ -1316,7 +1367,9 @@ export default function PropertyForm({
             {/* Linear Progress Bar */}
             <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
               <div
-                className="h-full bg-[var(--gold)] rounded-full transition-all duration-300 ease-out"
+                className={`h-full rounded-full transition-all duration-300 ease-out ${
+                  uploadProgress.status.includes("Converting") ? "bg-amber-400" : "bg-[var(--gold)]"
+                }`}
                 style={{
                   width: `${
                     uploadProgress.totalSize > 0
