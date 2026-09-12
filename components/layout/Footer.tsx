@@ -66,7 +66,7 @@ export default function Footer() {
       {/* CTA Banner */}
       <div className="relative overflow-hidden">
         <img
-          src="/images/common/cta-bg.jpg"
+          src="/images/common/cta-bg.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -105,7 +105,7 @@ export default function Footer() {
           <div className="text-center sm:text-left mb-8 lg:hidden">
             <Link href="/" className="inline-block mb-3">
               <img
-                src="/images/logo/pf-logo.png"
+                src="/images/logo/pf-logo.webp"
                 alt="Property Fifth"
                 className="h-16 mx-auto sm:mx-0"
               />
@@ -133,7 +133,7 @@ export default function Footer() {
             <div className="hidden lg:block">
               <Link href="/" className="inline-block mb-3">
                 <img
-                  src="/images/logo/pf-logo.png"
+                  src="/images/logo/pf-logo.webp"
                   alt="Property Fifth"
                   className="h-20"
                 />

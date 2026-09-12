@@ -73,7 +73,7 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
         <div className="px-6 pt-7 pb-6">
           <Link href="/admin/properties" onClick={closeSidebar}>
             <Image
-              src="/images/logo/pf-logo.png"
+              src="/images/logo/pf-logo.webp"
               alt="Property Fifth"
               width={160}
               height={60}

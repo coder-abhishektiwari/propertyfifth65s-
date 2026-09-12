@@ -20,7 +20,7 @@ const SERVICES = [
       "Market evaluation",
       "Negotiation & final selection",
     ],
-    image: "/images/services/property-advisory.png",
+    image: "/images/services/property-advisory.webp",
     reverse: false,
   },
   {
@@ -34,7 +34,7 @@ const SERVICES = [
       "Risk assessment",
       "Investment strategy planning",
     ],
-    image: "/images/services/investment-advisory.png",
+    image: "/images/services/investment-advisory.webp",
     reverse: true,
   },
   {
@@ -48,7 +48,7 @@ const SERVICES = [
       "Performance optimisation",
       "Long-term portfolio growth",
     ],
-    image: "/images/services/portfolio-assistance.png",
+    image: "/images/services/portfolio-assistance.webp",
     reverse: false,
   },
   {
@@ -62,7 +62,7 @@ const SERVICES = [
       "Sales & marketing support",
       "Growth-focused partnerships",
     ],
-    image: "/images/services/developer-partnerships.png",
+    image: "/images/services/developer-partnerships.webp",
     reverse: true,
   },
 ];
@@ -89,7 +89,7 @@ export default function ServicesPage() {
           {/* Right Image */}
           <div className="relative w-full lg:w-4/5 min-h-[300px] lg:min-h-auto">
             <Image
-              src="/images/hero/our-services.png"
+              src="/images/hero/our-services.webp"
               alt="Property Fifth Premium Lounge"
               fill
               className="object-cover object-center"

@@ -78,7 +78,7 @@ export default function AboutPage() {
 
           <div className="relative w-full lg:w-4/5 min-h-[300px] lg:min-h-auto">
             <Image
-              src="/images/hero/who-we-are.png"
+              src="/images/hero/who-we-are.webp"
               alt="Property Fifth Premium Lounge"
               fill
               className="object-cover object-center"
@@ -112,7 +112,7 @@ export default function AboutPage() {
             <div className="w-full lg:w-1/2">
               <div className="relative aspect-[16/10] rounded-lg overflow-hidden">
                 <Image
-                  src={toMediaImageUrl("/images/bg/bg.png")}
+                  src={toMediaImageUrl("/images/bg/bg.webp")}
                   alt="Premium real estate development"
                   fill
                   className="object-cover"

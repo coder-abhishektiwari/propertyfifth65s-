@@ -31,10 +31,10 @@ const SERVICES = [
 ];
 
 const LOCATIONS = [
-  { name: "DUBAI", subtitle: "Premium Residences & Investments", image: "/images/locations/gurugram.jpg" },
-  { name: "DELHI NCR", subtitle: "The Heart of Opportunity", image: "/images/locations/delhi-ncr.jpg" },
-  { name: "GURGAON", subtitle: "The Future-Ready City", image: "/images/locations/pune.jpg" },
-  { name: "GREATER NOIDA", subtitle: "India's Innovation Hub", image: "/images/locations/bangalore.jpg" },
+  { name: "DUBAI", subtitle: "Premium Residences & Investments", image: "/images/locations/gurugram.webp" },
+  { name: "DELHI NCR", subtitle: "The Heart of Opportunity", image: "/images/locations/delhi-ncr.webp" },
+  { name: "GURGAON", subtitle: "The Future-Ready City", image: "/images/locations/pune.webp" },
+  { name: "GREATER NOIDA", subtitle: "India's Innovation Hub", image: "/images/locations/bangalore.webp" },
 ];
 
 const DEFENCE_CHECKLIST = [
@@ -263,7 +263,7 @@ export default async function HomePage() {
                 <div className="absolute -inset-1 bg-gradient-to-r from-[var(--gold)]/30 to-transparent rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500" />
                 <div className="relative rounded-xl overflow-hidden aspect-[4/5] w-full border border-white/10 shadow-2xl">
                   <Image
-                    src="/images/sections/defence-officers.jpg"
+                    src="/images/sections/defence-officers.webp"
                     alt="Defence Officers & Families"
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"

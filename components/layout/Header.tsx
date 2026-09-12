@@ -66,7 +66,7 @@ export default function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
           <img
-            src="/images/logo/pf-logo-notext.png"
+            src="/images/logo/pf-logo-notext.webp"
             alt="Property Fifth"
             className="h-10 lg:h-12"
           />

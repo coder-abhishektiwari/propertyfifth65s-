@@ -73,7 +73,7 @@ export default function CustomerIdentityDialog() {
   if (!dialogOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-[5%]">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-[1%]">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleClose} />
 
@@ -90,7 +90,7 @@ export default function CustomerIdentityDialog() {
         {/* Left Panel - Branding */}
         <div className="relative lg:w-[45%] hidden lg:flex flex-col justify-end overflow-hidden">
           <img
-            src="/images/bg/admin-login-bg.png"
+            src="/images/bg/admin-login-bg.webp"
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
           />
@@ -99,7 +99,7 @@ export default function CustomerIdentityDialog() {
           {/* Content */}
           <div className="relative z-10 p-8 lg:p-10">
             <img
-              src="/images/logo/pf-logo.png"
+              src="/images/logo/pf-logo.webp"
               alt="Property Fifth"
               className="h-12 mb-6"
             />
@@ -136,7 +136,7 @@ export default function CustomerIdentityDialog() {
         {/* Mobile Header */}
         <div className="lg:hidden bg-[var(--navy)] p-5 pt-12">
           <img
-            src="/images/logo/pf-logo-notext.png"
+            src="/images/logo/pf-logo-notext.webp"
             alt="Property Fifth"
             className="h-10 mb-3"
           />

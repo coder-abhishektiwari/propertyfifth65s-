@@ -11,7 +11,7 @@ interface PropertyCardProps {
 
 export default function PropertyCard({ property }: PropertyCardProps) {
   const coverImage = property.images.find((img) => img.isCover);
-  const imageUrl = toMediaImageUrl(coverImage?.imageUrl || property.images[0]?.imageUrl || "/images/hero/hero-building.jpg");
+  const imageUrl = toMediaImageUrl(coverImage?.imageUrl || property.images[0]?.imageUrl || "/images/hero/hero-building.webp");
 
   return (
     <Link

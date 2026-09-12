@@ -34,7 +34,7 @@ export default function LoginForm() {
     <div className="relative h-screen w-full overflow-hidden">
       {/* Full-screen background image — hidden on mobile */}
       <img
-        src="/images/bg/admin-login-bg.png"
+        src="/images/bg/admin-login-bg.webp"
         alt=""
         className="hidden lg:block absolute inset-0 w-full h-full object-cover"
       />
@@ -46,7 +46,7 @@ export default function LoginForm() {
           {/* Logo */}
           <div className="flex justify-center mb-2">
             <img
-              src="/images/logo/pf-logo1.png"
+              src="/images/logo/pf-logo1.webp"
               alt="Property Fifth"
               className="h-18 sm:h-22 mb-5"
             />

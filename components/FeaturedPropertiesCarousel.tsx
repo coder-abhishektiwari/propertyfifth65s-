@@ -67,7 +67,7 @@ export default function FeaturedPropertiesCarousel({
         <div className="h-56 md:h-[400px] relative shrink-0 md:w-1/2">
           <Image
             key={currentProp.id + "-img"}
-            src={toMediaImageUrl(currentProp.coverImage || "/images/hero/hero-building.jpg")}
+            src={toMediaImageUrl(currentProp.coverImage || "/images/hero/hero-building.webp")}
             alt={currentProp.name}
             fill
             className="object-cover"
