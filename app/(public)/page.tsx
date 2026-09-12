@@ -236,6 +236,7 @@ export default async function HomePage() {
                       src={loc.image}
                       alt={loc.name}
                       fill
+                      sizes="(max-width: 768px) 50vw, 25vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
@@ -265,6 +266,7 @@ export default async function HomePage() {
                     src="/images/sections/defence-officers.jpg"
                     alt="Defence Officers & Families"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover transform group-hover:scale-105 transition duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#06101E]/80 via-transparent to-transparent z-10" />
