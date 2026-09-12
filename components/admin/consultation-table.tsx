@@ -14,10 +14,12 @@ import type { ConsultationRequest, ConsultationRequestStatus } from "@prisma/cli
 
 type Request = ConsultationRequest & { property: { name: string; slug: string } | null };
 
+const STAT_ICONS = { total: Users, new: Clock, scheduled: CalendarCheck, completed: CheckCircle } as const;
+
 interface ConsultationTableProps {
   requests: Request[];
   total: number;
-  stats: { label: string; value: number; sub: string; icon: typeof Users }[];
+  stats: { key: keyof typeof STAT_ICONS; value: number; label: string; sub: string }[];
 }
 
 export default function ConsultationTable({ requests, total, stats }: ConsultationTableProps) {
@@ -55,7 +57,7 @@ export default function ConsultationTable({ requests, total, stats }: Consultati
           <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-5">
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-full bg-[var(--gold)]/10 flex items-center justify-center">
-                <stat.icon className="w-5 h-5 text-[var(--gold)]" />
+                {(() => { const Icon = STAT_ICONS[stat.key]; return <Icon className="w-5 h-5 text-[var(--gold)]" />; })()}
               </div>
               <span className="text-2xl font-bold text-[var(--navy)]">{stat.value}</span>
             </div>

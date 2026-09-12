@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Calendar, Menu, X } from "lucide-react";
+import { Calendar, Menu, X, Bookmark } from "lucide-react";
 import { useCustomer } from "@/components/providers/customer-context";
 
 const NAV_LINKS = [
@@ -22,6 +22,15 @@ export default function Header() {
   const isHome = pathname === "/";
   const { isComplete, isLoading, openDialog } = useCustomer();
   const pendingNav = useRef<string | null>(null);
+  const [savedCount, setSavedCount] = useState(0);
+
+  useEffect(() => {
+    if (!isComplete) return;
+    fetch("/api/customer/saved-properties")
+      .then((res) => res.json())
+      .then((data) => setSavedCount(data.count || 0))
+      .catch(() => {});
+  }, [isComplete]);
 
   useEffect(() => {
     function onScroll() {
@@ -123,6 +132,22 @@ export default function Header() {
               </Link>
             )
           )}
+          {savedCount > 0 && (
+            <Link
+              href="/saved-properties"
+              className={`relative text-[0.8rem] font-semibold tracking-wider uppercase transition-colors flex items-center gap-1.5 ${
+                isActive("/saved-properties")
+                  ? "text-[var(--gold)]"
+                  : "text-white/80 hover:text-white"
+              }`}
+            >
+              <Bookmark className="w-3.5 h-3.5" />
+              Saved
+              {isActive("/saved-properties") && (
+                <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-[var(--gold)]" />
+              )}
+            </Link>
+          )}
         </nav>
 
         {/* Desktop CTA */}
@@ -192,6 +217,20 @@ export default function Header() {
                   {link.label}
                 </Link>
               )
+            )}
+            {savedCount > 0 && (
+              <Link
+                href="/saved-properties"
+                onClick={() => setMobileOpen(false)}
+                className={`py-3 px-3 rounded-lg text-sm font-medium tracking-wide transition-colors flex items-center gap-2 ${
+                  isActive("/saved-properties")
+                    ? "text-[var(--gold)] bg-white/5"
+                    : "text-white/80 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                <Bookmark className="w-4 h-4" />
+                Saved Properties
+              </Link>
             )}
             <button
               onClick={() => {

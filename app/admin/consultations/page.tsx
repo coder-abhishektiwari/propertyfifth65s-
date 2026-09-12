@@ -1,4 +1,3 @@
-import { Users, Clock, CalendarCheck, CheckCircle } from "lucide-react";
 import { db } from "@/lib/db";
 import ConsultationTable from "@/components/admin/consultation-table";
 
@@ -22,10 +21,10 @@ export default async function AdminConsultationsPage() {
     ]);
 
   const stats = [
-    { icon: Users, value: total, label: "Total Requests", sub: "All time" },
-    { icon: Clock, value: newCount, label: "New Requests", sub: "Awaiting your action" },
-    { icon: CalendarCheck, value: scheduledCount, label: "Scheduled", sub: "Consultations booked" },
-    { icon: CheckCircle, value: completedCount, label: "Completed", sub: "This week" },
+    { key: "total" as const, value: total, label: "Total Requests", sub: "All time" },
+    { key: "new" as const, value: newCount, label: "New Requests", sub: "Awaiting your action" },
+    { key: "scheduled" as const, value: scheduledCount, label: "Scheduled", sub: "Consultations booked" },
+    { key: "completed" as const, value: completedCount, label: "Completed", sub: "This week" },
   ];
 
   return (

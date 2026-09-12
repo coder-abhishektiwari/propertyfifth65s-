@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,8 +10,11 @@ import {
   Phone,
   LogOut,
   Menu,
+  Users,
+  UserCog,
 } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth";
+import { getAdminRole } from "@/lib/actions/admin-actions";
 
 interface AdminShellProps {
   children: React.ReactNode;
@@ -20,17 +23,17 @@ interface AdminShellProps {
 
 const NAV_ITEMS = [
   {
-    label: "Property Management",
+    label: "Properties",
     href: "/admin/properties",
     icon: Building2,
   },
   {
-    label: "Consultation Requests",
+    label: "Consultations",
     href: "/admin/consultations",
     icon: CalendarDays,
   },
   {
-    label: "Call Back Requests\n(For a Property)",
+    label: "Callbacks",
     href: "/admin/callbacks",
     icon: Phone,
   },
@@ -40,8 +43,13 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [adminRole, setAdminRole] = useState<string | null>(null);
 
   const closeSidebar = useCallback(() => setSidebarOpen(false), []);
+
+  useEffect(() => {
+    getAdminRole().then(setAdminRole);
+  }, []);
 
   function isActive(href: string) {
     return pathname === href || pathname.startsWith(href + "/");
@@ -63,28 +71,28 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar — collapsed by default, expands on hover */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-[260px] bg-[var(--navy)] flex flex-col transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        className={`group/sidebar fixed inset-y-0 left-0 z-50 w-[68px] hover:w-[260px] bg-[var(--navy)] flex flex-col transition-all duration-300 ease-in-out lg:static lg:z-auto ${
+          sidebarOpen ? "!w-[260px] translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         {/* Logo */}
-        <div className="px-6 pt-7 pb-6">
-          <Link href="/admin/properties" onClick={closeSidebar}>
+        <div className="px-4 pt-5 pb-5 flex items-center justify-center group-hover/sidebar:justify-start group-hover/sidebar:px-6 group-hover/sidebar:pt-7 group-hover/sidebar:pb-6">
+          <Link href="/admin/properties" onClick={closeSidebar} className="block overflow-hidden">
             <Image
               src="/images/logo/pf-logo.webp"
               alt="Property Fifth"
               width={160}
               height={60}
-              className="h-14 w-auto"
+              className="h-10 w-auto group-hover/sidebar:h-14"
               priority
             />
           </Link>
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 px-3 space-y-1">
+        <nav className="flex-1 px-2 group-hover/sidebar:px-3 space-y-1">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
             return (
@@ -92,14 +100,15 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
                 key={item.href}
                 href={item.href}
                 onClick={closeSidebar}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                title={item.label}
+                className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${
                   active
                     ? "bg-[var(--gold)]/15 text-[var(--gold)]"
                     : "text-white/60 hover:text-white hover:bg-white/5"
                 }`}
               >
                 <item.icon className="w-5 h-5 shrink-0" />
-                <span className="whitespace-pre-line leading-tight">
+                <span className="whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">
                   {item.label}
                 </span>
               </Link>
@@ -107,14 +116,55 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
           })}
         </nav>
 
-        {/* Bottom: Security Notice + Admin Info */}
-        <div className="px-4 pb-5 space-y-4">
-          <div className="px-3">
-            <p className="text-xs font-semibold text-white">Admin</p>
-            <p className="text-[0.65rem] text-white/40 truncate">
-              {adminEmail}
-            </p>
-          </div>
+        {/* Bottom section — always visible */}
+        <div className="px-2 group-hover/sidebar:px-3 pb-4 space-y-1 border-t border-white/10 pt-3">
+          {adminRole === "SUPER_ADMIN" && (
+            <Link
+              href="/admin/accounts"
+              onClick={closeSidebar}
+              title="Admin Accounts"
+              className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${
+                isActive("/admin/accounts")
+                  ? "bg-[var(--gold)]/15 text-[var(--gold)]"
+                  : "text-white/60 hover:text-white hover:bg-white/5"
+              }`}
+            >
+              <Users className="w-5 h-5 shrink-0" />
+              <span className="whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">
+                Admin Accounts
+              </span>
+            </Link>
+          )}
+          <Link
+            href="/admin/account"
+            onClick={closeSidebar}
+            title="Account Settings"
+            className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${
+              isActive("/admin/account")
+                ? "bg-[var(--gold)]/15 text-[var(--gold)]"
+                : "text-white/60 hover:text-white hover:bg-white/5"
+            }`}
+          >
+            <UserCog className="w-5 h-5 shrink-0" />
+            <span className="whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">
+              Account Settings
+            </span>
+          </Link>
+
+          {/* Divider */}
+          <div className="border-t border-white/10 my-2 group-hover/sidebar:my-0 group-hover/sidebar:border-t group-hover/sidebar:mt-2 group-hover/sidebar:pt-3" />
+
+          {/* Logout */}
+          <button
+            onClick={handleLogout}
+            title="Logout"
+            className="flex items-center gap-3 w-full px-3 py-3 rounded-lg text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors cursor-pointer"
+          >
+            <LogOut className="w-5 h-5 shrink-0" />
+            <span className="whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">
+              Logout
+            </span>
+          </button>
         </div>
       </aside>
 
@@ -136,16 +186,10 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="hidden sm:block text-xs text-gray-500">
-              {adminEmail}
-            </span>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-red-600 transition-colors cursor-pointer"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Logout</span>
-            </button>
+            <div className="hidden sm:block text-right">
+              <p className="text-xs text-gray-500">{adminEmail}</p>
+              <p className={`text-[0.65rem] font-medium ${adminRole === "SUPER_ADMIN" ? "text-amber-600" : "text-gray-400"}`}>{adminRole === "SUPER_ADMIN" ? "Super Admin" : "Admin"}</p>
+            </div>
           </div>
         </header>
 

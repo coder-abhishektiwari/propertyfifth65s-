@@ -1,4 +1,3 @@
-import { Phone, Clock, CheckCircle, XCircle } from "lucide-react";
 import { db } from "@/lib/db";
 import CallbackTable from "@/components/admin/callback-table";
 
@@ -24,10 +23,10 @@ export default async function AdminCallbacksPage() {
     ]);
 
   const stats = [
-    { icon: Phone, value: total, label: "Total Requests", sub: "All callback requests" },
-    { icon: Clock, value: pendingCount, label: "Pending", sub: "Awaiting response" },
-    { icon: CheckCircle, value: contactedCount, label: "Contacted", sub: "We have called back" },
-    { icon: XCircle, value: closedCount, label: "Closed", sub: "No further action needed" },
+    { key: "total" as const, value: total, label: "Total Requests", sub: "All callback requests" },
+    { key: "pending" as const, value: pendingCount, label: "Pending", sub: "Awaiting response" },
+    { key: "contacted" as const, value: contactedCount, label: "Contacted", sub: "We have called back" },
+    { key: "closed" as const, value: closedCount, label: "Closed", sub: "No further action needed" },
   ];
 
   return (

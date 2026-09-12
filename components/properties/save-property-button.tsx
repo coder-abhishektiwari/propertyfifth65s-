@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Heart } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Bookmark } from "lucide-react";
 import { useCustomer } from "@/components/providers/customer-context";
 
 interface SavePropertyButtonProps {
@@ -12,6 +12,16 @@ export default function SavePropertyButton({ propertyId }: SavePropertyButtonPro
   const { isComplete, openDialog } = useCustomer();
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (!isComplete) return;
+    fetch(`/api/customer/save-property?propertyId=${propertyId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.saved !== undefined) setSaved(data.saved);
+      })
+      .catch(() => {});
+  }, [propertyId, isComplete]);
 
   async function handleToggle() {
     if (!isComplete) {
@@ -49,7 +59,7 @@ export default function SavePropertyButton({ propertyId }: SavePropertyButtonPro
       }`}
       aria-label={saved ? "Unsave property" : "Save property"}
     >
-      <Heart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} />
+      <Bookmark className={`w-4 h-4 ${saved ? "fill-current" : ""}`} />
     </button>
   );
 }
