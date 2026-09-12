@@ -8,6 +8,10 @@ import {
   Download,
   ArrowRight,
   CheckCircle,
+  Link2,
+  Share2,
+  Check,
+  X,
   Building2,
   Home,
   Star,
@@ -19,29 +23,95 @@ import {
   Sun,
   Dumbbell,
   Waves,
-  Heart,
+  Music,
   Baby,
   Gamepad2,
   Footprints,
   Trophy,
   Bike,
   Users,
-  Shield,
-  Car,
-  Zap,
-  Lock,
   Film,
-  Music,
   BookOpen,
-  Leaf,
   Dog,
-  Shirt,
   Wifi,
+  Heart,
+  Shield,
+  Zap,
+  Car,
+  Shirt,
   CircleDot,
+  Leaf,
+  Lock,
 } from "lucide-react";
 import type { PropertyBasic } from "@/lib/property-utils";
 import { getPropertyTypeLabel, formatPrice, toMediaImageUrl, toMediaBrochureUrl } from "@/lib/property-utils";
 import PropertyPlaceholder from "@/components/property-placeholder";
+
+function SharePropertyButton({ property }: { property: PropertyBasic }) {
+  const [open, setOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const shareUrl = typeof window !== "undefined" ? `${window.location.origin}/properties/${property.slug}` : "";
+
+  function copyLink() {
+    navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <>
+      <button
+        onClick={() => { setOpen(true); setCopied(false); }}
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-[var(--navy)] border border-[var(--border)] rounded-lg hover:bg-[var(--bg-muted)] transition-colors cursor-pointer"
+      >
+        <Share2 className="w-4 h-4 text-[var(--gold)]" />
+        Share This Property
+      </button>
+
+      {open && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
+          <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <div className="flex items-center gap-2">
+                <Share2 className="w-4 h-4 text-[var(--gold)]" />
+                <h3 className="text-sm font-bold text-gray-900">Share Property</h3>
+              </div>
+              <button onClick={() => setOpen(false)} className="p-1 hover:bg-gray-100 rounded cursor-pointer">
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="flex-1 min-w-0 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5">
+                  <p className="text-xs text-gray-600 truncate">{shareUrl}</p>
+                </div>
+                <button
+                  onClick={copyLink}
+                  className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium text-white bg-[var(--gold)] rounded-lg hover:bg-[var(--gold)]/90 transition-colors cursor-pointer shrink-0"
+                >
+                  {copied ? <Check className="w-3.5 h-3.5" /> : <Link2 className="w-3.5 h-3.5" />}
+                  {copied ? "Copied!" : "Copy"}
+                </button>
+              </div>
+              <button
+                onClick={() => {
+                  if (navigator.share) {
+                    navigator.share({ title: property.name, url: shareUrl });
+                  }
+                }}
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-[var(--navy)] rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer"
+              >
+                <Share2 className="w-4 h-4" />
+                Share Link
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
 
 interface PropertyTabsProps {
   property: PropertyBasic;
@@ -183,63 +253,16 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
 
         {/* Right: Sidebar (always visible) */}
         <div className="w-full lg:w-[300px] shrink-0 space-y-5">
-          {/* Property Overview */}
+          {/* Share Property */}
           <div className="bg-white border border-[var(--border)] rounded-lg p-5">
-            <h3 className="text-sm font-bold text-[var(--text)] mb-4">Property Overview</h3>
-            <div className="space-y-3">
-              {property.propertyType && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">Type</span>
-                  <span className="text-xs font-semibold text-[var(--text)]">{getPropertyTypeLabel(property.propertyType)}</span>
-                </div>
-              )}
-              {property.status && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">Status</span>
-                  <span className="text-xs font-semibold text-[var(--text)]">{property.status.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase())}</span>
-                </div>
-              )}
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-[var(--text-muted)]">Location</span>
-                <span className="text-xs font-semibold text-[var(--text)] text-right">{property.locality}, {property.city}</span>
-              </div>
-              {property.configuration && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">Configuration</span>
-                  <span className="text-xs font-semibold text-[var(--text)]">{property.configuration}</span>
-                </div>
-              )}
-              {property.priceMin && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">Price</span>
-                  <span className="text-xs font-semibold text-[var(--gold)]">₹{formatPrice(property.priceMin)}</span>
-                </div>
-              )}
-              {property.reraNumber && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">RERA</span>
-                  <span className="text-xs font-semibold text-[var(--text)]">{property.reraNumber}</span>
-                </div>
-              )}
-              {property.possession && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">Possession</span>
-                  <span className="text-xs font-semibold text-[var(--text)]">{property.possession}</span>
-                </div>
-              )}
-              {property.totalUnits && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">Total Units</span>
-                  <span className="text-xs font-semibold text-[var(--text)]">{property.totalUnits}</span>
-                </div>
-              )}
-              {property.totalTowers && (
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-[var(--text-muted)]">Towers</span>
-                  <span className="text-xs font-semibold text-[var(--text)]">{property.totalTowers}</span>
-                </div>
-              )}
+            <div className="flex items-center gap-2 mb-2">
+              <Share2 className="w-4 h-4 text-[var(--gold)]" />
+              <h3 className="text-sm font-bold text-[var(--text)]">Share & Get Advice</h3>
             </div>
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
+              Buying a home is a big decision. Share this property with your family or a trusted advisor to get a second opinion before you move forward.
+            </p>
+            <SharePropertyButton property={property} />
           </div>
 
           {/* Download Brochure */}

@@ -1,21 +1,13 @@
 "use server";
 
 import { db } from "@/lib/db";
+import { cookies } from "next/headers";
 
 type ContactFormState = {
   success: boolean;
   error: string | null;
   fieldErrors: Record<string, string>;
 };
-
-const INTEREST_OPTIONS = [
-  "Residential Property",
-  "Commercial Property",
-  "Investment Advisory",
-  "NRI / UHNI",
-  "Defence Personnel",
-  "Other",
-];
 
 function sanitize(input: string): string {
   return input.replace(/[<>]/g, "").trim();
@@ -28,8 +20,7 @@ export async function submitContactInquiry(
   const name = sanitize(String(formData.get("name") || ""));
   const email = sanitize(String(formData.get("email") || ""));
   const phone = sanitize(String(formData.get("phone") || ""));
-  const interest = sanitize(String(formData.get("interest") || ""));
-  const message = sanitize(String(formData.get("message") || ""));
+  const query = sanitize(String(formData.get("query") || ""));
 
   const fieldErrors: Record<string, string> = {};
 
@@ -52,12 +43,8 @@ export async function submitContactInquiry(
     fieldErrors.phone = "Please enter a valid phone number.";
   }
 
-  if (interest && !INTEREST_OPTIONS.includes(interest)) {
-    fieldErrors.interest = "Please select a valid option.";
-  }
-
-  if (message.length > 2000) {
-    fieldErrors.message = "Message is too long (max 2000 characters).";
+  if (query.length > 2000) {
+    fieldErrors.query = "Query is too long (max 2000 characters).";
   }
 
   if (Object.keys(fieldErrors).length > 0) {
@@ -65,13 +52,22 @@ export async function submitContactInquiry(
   }
 
   try {
+    const cookieStore = await cookies();
+    const visitorId = cookieStore.get("visitorId")?.value;
+
+    let customerId: string | null = null;
+    if (visitorId) {
+      const customer = await db.customer.findUnique({ where: { visitorId } });
+      if (customer) customerId = customer.id;
+    }
+
     await db.contactInquiry.create({
       data: {
         name,
         email,
         phone: phone || null,
-        interest: interest || null,
-        message: message || null,
+        query: query || null,
+        customerId,
       },
     });
 

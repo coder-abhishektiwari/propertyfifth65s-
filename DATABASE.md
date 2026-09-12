@@ -426,8 +426,7 @@ Stores submissions from the public Contact Us page.
 | `name` | String | Yes | Visitor name |
 | `email` | String | Yes | Visitor email |
 | `phone` | String | No | Visitor phone |
-| `interest` | String | No | Value selected in “I am interested in” |
-| `message` | Text | No | Visitor message |
+| `query` | Text | No | Visitor query |
 | `createdAt` | DateTime | Yes | Submission time |
 
 ### Note

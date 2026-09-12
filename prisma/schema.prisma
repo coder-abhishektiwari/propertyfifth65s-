@@ -162,7 +162,7 @@ model ContactInquiry {
   email      String
   phone      String?
   interest   String?
-  message    String?
+  query      String?
   createdAt  DateTime  @default(now())
   customer   Customer? @relation(fields: [customerId], references: [id])
 

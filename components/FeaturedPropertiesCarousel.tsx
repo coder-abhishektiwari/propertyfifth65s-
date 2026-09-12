@@ -63,9 +63,9 @@ export default function FeaturedPropertiesCarousel({
   return (
     <div className="relative">
       {/* Card */}
-      <div className="bg-[var(--navy)] rounded-lg overflow-hidden flex flex-col md:flex-row md:h-[400px]">
+      <div className="bg-[var(--navy)] rounded-lg overflow-hidden flex flex-col md:flex-row h-auto md:h-[420px]">
         {/* Image side */}
-        <div className="h-56 md:h-[400px] relative shrink-0 md:w-1/2">
+        <div className="h-56 md:h-full relative shrink-0 md:w-[45%]">
           {currentProp.coverImage ? (
             <Image
               key={currentProp.id + "-img"}
@@ -73,7 +73,7 @@ export default function FeaturedPropertiesCarousel({
               alt={currentProp.name}
               fill
               className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 45vw"
               priority
             />
           ) : (
@@ -92,95 +92,66 @@ export default function FeaturedPropertiesCarousel({
         </div>
 
         {/* Info panel */}
-        <div className="p-5 md:p-10 flex flex-col justify-center min-w-0 md:w-1/2">
-          <span className="inline-block bg-[var(--gold)] text-white text-[0.65rem] font-bold tracking-wider uppercase px-3 py-1 rounded w-fit mb-4">
-            {currentProp.status === "NEW_LAUNCH"
-              ? "New Launch"
-              : currentProp.status.replace(/_/g, " ")}
-          </span>
-
-          <h3 className="font-serif text-2xl md:text-3xl font-bold text-white mb-2">
-            {currentProp.name}
-          </h3>
-
-          {currentProp.tagline && (
-            <p className="text-[var(--gold)] text-sm font-medium mb-3">
-              {currentProp.tagline}
-            </p>
-          )}
-
-          <div className="flex items-center gap-1.5 text-white/65 text-sm mb-5">
-            <MapPin className="w-3.5 h-3.5 text-[var(--gold)] shrink-0" />
-            <span>
-              {currentProp.city}
-              {currentProp.locality && `, ${currentProp.locality}`}
+        <div className="p-5 md:p-8 flex flex-col justify-between min-w-0 md:w-[55%] overflow-hidden">
+          <div className="overflow-hidden">
+            <span className="inline-block bg-[var(--gold)] text-white text-[0.65rem] font-bold tracking-wider uppercase px-3 py-1 rounded w-fit mb-3">
+              {currentProp.status === "NEW_LAUNCH"
+                ? "New Launch"
+                : currentProp.status.replace(/_/g, " ")}
             </span>
-          </div>
 
-          {currentProp.configuration && (
-            <p className="text-white/80 text-sm leading-relaxed mb-5">
-              {currentProp.configuration}
-            </p>
-          )}
+            <h3 className="font-serif text-xl md:text-2xl font-bold text-white mb-1.5 leading-tight">
+              {currentProp.name}
+            </h3>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-4 border-y border-white/10 py-4">
-            {currentProp.projectScale && (
-              <div>
-                <p className="text-white/40 text-[0.65rem] uppercase tracking-wider mb-1">
-                  Project Scale
-                </p>
-                <p className="text-white text-sm font-medium">
-                  {currentProp.projectScale}
-                </p>
-              </div>
-            )}
-
-            {currentProp.propertyType && (
-              <div>
-                <p className="text-white/40 text-[0.65rem] uppercase tracking-wider mb-1">
-                  Property Type
-                </p>
-                <p className="text-white text-sm font-medium">
-                  {currentProp.propertyType}
-                </p>
-              </div>
-            )}
-
-            {currentProp.developerName && (
-              <div>
-                <p className="text-white/40 text-[0.65rem] uppercase tracking-wider mb-1">
-                  Developer
-                </p>
-                <p className="text-white text-sm font-medium">
-                  {currentProp.developerName}
-                </p>
-              </div>
-            )}
-
-            {currentProp.highlight && (
-              <div>
-                <p className="text-white/40 text-[0.65rem] uppercase tracking-wider mb-1">
-                  Highlight
-                </p>
-                <p className="text-white text-sm font-medium">
-                  {currentProp.highlight}
-                </p>
-              </div>
-            )}
-          </div>
-
-          {currentProp.priceMin && (
-            <div className="mt-4">
-              <p className="text-white/40 text-xs">Starting From</p>
-              <p className="text-[var(--gold)] text-xl font-bold mt-1">
-                ₹{Number(currentProp.priceMin).toLocaleString("en-IN")}*
-              </p>
+            <div className="flex items-center gap-1.5 text-white/65 text-xs mb-3">
+              <MapPin className="w-3 h-3 text-[var(--gold)] shrink-0" />
+              <span className="truncate">
+                {currentProp.city}
+                {currentProp.locality && `, ${currentProp.locality}`}
+              </span>
             </div>
-          )}
+
+            {currentProp.configuration && (
+              <p className="text-white/80 text-xs leading-relaxed mb-3 line-clamp-2">
+                {currentProp.configuration}
+              </p>
+            )}
+
+            <div className="grid grid-cols-2 gap-x-3 gap-y-2.5 border-y border-white/10 py-3">
+              {currentProp.propertyType && (
+                <div>
+                  <p className="text-white/40 text-[0.6rem] uppercase tracking-wider mb-0.5">Property Type</p>
+                  <p className="text-white text-xs font-medium">{currentProp.propertyType}</p>
+                </div>
+              )}
+              {currentProp.developerName && (
+                <div>
+                  <p className="text-white/40 text-[0.6rem] uppercase tracking-wider mb-0.5">Developer</p>
+                  <p className="text-white text-xs font-medium">{currentProp.developerName}</p>
+                </div>
+              )}
+              {currentProp.highlight && (
+                <div className="col-span-2">
+                  <p className="text-white/40 text-[0.6rem] uppercase tracking-wider mb-0.5">Highlight</p>
+                  <p className="text-white text-xs font-medium line-clamp-2">{currentProp.highlight}</p>
+                </div>
+              )}
+            </div>
+
+            {currentProp.priceMin && (
+              <div className="mt-3">
+                <p className="text-white/40 text-[0.6rem]">Starting From</p>
+                <p className="text-[var(--gold)] text-lg font-bold mt-0.5">
+                  ₹{Number(currentProp.priceMin).toLocaleString("en-IN")}*
+                </p>
+              </div>
+            )}
+          </div>
 
           <IdentityGate
             href={`/properties/${currentProp.slug}`}
-            className="mt-5 inline-flex items-center gap-1.5 text-[var(--gold)] text-xs font-semibold tracking-wider uppercase hover:underline w-fit"
+            className="mt-4 inline-flex items-center gap-1.5 text-[var(--gold)] text-xs font-semibold tracking-wider uppercase hover:underline w-fit"
           >
             Explore Property
             <ArrowRight className="w-3.5 h-3.5" />

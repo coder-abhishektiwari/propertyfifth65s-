@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -12,17 +12,10 @@ import {
   Clock,
   CheckCircle,
   Loader2,
+  AlertCircle,
 } from "lucide-react";
 import { submitContactInquiry } from "./actions/submit-contact";
-
-const INTEREST_OPTIONS = [
-  "Residential Property",
-  "Commercial Property",
-  "Investment Advisory",
-  "NRI / UHNI",
-  "Defence Personnel",
-  "Other",
-];
+import { useCustomer } from "@/components/providers/customer-context";
 
 const CONTACT_INFO = [
   {
@@ -62,6 +55,7 @@ const CONTACT_INFO = [
 ];
 
 export default function ContactPage() {
+  const { customer } = useCustomer();
   const [state, formAction, isPending] = useActionState(submitContactInquiry, {
     success: false,
     error: null,
@@ -81,7 +75,7 @@ export default function ContactPage() {
               </h1>
               <div className="w-16 h-[3px] bg-[var(--gold)] mb-8" />
               <p className="text-white/60 text-base leading-relaxed max-w-md">
-                We would love to hear from you. Whether you have a question, need advice, or want to explore opportunities, our team is here to help.
+                Facing issues with the website or need technical support? We are here to help. Reach out and our team will assist you.
               </p>
             </div>
           </div>
@@ -155,8 +149,15 @@ export default function ContactPage() {
 
             {/* Right: Form */}
             <div className="flex-1 min-w-0">
-              <h2 className="heading-lg mb-2">Send Us a Message</h2>
-              <div className="w-12 h-0.5 bg-[var(--gold)] mb-8" />
+              <h2 className="heading-lg mb-2">Submit a Query</h2>
+              <div className="w-12 h-0.5 bg-[var(--gold)] mb-4" />
+
+              <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg mb-6">
+                <AlertCircle className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+                <p className="text-xs text-amber-700 leading-relaxed">
+                  This form is for <strong>site-related issues</strong> and <strong>technical support</strong> only and For property queries or consultations, click on Book Consultation.
+                </p>
+              </div>
 
               {state.success ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center bg-[var(--bg-muted)] rounded-lg">
@@ -167,7 +168,7 @@ export default function ContactPage() {
                     Thank You!
                   </h3>
                   <p className="text-sm text-[var(--text-muted)] max-w-sm">
-                    Your enquiry has been received. Our team will get in touch shortly.
+                    Your query has been received. Our team will get in touch shortly.
                   </p>
                 </div>
               ) : (
@@ -187,6 +188,7 @@ export default function ContactPage() {
                         type="text"
                         id="name"
                         name="name"
+                        defaultValue={customer?.name || ""}
                         placeholder="Enter your name"
                         className="w-full px-4 py-3 bg-[var(--bg-muted)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)] transition-colors"
                       />
@@ -202,6 +204,7 @@ export default function ContactPage() {
                         type="tel"
                         id="phone"
                         name="phone"
+                        defaultValue={customer?.phone || ""}
                         placeholder="Enter your phone number"
                         className="w-full px-4 py-3 bg-[var(--bg-muted)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)] transition-colors"
                       />
@@ -219,6 +222,7 @@ export default function ContactPage() {
                       type="email"
                       id="email"
                       name="email"
+                      defaultValue={customer?.email || ""}
                       placeholder="Enter your email"
                       className="w-full px-4 py-3 bg-[var(--bg-muted)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)] transition-colors"
                     />
@@ -228,42 +232,18 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="interest" className="block text-xs font-semibold text-[var(--text)] mb-1.5">
-                      I am interested in
-                    </label>
-                    <select
-                      id="interest"
-                      name="interest"
-                      defaultValue=""
-                      className="w-full px-4 py-3 bg-[var(--bg-muted)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] focus:outline-none focus:border-[var(--gold)] transition-colors appearance-none"
-                    >
-                      <option value="" disabled>
-                        Select an option
-                      </option>
-                      {INTEREST_OPTIONS.map((opt) => (
-                        <option key={opt} value={opt}>
-                          {opt}
-                        </option>
-                      ))}
-                    </select>
-                    {state.fieldErrors.interest && (
-                      <p className="text-[0.65rem] text-red-500 mt-1">{state.fieldErrors.interest}</p>
-                    )}
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-xs font-semibold text-[var(--text)] mb-1.5">
-                      Message
+                    <label htmlFor="query" className="block text-xs font-semibold text-[var(--text)] mb-1.5">
+                      Your Query
                     </label>
                     <textarea
-                      id="message"
-                      name="message"
+                      id="query"
+                      name="query"
                       rows={4}
-                      placeholder="How can we help you?"
+                      placeholder="Describe your issue or query..."
                       className="w-full px-4 py-3 bg-[var(--bg-muted)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)] transition-colors resize-none"
                     />
-                    {state.fieldErrors.message && (
-                      <p className="text-[0.65rem] text-red-500 mt-1">{state.fieldErrors.message}</p>
+                    {state.fieldErrors.query && (
+                      <p className="text-[0.65rem] text-red-500 mt-1">{state.fieldErrors.query}</p>
                     )}
                   </div>
 
@@ -279,7 +259,7 @@ export default function ContactPage() {
                       </>
                     ) : (
                       <>
-                        Send Message
+                        Submit Query
                         <ArrowRight className="w-4 h-4" />
                       </>
                     )}

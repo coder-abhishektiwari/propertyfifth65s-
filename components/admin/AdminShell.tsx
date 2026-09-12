@@ -12,6 +12,7 @@ import {
   Menu,
   Users,
   UserCog,
+  MessageSquare,
 } from "lucide-react";
 import { logoutAction } from "@/app/actions/auth";
 import { getAdminRole } from "@/lib/actions/admin-actions";
@@ -36,6 +37,11 @@ const NAV_ITEMS = [
     label: "Callbacks",
     href: "/admin/callbacks",
     icon: Phone,
+  },
+  {
+    label: "Inquiries",
+    href: "/admin/inquiries",
+    icon: MessageSquare,
   },
 ] as const;
 
@@ -71,9 +77,9 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
         />
       )}
 
-      {/* Sidebar — collapsed by default, expands on hover */}
+      {/* Sidebar — collapsed by default, expands on hover (fixed, overlays content) */}
       <aside
-        className={`group/sidebar fixed inset-y-0 left-0 z-50 w-[68px] hover:w-[260px] bg-[var(--navy)] flex flex-col transition-all duration-300 ease-in-out lg:static lg:z-auto ${
+        className={`group/sidebar fixed inset-y-0 left-0 z-50 w-[68px] hover:w-[260px] bg-[var(--navy)] flex flex-col transition-all duration-300 ease-in-out ${
           sidebarOpen ? "!w-[260px] translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
@@ -169,7 +175,7 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden lg:ml-[68px]">
         {/* Header */}
         <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 shrink-0">
           <div className="flex items-center gap-3">

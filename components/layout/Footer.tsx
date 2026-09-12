@@ -270,7 +270,7 @@ export default function Footer() {
         <div className="border-t border-white/10">
           <div className="container-site py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
             <p className="text-[0.65rem] text-white/40 text-center sm:text-left">
-              &copy; 2024 Property Fifth. All Rights Reserved.
+              &copy; 2026 Property Fifth. All Rights Reserved.
             </p>
             <p className="text-[0.65rem] text-white/40 text-center sm:text-right">
               A Real Estate Initiative by DSS Solutions.
