@@ -46,8 +46,7 @@ yarn-error.log*
 next-env.d.ts
 
 # private media storage
-/storage/*
-!/storage/.gitkeep
+storage/**
 
 # design references
 /requirements/
