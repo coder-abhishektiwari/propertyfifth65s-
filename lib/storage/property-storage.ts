@@ -129,11 +129,24 @@ export async function savePropertyBrochure(
 
 export async function deletePropertyImage(storageKey: string): Promise<boolean> {
   const filePath = resolveStorageKey(storageKey);
-  if (!filePath) return false;
+  if (!filePath) {
+    console.error("[deletePropertyImage] Could not resolve path for:", storageKey);
+    return false;
+  }
   try {
     await fs.unlink(filePath);
     return true;
   } catch {
+    // Fallback: try without the extra /properties if STORAGE_BASE already ends with /properties
+    const altPath = filePath.replace(/storage[/\\]properties[/\\]properties/, "storage/properties");
+    if (altPath !== filePath) {
+      try {
+        await fs.unlink(altPath);
+        return true;
+      } catch {
+        // both paths failed
+      }
+    }
     return false;
   }
 }
@@ -145,16 +158,32 @@ export async function deletePropertyBrochure(storageKey: string): Promise<boolea
     await fs.unlink(filePath);
     return true;
   } catch {
+    const altPath = filePath.replace(/storage[/\\]properties[/\\]properties/, "storage/properties");
+    if (altPath !== filePath) {
+      try {
+        await fs.unlink(altPath);
+        return true;
+      } catch {
+        // both paths failed
+      }
+    }
     return false;
   }
 }
 
 function resolveStorageKey(storageKey: string): string | null {
-  if (storageKey.includes("..") || storageKey.startsWith("/")) return null;
-  const resolved = path.resolve(path.join(getStorageRoot(), storageKey));
+  if (storageKey.includes("..") || storageKey.startsWith("/")) {
+    return null;
+  }
   const root = getStorageRoot();
-  if (!resolved.startsWith(root)) return null;
-  return resolved;
+  const resolved = path.resolve(path.join(root, storageKey));
+  const normalizedRoot = path.resolve(root);
+  const normalizedResolved = path.resolve(resolved);
+  if (!normalizedResolved.toLowerCase().startsWith(normalizedRoot.toLowerCase())) {
+    console.error("[resolveStorageKey] Path outside root:", normalizedResolved, "not in", normalizedRoot);
+    return null;
+  }
+  return normalizedResolved;
 }
 
 function sanitizeFilename(filename: string): string {
