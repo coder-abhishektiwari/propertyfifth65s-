@@ -52,7 +52,7 @@ export default function ConsultationTable({ requests, total, stats }: Consultati
   return (
     <div>
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-3 xl:grid-cols-5 gap-3 mb-8">
         {stats.map((stat) => (
           <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-5">
             <div className="flex items-center gap-3 mb-3">

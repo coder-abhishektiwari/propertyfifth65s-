@@ -41,7 +41,6 @@ import {
 } from "lucide-react";
 import type { PropertyBasic } from "@/lib/property-utils";
 import { getPropertyTypeLabel, formatPrice, toMediaImageUrl, toMediaBrochureUrl } from "@/lib/property-utils";
-import ScheduleSiteVisit from "@/components/properties/schedule-site-visit";
 import PropertyPlaceholder from "@/components/property-placeholder";
 
 interface PropertyTabsProps {
@@ -184,11 +183,63 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
 
         {/* Right: Sidebar (always visible) */}
         <div className="w-full lg:w-[300px] shrink-0 space-y-5">
-          {/* Schedule Site Visit */}
+          {/* Property Overview */}
           <div className="bg-white border border-[var(--border)] rounded-lg p-5">
-            <h3 className="text-sm font-bold text-[var(--text)] mb-1">Schedule a Site Visit</h3>
-            <p className="text-xs text-[var(--text-muted)] mb-4">Visit the site &amp; experience it in person.</p>
-            <ScheduleSiteVisit propertyId={property.id} propertyName={property.name} />
+            <h3 className="text-sm font-bold text-[var(--text)] mb-4">Property Overview</h3>
+            <div className="space-y-3">
+              {property.propertyType && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">Type</span>
+                  <span className="text-xs font-semibold text-[var(--text)]">{getPropertyTypeLabel(property.propertyType)}</span>
+                </div>
+              )}
+              {property.status && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">Status</span>
+                  <span className="text-xs font-semibold text-[var(--text)]">{property.status.replace(/_/g, " ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase())}</span>
+                </div>
+              )}
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-[var(--text-muted)]">Location</span>
+                <span className="text-xs font-semibold text-[var(--text)] text-right">{property.locality}, {property.city}</span>
+              </div>
+              {property.configuration && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">Configuration</span>
+                  <span className="text-xs font-semibold text-[var(--text)]">{property.configuration}</span>
+                </div>
+              )}
+              {property.priceMin && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">Price</span>
+                  <span className="text-xs font-semibold text-[var(--gold)]">₹{formatPrice(property.priceMin)}</span>
+                </div>
+              )}
+              {property.reraNumber && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">RERA</span>
+                  <span className="text-xs font-semibold text-[var(--text)]">{property.reraNumber}</span>
+                </div>
+              )}
+              {property.possession && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">Possession</span>
+                  <span className="text-xs font-semibold text-[var(--text)]">{property.possession}</span>
+                </div>
+              )}
+              {property.totalUnits && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">Total Units</span>
+                  <span className="text-xs font-semibold text-[var(--text)]">{property.totalUnits}</span>
+                </div>
+              )}
+              {property.totalTowers && (
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-[var(--text-muted)]">Towers</span>
+                  <span className="text-xs font-semibold text-[var(--text)]">{property.totalTowers}</span>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Download Brochure */}
