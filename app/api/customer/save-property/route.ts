@@ -13,26 +13,28 @@ async function getCustomerFromCookie() {
   return customer;
 }
 
+const NO_CACHE_HEADERS = { "Cache-Control": "private, no-store" } as const;
+
 export async function GET(request: NextRequest) {
   try {
     const customer = await getCustomerFromCookie();
     if (!customer) {
-      return NextResponse.json({ saved: false });
+      return NextResponse.json({ saved: false }, { headers: NO_CACHE_HEADERS });
     }
 
     const { searchParams } = new URL(request.url);
     const propertyId = searchParams.get("propertyId");
     if (!propertyId) {
-      return NextResponse.json({ saved: false });
+      return NextResponse.json({ saved: false }, { headers: NO_CACHE_HEADERS });
     }
 
     const existing = await db.savedProperty.findUnique({
       where: { customerId_propertyId: { customerId: customer.id, propertyId } },
     });
 
-    return NextResponse.json({ saved: !!existing });
+    return NextResponse.json({ saved: !!existing }, { headers: NO_CACHE_HEADERS });
   } catch {
-    return NextResponse.json({ saved: false });
+    return NextResponse.json({ saved: false }, { headers: NO_CACHE_HEADERS });
   }
 }
 

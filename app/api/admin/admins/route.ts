@@ -25,7 +25,7 @@ export async function GET() {
       role: a.id === firstAdminId ? "SUPER_ADMIN" : "ADMIN",
     })).reverse();
 
-    return NextResponse.json({ admins: adminsWithRole });
+    return NextResponse.json({ admins: adminsWithRole }, { headers: { "Cache-Control": "private, no-store" } });
   } catch {
     return NextResponse.json({ admins: [] });
   }

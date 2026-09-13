@@ -26,7 +26,7 @@ export async function GET() {
 
     const role = admin.id === firstAdmin?.id ? "SUPER_ADMIN" : "ADMIN";
 
-    return NextResponse.json({ admin: { ...admin, role } });
+    return NextResponse.json({ admin: { ...admin, role } }, { headers: { "Cache-Control": "private, no-store" } });
   } catch (e) {
     return NextResponse.json({ error: "Something went wrong", detail: String(e) }, { status: 500 });
   }

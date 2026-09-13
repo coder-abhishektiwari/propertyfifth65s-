@@ -47,7 +47,7 @@ export async function GET() {
       savedAt: s.createdAt,
     }));
 
-    return NextResponse.json({ count: properties.length, properties, customerName: customer.name || null });
+    return NextResponse.json({ count: properties.length, properties, customerName: customer.name || null }, { headers: { "Cache-Control": "private, no-store" } });
   } catch {
     return NextResponse.json({ count: 0, properties: [] });
   }

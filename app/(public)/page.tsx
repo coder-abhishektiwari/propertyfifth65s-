@@ -99,12 +99,12 @@ export default async function HomePage() {
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.15]">
               Discover Properties
               <br />
-              That Define
+              That Match
               <br />
-              <span className="text-[var(--gold)]">Your Future.</span>
+              <span className="text-[var(--gold)]">Your Mission.</span>
             </h1>
             <p className="mt-5 text-white/60 text-sm leading-relaxed max-w-md">
-              Premium real estate opportunities, strategic investments, and trusted advisory — curated for discerning buyers and their families.
+              Premium Real Estate Opportunities , strategic investments and trusted advisory - thoughtfully curated for defence personnel, veterans and their families
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <IdentityGate href="/properties" className="btn-primary inline-flex items-center gap-2">
