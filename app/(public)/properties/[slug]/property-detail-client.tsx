@@ -33,33 +33,33 @@ export default function PropertyDetailClient({ property }: PropertyDetailClientP
       {/* Mobile: Title + Price (visible only on mobile) */}
       <div className="lg:hidden mb-4">
         <div className="flex items-center gap-2 mb-1">
-          <h1 className="font-serif text-xl font-bold text-[var(--text)]">
+          <h1 className="font-serif text-xl font-bold text-foreground">
             {property.name}
           </h1>
-          <span className="inline-flex items-center px-2 py-0.5 rounded text-[0.6rem] font-bold tracking-wider uppercase bg-[var(--gold)]/10 text-[var(--gold)] border border-[var(--gold)]/20">
+          <span className="inline-flex items-center px-2 py-0.5 rounded text-[0.6rem] font-bold tracking-wider uppercase bg-accent/10 text-accent border border-accent/20">
             {getStatusLabel(property.status)}
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)] mb-2">
-          <svg className="w-3.5 h-3.5 text-[var(--gold)] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-2">
+          <svg className="w-3.5 h-3.5 text-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
           <span>{property.locality}, {property.city}</span>
         </div>
         <div className="flex items-baseline gap-1.5">
-          <span className="text-xs text-[var(--text-muted)]">Starting from</span>
+          <span className="text-xs text-muted-foreground">Starting from</span>
         </div>
         <div className="flex items-baseline gap-1.5">
           {property.priceMin ? (
-            <span className="text-[var(--gold)] text-lg font-bold">
+            <span className="text-accent text-lg font-bold">
               ₹{formatPrice(Number(property.priceMin))}
             </span>
           ) : (
-            <span className="text-[var(--text-muted)] text-base font-semibold">Not Disclosed</span>
+            <span className="text-muted-foreground text-base font-semibold">Not Disclosed</span>
           )}
           {property.priceLabel && (
-            <span className="text-xs text-[var(--text-muted)]">{property.priceLabel}</span>
+            <span className="text-xs text-muted-foreground">{property.priceLabel}</span>
           )}
         </div>
       </div>

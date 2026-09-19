@@ -46,7 +46,7 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage <= 1}
-        className="w-9 h-9 rounded flex items-center justify-center border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--gold)] hover:text-[var(--gold)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+        className="w-9 h-9 rounded flex items-center justify-center border border-border text-muted-foreground hover:border-accent hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         aria-label="Previous page"
       >
         <ChevronLeft className="w-4 h-4" />
@@ -55,7 +55,7 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
       {/* Page Numbers */}
       {pages.map((page, i) =>
         page === "..." ? (
-          <span key={`dots-${i}`} className="w-9 h-9 flex items-center justify-center text-xs text-[var(--text-muted)]">
+          <span key={`dots-${i}`} className="w-9 h-9 flex items-center justify-center text-xs text-muted-foreground">
             ...
           </span>
         ) : (
@@ -64,8 +64,8 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
             onClick={() => goToPage(page)}
             className={`w-9 h-9 rounded flex items-center justify-center text-xs font-medium transition-colors cursor-pointer ${
               currentPage === page
-                ? "bg-[var(--navy)] text-white border border-[var(--navy)]"
-                : "border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--gold)] hover:text-[var(--gold)]"
+                ? "bg-primary text-inverse border border-primary"
+                : "border border-border text-muted-foreground hover:border-accent hover:text-accent"
             }`}
           >
             {page}
@@ -77,7 +77,7 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage >= totalPages}
-        className="w-9 h-9 rounded flex items-center justify-center border border-[var(--border)] text-[var(--text-muted)] hover:border-[var(--gold)] hover:text-[var(--gold)] disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+        className="w-9 h-9 rounded flex items-center justify-center border border-border text-muted-foreground hover:border-accent hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         aria-label="Next page"
       >
         <ChevronRight className="w-4 h-4" />

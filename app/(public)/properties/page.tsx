@@ -83,7 +83,7 @@ async function PropertiesContent({
     <>
      
       {/* Main Content */}
-      <section className="section-py mt-10 bg-[var(--bg)]">
+      <section className="section-py mt-10 bg-background">
         <div className="container-site">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Filters Sidebar */}
@@ -95,21 +95,21 @@ async function PropertiesContent({
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
                 <div>
                   {result.totalCount > 0 ? (
-                    <p className="text-xs text-[var(--text-muted)]">
+                    <p className="text-xs text-muted-foreground">
                       Showing{" "}
-                      <span className="font-semibold text-[var(--text)]">
+                      <span className="font-semibold text-foreground">
                         {(result.page - 1) * result.pageSize + 1} –{" "}
                         {Math.min(result.page * result.pageSize, result.totalCount)}
                       </span>{" "}
-                      of <span className="font-semibold text-[var(--text)]">{result.totalCount}</span> Properties
+                      of <span className="font-semibold text-foreground">{result.totalCount}</span> Properties
                       {activeFilterCount > 0 && (
-                        <span className="ml-2 text-[var(--gold)]">
+                        <span className="ml-2 text-accent">
                           ({activeFilterCount} filter{activeFilterCount > 1 ? "s" : ""} active)
                         </span>
                       )}
                     </p>
                   ) : (
-                    <p className="text-xs text-[var(--text-muted)]">
+                    <p className="text-xs text-muted-foreground">
                       No published properties match your search.
                     </p>
                   )}

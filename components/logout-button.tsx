@@ -20,10 +20,10 @@ export default function LogoutButton() {
     <button
       onClick={handleLogout}
       disabled={isPending}
-      className="flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors cursor-pointer disabled:opacity-50"
+      className="flex items-center gap-2 text-sm text-inverse/70 hover:text-inverse transition-colors cursor-pointer disabled:opacity-50"
     >
       {isPending ? (
-        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+        <div className="w-4 h-4 border-2 border-inverse/30 border-t-inverse rounded-full animate-spin" />
       ) : (
         <LogOut className="w-4 h-4" />
       )}

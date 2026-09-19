@@ -54,8 +54,8 @@ export default function SavePropertyButton({ propertyId }: SavePropertyButtonPro
       disabled={saving}
       className={`w-9 h-9 rounded-full border flex items-center justify-center transition-colors cursor-pointer disabled:opacity-50 ${
         saved
-          ? "border-[var(--gold)] text-[var(--gold)] bg-[var(--gold)]/10"
-          : "border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--gold)] hover:border-[var(--gold)]"
+          ? "border-accent text-accent bg-accent/10"
+          : "border-border text-muted-foreground hover:text-accent hover:border-accent"
       }`}
       aria-label={saved ? "Unsave property" : "Save property"}
     >

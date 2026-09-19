@@ -89,29 +89,29 @@ export default function RequestCallbackDialog({ propertyId, propertyName, isOpen
 
   return (
     <div className="fixed inset-0 z-[90] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/50" onClick={handleClose} />
-      <div className="relative bg-white rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div className="absolute inset-0 bg-scrim" onClick={handleClose} />
+      <div className="relative bg-card rounded-lg shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--border)]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
           <div>
-            <h3 className="text-sm font-bold text-[var(--text)]">Request Callback</h3>
-            <p className="text-xs text-[var(--text-muted)] mt-0.5">{propertyName}</p>
+            <h3 className="text-sm font-bold text-foreground">Request Callback</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">{propertyName}</p>
           </div>
-          <button onClick={handleClose} className="p-1 hover:bg-[var(--bg-muted)] rounded cursor-pointer">
-            <X className="w-5 h-5 text-[var(--text-muted)]" />
+          <button onClick={handleClose} className="p-1 hover:bg-muted rounded cursor-pointer">
+            <X className="w-5 h-5 text-muted-foreground" />
           </button>
         </div>
 
         <div className="p-5">
           {status === "success" ? (
             <div className="text-center py-6">
-              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-green-50 flex items-center justify-center">
-                <svg className="w-7 h-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-success-bg flex items-center justify-center">
+                <svg className="w-7 h-7 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <p className="text-sm font-semibold text-[var(--text)] mb-2">Request Submitted</p>
-              <p className="text-xs text-[var(--text-muted)] mb-4">{message}</p>
+              <p className="text-sm font-semibold text-foreground mb-2">Request Submitted</p>
+              <p className="text-xs text-muted-foreground mb-4">{message}</p>
               <button onClick={handleClose} className="btn-primary">
                 Done
               </button>
@@ -124,9 +124,9 @@ export default function RequestCallbackDialog({ propertyId, propertyName, isOpen
                   placeholder="Your Name"
                   value={form.name}
                   onChange={(e) => { setForm(p => ({ ...p, name: e.target.value })); if (errors.name) setErrors(p => ({ ...p, name: "" })); }}
-                  className="w-full border border-[var(--border)] rounded px-3 py-2.5 text-xs text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)]"
+                  className="w-full border border-border rounded px-3 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent"
                 />
-                {errors.name && <p className="text-[0.65rem] text-red-500 mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-[0.65rem] text-destructive mt-1">{errors.name}</p>}
               </div>
               <div>
                 <input
@@ -134,9 +134,9 @@ export default function RequestCallbackDialog({ propertyId, propertyName, isOpen
                   placeholder="Your Email"
                   value={form.email}
                   onChange={(e) => { setForm(p => ({ ...p, email: e.target.value })); if (errors.email) setErrors(p => ({ ...p, email: "" })); }}
-                  className="w-full border border-[var(--border)] rounded px-3 py-2.5 text-xs text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)]"
+                  className="w-full border border-border rounded px-3 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent"
                 />
-                {errors.email && <p className="text-[0.65rem] text-red-500 mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-[0.65rem] text-destructive mt-1">{errors.email}</p>}
               </div>
               <div>
                 <input
@@ -144,34 +144,34 @@ export default function RequestCallbackDialog({ propertyId, propertyName, isOpen
                   placeholder="Your Phone Number"
                   value={form.phone}
                   onChange={(e) => { setForm(p => ({ ...p, phone: e.target.value })); if (errors.phone) setErrors(p => ({ ...p, phone: "" })); }}
-                  className="w-full border border-[var(--border)] rounded px-3 py-2.5 text-xs text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)]"
+                  className="w-full border border-border rounded px-3 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent"
                 />
-                {errors.phone && <p className="text-[0.65rem] text-red-500 mt-1">{errors.phone}</p>}
+                {errors.phone && <p className="text-[0.65rem] text-destructive mt-1">{errors.phone}</p>}
               </div>
               <div>
                 <select
                   value={form.category}
                   onChange={(e) => { setForm(p => ({ ...p, category: e.target.value as "" | "NRI_UHNI" | "DEFENCE_PERSONNEL" })); if (errors.category) setErrors(p => ({ ...p, category: "" })); }}
-                  className="w-full border border-[var(--border)] rounded px-3 py-2.5 text-xs text-[var(--text)] focus:outline-none focus:border-[var(--gold)] appearance-none bg-white"
+                  className="w-full border border-border rounded px-3 py-2.5 text-xs text-foreground focus:outline-none focus:border-accent appearance-none bg-card"
                 >
                   <option value="">Select Category</option>
                   <option value="NRI_UHNI">NRI / UHNI</option>
                   <option value="DEFENCE_PERSONNEL">Defence Personnel</option>
                 </select>
-                {errors.category && <p className="text-[0.65rem] text-red-500 mt-1">{errors.category}</p>}
+                {errors.category && <p className="text-[0.65rem] text-destructive mt-1">{errors.category}</p>}
               </div>
               <div>
                 <select
                   value={form.preferredTime}
                   onChange={(e) => { setForm(p => ({ ...p, preferredTime: e.target.value })); if (errors.preferredTime) setErrors(p => ({ ...p, preferredTime: "" })); }}
-                  className="w-full border border-[var(--border)] rounded px-3 py-2.5 text-xs text-[var(--text)] focus:outline-none focus:border-[var(--gold)] appearance-none bg-white"
+                  className="w-full border border-border rounded px-3 py-2.5 text-xs text-foreground focus:outline-none focus:border-accent appearance-none bg-card"
                 >
-                  <option value="">Preferred Time</option>
+                  <option value="">Which time you preferred?</option>
                   <option value="morning">Morning (9 AM - 12 PM)</option>
                   <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
                   <option value="evening">Evening (4 PM - 7 PM)</option>
                 </select>
-                {errors.preferredTime && <p className="text-[0.65rem] text-red-500 mt-1">{errors.preferredTime}</p>}
+                {errors.preferredTime && <p className="text-[0.65rem] text-destructive mt-1">{errors.preferredTime}</p>}
               </div>
               <div>
                 <textarea
@@ -179,11 +179,11 @@ export default function RequestCallbackDialog({ propertyId, propertyName, isOpen
                   value={form.message}
                   onChange={(e) => setForm(p => ({ ...p, message: e.target.value }))}
                   rows={3}
-                  className="w-full border border-[var(--border)] rounded px-3 py-2.5 text-xs text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)] resize-none"
+                  className="w-full border border-border rounded px-3 py-2.5 text-xs text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-accent resize-none"
                 />
               </div>
 
-              {status === "error" && <p className="text-[0.65rem] text-red-500">{message}</p>}
+              {status === "error" && <p className="text-[0.65rem] text-destructive">{message}</p>}
 
               <button type="submit" disabled={isPending} className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed">
                 {isPending ? "Submitting..." : "Submit Request"}

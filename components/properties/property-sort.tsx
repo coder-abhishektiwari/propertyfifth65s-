@@ -28,12 +28,12 @@ export default function PropertySort() {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs text-[var(--text-muted)] whitespace-nowrap">Sort by:</span>
+      <span className="text-xs text-muted-foreground whitespace-nowrap">Sort by:</span>
       <div className="relative">
         <select
           value={currentSort}
           onChange={(e) => handleSort(e.target.value)}
-          className="appearance-none bg-white border border-[var(--border)] rounded px-3 py-1.5 pr-7 text-xs text-[var(--text)] cursor-pointer focus:outline-none focus:border-[var(--gold)]"
+          className="appearance-none bg-card border border-border rounded px-3 py-1.5 pr-7 text-xs text-foreground cursor-pointer focus:outline-none focus:border-accent"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -41,7 +41,7 @@ export default function PropertySort() {
             </option>
           ))}
         </select>
-        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-[var(--text-muted)] pointer-events-none" />
+        <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-muted-foreground pointer-events-none" />
       </div>
     </div>
   );

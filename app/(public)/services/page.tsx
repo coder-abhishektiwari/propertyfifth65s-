@@ -71,16 +71,16 @@ export default function ServicesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative bg-[var(--navy)] overflow-hidden mt-16 lg:mt-18">
+      <section className="relative bg-primary overflow-hidden mt-16 lg:mt-18">
         <div className="flex flex-col lg:flex-row min-h-[400px] lg:min-h-[480px]">
           {/* Left Content */}
           <div className="relative z-10 w-full lg:w-1/2 flex items-center">
             <div className="container-site py-12 lg:py-20">
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Our <span className="text-[var(--gold)]">Services</span>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-inverse leading-tight mb-6">
+                Our <span className="text-accent">Services</span>
               </h1>
-              <div className="w-16 h-[3px] bg-[var(--gold)] mb-8" />
-              <p className="text-white/60 text-base leading-relaxed max-w-md">
+              <div className="w-16 h-[3px] bg-accent mb-8" />
+              <p className="text-inverse-muted text-base leading-relaxed max-w-md">
                 At Property Fifth, we provide end-to-end real estate advisory services designed to help you make the right property decisions and create long-term value.
               </p>
             </div>
@@ -96,14 +96,14 @@ export default function ServicesPage() {
               priority
             />
             {/* Gradient overlay from left */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--navy)] via-[var(--navy)]/1 to-transparent lg:block hidden" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)] via-transparent to-[var(--navy)] lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/1 to-transparent lg:block hidden" />
+            <div className="absolute inset-0 bg-gradient-to-b from-primary via-transparent to-primary lg:hidden" />
           </div>
         </div>
       </section>
 
       {/* Services */}
-      <section className="section-py bg-white">
+      <section className="section-py bg-card">
         <div className="container-site">
           <div className="space-y-20 lg:space-y-28">
             {SERVICES.map((service) => (
@@ -116,7 +116,7 @@ export default function ServicesPage() {
                 {/* Image */}
                 <div className="w-full lg:w-1/2">
                   <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[var(--gold)]/8 to-[var(--navy)]/5 rounded-2xl blur-xl" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-accent/8 to-primary/5 rounded-2xl blur-xl" />
                     <div className="relative rounded-2xl overflow-hidden">
                       <Image
                         src={service.image}
@@ -132,24 +132,24 @@ export default function ServicesPage() {
                 {/* Content */}
                 <div className="w-full lg:w-1/2">
                   <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[0.65rem] font-bold tracking-[0.15em] text-[var(--gold)] uppercase bg-[var(--gold)]/10 px-3 py-1 rounded-full">
+                    <span className="text-[0.65rem] font-bold tracking-[0.15em] text-accent uppercase bg-accent/10 px-3 py-1 rounded-full">
                       Service {service.num}
                     </span>
                   </div>
-                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--text)] mb-4">
+                  <h2 className="font-serif text-2xl sm:text-3xl font-bold text-foreground mb-4">
                     {service.title}
                   </h2>
-                  <div className="w-12 h-0.5 bg-[var(--gold)] mb-6" />
-                  <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-8">
+                  <div className="w-12 h-0.5 bg-accent mb-6" />
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-8">
                     {service.description}
                   </p>
                   <ul className="space-y-4">
                     {service.points.map((point) => (
                       <li key={point} className="flex items-center gap-3">
-                        <div className="w-6 h-6 rounded-full bg-[var(--gold)]/10 flex items-center justify-center shrink-0">
-                          <CheckCircle className="w-3.5 h-3.5 text-[var(--gold)]" />
+                        <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center shrink-0">
+                          <CheckCircle className="w-3.5 h-3.5 text-accent" />
                         </div>
-                        <span className="text-sm text-[var(--text)]">{point}</span>
+                        <span className="text-sm text-foreground">{point}</span>
                       </li>
                     ))}
                   </ul>

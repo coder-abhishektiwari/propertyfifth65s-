@@ -19,8 +19,8 @@ export default async function AdminInquiriesPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-serif font-bold text-[var(--navy)]">Contact Inquiries</h1>
-        <p className="text-sm text-gray-500 mt-1">Site-related issues and technical support queries from visitors.</p>
+        <h1 className="text-2xl font-serif font-bold text-primary">Contact Inquiries</h1>
+        <p className="text-sm text-muted-foreground mt-1">Site-related issues and technical support queries from visitors.</p>
       </div>
       <InquiriesTable inquiries={inquiries} total={total} />
     </div>

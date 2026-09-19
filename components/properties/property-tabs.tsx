@@ -62,33 +62,33 @@ function SharePropertyButton({ property }: { property: PropertyBasic }) {
     <>
       <button
         onClick={() => { setOpen(true); setCopied(false); }}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-[var(--navy)] border border-[var(--border)] rounded-lg hover:bg-[var(--bg-muted)] transition-colors cursor-pointer"
+        className="w-full flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium text-primary border border-border rounded-lg hover:bg-muted transition-colors cursor-pointer"
       >
-        <Share2 className="w-4 h-4 text-[var(--gold)]" />
+        <Share2 className="w-4 h-4 text-accent" />
         Share This Property
       </button>
 
       {open && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
-          <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <div className="absolute inset-0 bg-scrim" onClick={() => setOpen(false)} />
+          <div className="relative bg-card rounded-xl shadow-xl w-full max-w-md">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <Share2 className="w-4 h-4 text-[var(--gold)]" />
-                <h3 className="text-sm font-bold text-gray-900">Share Property</h3>
+                <Share2 className="w-4 h-4 text-accent" />
+                <h3 className="text-sm font-bold text-foreground">Share Property</h3>
               </div>
-              <button onClick={() => setOpen(false)} className="p-1 hover:bg-gray-100 rounded cursor-pointer">
-                <X className="w-5 h-5 text-gray-500" />
+              <button onClick={() => setOpen(false)} className="p-1 hover:bg-secondary rounded cursor-pointer">
+                <X className="w-5 h-5 text-muted-foreground" />
               </button>
             </div>
             <div className="p-6 space-y-4">
               <div className="flex items-center gap-2">
-                <div className="flex-1 min-w-0 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2.5">
-                  <p className="text-xs text-gray-600 truncate">{shareUrl}</p>
+                <div className="flex-1 min-w-0 bg-muted border border-border rounded-lg px-3 py-2.5">
+                  <p className="text-xs text-muted-foreground truncate">{shareUrl}</p>
                 </div>
                 <button
                   onClick={copyLink}
-                  className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium text-white bg-[var(--gold)] rounded-lg hover:bg-[var(--gold)]/90 transition-colors cursor-pointer shrink-0"
+                  className="flex items-center gap-1.5 px-4 py-2.5 text-xs font-medium text-inverse bg-accent rounded-lg hover:bg-accent/90 transition-colors cursor-pointer shrink-0"
                 >
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Link2 className="w-3.5 h-3.5" />}
                   {copied ? "Copied!" : "Copy"}
@@ -100,7 +100,7 @@ function SharePropertyButton({ property }: { property: PropertyBasic }) {
                     navigator.share({ title: property.name, url: shareUrl });
                   }
                 }}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-white bg-[var(--navy)] rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-inverse bg-primary rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer"
               >
                 <Share2 className="w-4 h-4" />
                 Share Link
@@ -210,7 +210,7 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
   return (
     <div>
       {/* Tab Navigation */}
-      <div className="border-b border-[var(--border)] mb-6 overflow-x-auto">
+      <div className="border-b border-border mb-6 overflow-x-auto">
         <div className="flex gap-0 min-w-max">
           {TABS.map((tab) => {
             const shouldShow = shouldShowTab(tab, property);
@@ -221,8 +221,8 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
                 onClick={() => setActiveTab(tab)}
                 className={`px-4 py-3 text-xs font-semibold tracking-wider uppercase whitespace-nowrap transition-colors cursor-pointer ${
                   activeTab === tab
-                    ? "text-[var(--gold)] border-b-2 border-[var(--gold)]"
-                    : "text-[var(--text-muted)] hover:text-[var(--text)] border-b-2 border-transparent"
+                    ? "text-accent border-b-2 border-accent"
+                    : "text-muted-foreground hover:text-foreground border-b-2 border-transparent"
                 }`}
               >
                 {tab}
@@ -254,12 +254,12 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
         {/* Right: Sidebar (always visible) */}
         <div className="w-full lg:w-[300px] shrink-0 space-y-5">
           {/* Share Property */}
-          <div className="bg-white border border-[var(--border)] rounded-lg p-5">
+          <div className="bg-card border border-border rounded-lg p-5">
             <div className="flex items-center gap-2 mb-2">
-              <Share2 className="w-4 h-4 text-[var(--gold)]" />
-              <h3 className="text-sm font-bold text-[var(--text)]">Share & Get Advice</h3>
+              <Share2 className="w-4 h-4 text-accent" />
+              <h3 className="text-sm font-bold text-foreground">Share & Get Advice</h3>
             </div>
-            <p className="text-xs text-[var(--text-muted)] leading-relaxed mb-4">
+            <p className="text-xs text-muted-foreground leading-relaxed mb-4">
               Buying a home is a big decision. Share this property with your family or a trusted advisor to get a second opinion before you move forward.
             </p>
             <SharePropertyButton property={property} />
@@ -267,16 +267,16 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
 
           {/* Download Brochure */}
           {property.brochureUrl && (
-            <div className="bg-white border border-[var(--border)] rounded-lg p-5">
-              <h3 className="text-sm font-bold text-[var(--text)] mb-1">Download Brochure</h3>
-              <p className="text-xs text-[var(--text-muted)] mb-3">
+            <div className="bg-card border border-border rounded-lg p-5">
+              <h3 className="text-sm font-bold text-foreground mb-1">Download Brochure</h3>
+              <p className="text-xs text-muted-foreground mb-3">
                 Get detailed information about {property.name}.
               </p>
               <a
                 href={toMediaBrochureUrl(property.brochureUrl)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 bg-[var(--bg-muted)] rounded-lg hover:bg-[var(--bg-alt)] transition-colors"
+                className="flex items-center gap-3 p-3 bg-muted rounded-lg hover:bg-[var(--bg-alt)] transition-colors"
               >
                 <div className="w-16 h-16 rounded overflow-hidden bg-[var(--border)] shrink-0 relative">
                   {property.images[0]?.imageUrl ? (
@@ -292,27 +292,27 @@ export default function PropertyTabs({ property }: PropertyTabsProps) {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-[var(--text)] truncate uppercase">
+                  <p className="text-xs font-bold text-foreground truncate uppercase">
                     {property.name}
                   </p>
-                  <p className="text-[0.65rem] font-semibold tracking-wider uppercase text-[var(--text-muted)]">
+                  <p className="text-[0.65rem] font-semibold tracking-wider uppercase text-muted-foreground">
                     Brochure
                   </p>
-                  <p className="text-[0.65rem] text-[var(--text-muted)]">
+                  <p className="text-[0.65rem] text-muted-foreground">
                     PDF {property.brochureSize ? `• ${property.brochureSize}` : ""}
                   </p>
                 </div>
-                <Download className="w-5 h-5 text-[var(--text-muted)] shrink-0" />
+                <Download className="w-5 h-5 text-muted-foreground shrink-0" />
               </a>
             </div>
           )}
 
           {/* Have Questions */}
-          <div className="bg-white border border-[var(--border)] rounded-lg p-5">
-            <h3 className="text-sm font-bold text-[var(--text)] mb-1">Have Questions?</h3>
-            <p className="text-xs text-[var(--text-muted)] mb-4">Our experts are here to help you.</p>
+          <div className="bg-card border border-border rounded-lg p-5">
+            <h3 className="text-sm font-bold text-foreground mb-1">Are you facing technical issues?</h3>
+            <p className="text-xs text-muted-foreground mb-4">Our IT experts are here to help you.</p>
             <a href="/contact" className="btn-primary w-full">
-              Talk to an Expert
+              Submit a query
               <ArrowRight className="w-4 h-4" />
             </a>
           </div>
@@ -359,12 +359,12 @@ function OverviewTab({
         <div className="flex-1 min-w-0">
           <h3 className="heading-sm mb-3">Overview</h3>
           {property.shortDescription && (
-            <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-3">
+            <p className="text-sm text-muted-foreground leading-relaxed mb-3">
               {property.shortDescription}
             </p>
           )}
           {property.description && (
-            <p className="text-sm text-[var(--text-muted)] leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               {property.description}
             </p>
           )}
@@ -372,8 +372,8 @@ function OverviewTab({
             <div className="mt-5 space-y-2">
               {highlights.map((item, i) => (
                 <div key={i} className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-[var(--gold)] shrink-0 mt-0.5" />
-                  <span className="text-sm text-[var(--text-muted)]">{item}</span>
+                  <CheckCircle className="w-4 h-4 text-accent shrink-0 mt-0.5" />
+                  <span className="text-sm text-muted-foreground">{item}</span>
                 </div>
               ))}
             </div>
@@ -382,7 +382,7 @@ function OverviewTab({
 
         {/* Right: Property Details Table */}
         <div className="w-full lg:w-[300px] shrink-0">
-          <div className="border border-[var(--border)] rounded-lg overflow-hidden">
+          <div className="border border-border rounded-lg overflow-hidden">
             <PropertyDetailRow label="Project Type" value={getPropertyTypeLabel(property.propertyType)} />
             {property.totalTowers && (
               <PropertyDetailRow label="Total Towers" value={String(property.totalTowers)} />
@@ -402,20 +402,20 @@ function OverviewTab({
               <PropertyDetailRow label="Price Range" value="Not Disclosed" />
             )}
             {bankApproved.length > 0 && (
-              <div className="px-4 py-3 border-t border-[var(--border)]">
-                <p className="text-xs font-semibold text-[var(--text-muted)] mb-2">Bank Approved</p>
+              <div className="px-4 py-3 border-t border-border">
+                <p className="text-xs font-semibold text-muted-foreground mb-2">Bank Approved</p>
                 <div className="flex items-center gap-3 flex-wrap">
                   {bankApproved.map((bank, i) => (
                     <div key={i} className="flex items-center gap-1.5">
                       {bank.logo ? (
                         <img src={bank.logo} alt={bank.name} className="h-5 w-auto object-contain" />
                       ) : (
-                        <span className="text-xs font-medium text-[var(--text)]">{bank.name}</span>
+                        <span className="text-xs font-medium text-foreground">{bank.name}</span>
                       )}
                     </div>
                   ))}
                   {bankApproved.length > 3 && (
-                    <span className="text-xs text-[var(--text-muted)]">&amp; more</span>
+                    <span className="text-xs text-muted-foreground">&amp; more</span>
                   )}
                 </div>
               </div>
@@ -429,9 +429,9 @@ function OverviewTab({
 
 function PropertyDetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--border)] last:border-b-0">
-      <span className="text-xs font-semibold text-[var(--text-muted)]">{label}</span>
-      <span className="text-xs font-bold text-[var(--text)]">{value}</span>
+    <div className="flex items-center justify-between px-4 py-3 border-b border-border last:border-b-0">
+      <span className="text-xs font-semibold text-muted-foreground">{label}</span>
+      <span className="text-xs font-bold text-foreground">{value}</span>
     </div>
   );
 }
@@ -440,7 +440,7 @@ function PropertyDetailRow({ label, value }: { label: string; value: string }) {
 function HighlightsTab({ highlights }: { highlights: string[] }) {
   if (highlights.length === 0) {
     return (
-      <p className="text-sm text-[var(--text-muted)] py-4">
+      <p className="text-sm text-muted-foreground py-4">
         No highlights have been added for this property yet.
       </p>
     );
@@ -453,12 +453,12 @@ function HighlightsTab({ highlights }: { highlights: string[] }) {
         {highlights.map((item, i) => (
           <div
             key={i}
-            className="flex flex-col items-center text-center p-4 bg-[var(--bg-muted)] rounded-lg"
+            className="flex flex-col items-center text-center p-4 bg-muted rounded-lg"
           >
-            <div className="w-10 h-10 mb-2 rounded-full bg-[var(--gold)]/10 flex items-center justify-center text-[var(--gold)]">
+            <div className="w-10 h-10 mb-2 rounded-full bg-accent/10 flex items-center justify-center text-accent">
               {getIconForText(item)}
             </div>
-            <span className="text-xs font-semibold text-[var(--text)] leading-tight">{item}</span>
+            <span className="text-xs font-semibold text-foreground leading-tight">{item}</span>
           </div>
         ))}
       </div>
@@ -470,7 +470,7 @@ function HighlightsTab({ highlights }: { highlights: string[] }) {
 function AmenitiesTab({ amenities }: { amenities: string[] }) {
   if (amenities.length === 0) {
     return (
-      <p className="text-sm text-[var(--text-muted)] py-4">
+      <p className="text-sm text-muted-foreground py-4">
         No amenities have been added for this property yet.
       </p>
     );
@@ -483,9 +483,9 @@ function AmenitiesTab({ amenities }: { amenities: string[] }) {
         {amenities.map((amenity, i) => (
           <div
             key={i}
-            className="flex items-center gap-2.5 px-3 py-2.5 bg-[var(--bg-muted)] rounded text-sm text-[var(--text)]"
+            className="flex items-center gap-2.5 px-3 py-2.5 bg-muted rounded text-sm text-foreground"
           >
-            <div className="w-6 h-6 rounded-full bg-[var(--gold)]/10 flex items-center justify-center shrink-0 text-[var(--gold)]">
+            <div className="w-6 h-6 rounded-full bg-accent/10 flex items-center justify-center shrink-0 text-accent">
               {getIconForText(amenity)}
             </div>
             {amenity}
@@ -500,7 +500,7 @@ function AmenitiesTab({ amenities }: { amenities: string[] }) {
 function SpecificationsTab({ specifications }: { specifications: { label: string; value: string }[] }) {
   if (specifications.length === 0) {
     return (
-      <p className="text-sm text-[var(--text-muted)] py-4">
+      <p className="text-sm text-muted-foreground py-4">
         No specifications have been added for this property yet.
       </p>
     );
@@ -509,16 +509,16 @@ function SpecificationsTab({ specifications }: { specifications: { label: string
   return (
     <div>
       <h3 className="heading-sm mb-4">Specifications</h3>
-      <div className="border border-[var(--border)] rounded-lg overflow-hidden">
+      <div className="border border-border rounded-lg overflow-hidden">
         {specifications.map((spec, i) => (
           <div
             key={i}
             className={`flex items-center px-4 py-3 text-sm ${
-              i % 2 === 0 ? "bg-white" : "bg-[var(--bg-muted)]"
+              i % 2 === 0 ? "bg-card" : "bg-muted"
             }`}
           >
-            <span className="font-semibold text-[var(--text)] w-1/3">{spec.label}</span>
-            <span className="text-[var(--text-muted)]">{spec.value}</span>
+            <span className="font-semibold text-foreground w-1/3">{spec.label}</span>
+            <span className="text-muted-foreground">{spec.value}</span>
           </div>
         ))}
       </div>
@@ -540,14 +540,14 @@ function LocationTab({ property }: { property: PropertyBasic }) {
         <h3 className="heading-sm mb-4">Location</h3>
         <div className="space-y-3">
           <div className="flex items-start gap-3">
-            <MapPin className="w-4 h-4 text-[var(--gold)] mt-0.5 shrink-0" />
+            <MapPin className="w-4 h-4 text-accent mt-0.5 shrink-0" />
             <div>
-              <p className="text-sm font-semibold text-[var(--text)]">{property.address}</p>
-              <p className="text-xs text-[var(--text-muted)]">
+              <p className="text-sm font-semibold text-foreground">{property.address}</p>
+              <p className="text-xs text-muted-foreground">
                 {[property.locality, property.city, property.state].filter(Boolean).join(", ")}
               </p>
               {property.pincode && (
-                <p className="text-xs text-[var(--text-muted)]">Pincode: {property.pincode}</p>
+                <p className="text-xs text-muted-foreground">Pincode: {property.pincode}</p>
               )}
             </div>
           </div>
@@ -557,7 +557,7 @@ function LocationTab({ property }: { property: PropertyBasic }) {
               href={property.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--gold)] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
             >
               View on Map <ExternalLink className="w-3 h-3" />
             </a>
@@ -568,7 +568,7 @@ function LocationTab({ property }: { property: PropertyBasic }) {
               href={`https://www.google.com/maps?q=${property.latitude},${property.longitude}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--gold)] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:underline"
             >
               View on Google Maps <ExternalLink className="w-3 h-3" />
             </a>
@@ -577,7 +577,7 @@ function LocationTab({ property }: { property: PropertyBasic }) {
       </div>
 
       {/* Google Maps Embed */}
-      <div className="rounded-lg overflow-hidden border border-[var(--border)]">
+      <div className="rounded-lg overflow-hidden border border-border">
         <iframe
           src={mapEmbedUrl}
           width="100%"
@@ -602,7 +602,7 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
     return (
       <div>
         <h3 className="heading-sm mb-4">Gallery</h3>
-        <p className="text-sm text-[var(--text-muted)] py-4">No photos available for this property yet.</p>
+        <p className="text-sm text-muted-foreground py-4">No photos available for this property yet.</p>
       </div>
     );
   }
@@ -617,7 +617,7 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
           <button
             key={i}
             onClick={() => setSelectedImage(i)}
-            className="relative aspect-[4/3] rounded-lg overflow-hidden bg-[var(--bg-muted)] cursor-pointer group"
+            className="relative aspect-[4/3] rounded-lg overflow-hidden bg-muted cursor-pointer group"
           >
             {img.imageUrl ? (
               <Image
@@ -643,12 +643,12 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
         >
           {/* Header */}
           <div className="flex items-center justify-between w-full px-4 py-3 shrink-0">
-            <span className="text-white text-sm font-medium">
+            <span className="text-inverse text-sm font-medium">
               {selectedImage + 1} / {sorted.length}
             </span>
             <button
               onClick={() => setSelectedImage(null)}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-10 h-10 rounded-full bg-card/10 hover:bg-card/20 text-inverse flex items-center justify-center transition-colors cursor-pointer"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -681,7 +681,7 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
                   e.stopPropagation();
                   setSelectedImage((prev) => (prev! - 1 + sorted.length) % sorted.length);
                 }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-card/10 hover:bg-card/20 text-inverse flex items-center justify-center transition-colors cursor-pointer"
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -692,7 +692,7 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
                   e.stopPropagation();
                   setSelectedImage((prev) => (prev! + 1) % sorted.length);
                 }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-card/10 hover:bg-card/20 text-inverse flex items-center justify-center transition-colors cursor-pointer"
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -713,7 +713,7 @@ function GalleryTab({ property }: { property: PropertyBasic }) {
                   }}
                   className={`relative shrink-0 w-14 h-10 rounded overflow-hidden border-2 transition-all cursor-pointer ${
                     i === selectedImage
-                      ? "border-[var(--gold)] opacity-100"
+                      ? "border-accent opacity-100"
                       : "border-transparent opacity-50 hover:opacity-80"
                   }`}
                 >
@@ -745,13 +745,13 @@ function BrochureTab({ property }: { property: PropertyBasic }) {
       <div>
         <h3 className="heading-sm mb-4">Brochure</h3>
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="w-16 h-16 mb-4 rounded-full bg-[var(--bg-muted)] flex items-center justify-center">
-            <svg className="w-8 h-8 text-[var(--text-light)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-16 h-16 mb-4 rounded-full bg-muted flex items-center justify-center">
+            <svg className="w-8 h-8 text-muted-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
             </svg>
           </div>
-          <p className="text-sm font-semibold text-[var(--text)] mb-1">No Brochure Available</p>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-sm font-semibold text-foreground mb-1">No Brochure Available</p>
+          <p className="text-xs text-muted-foreground">
             Brochure for this property is not available at the moment.
           </p>
         </div>
@@ -764,17 +764,17 @@ function BrochureTab({ property }: { property: PropertyBasic }) {
       <h3 className="heading-sm mb-4">Brochure</h3>
 
       {/* Download Card */}
-      <div className="flex items-center gap-4 p-4 bg-[var(--bg-muted)] rounded-lg mb-5">
-        <div className="w-12 h-12 rounded bg-[var(--navy)] flex items-center justify-center shrink-0">
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="flex items-center gap-4 p-4 bg-muted rounded-lg mb-5">
+        <div className="w-12 h-12 rounded bg-primary flex items-center justify-center shrink-0">
+          <svg className="w-6 h-6 text-inverse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
           </svg>
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-[var(--text)] truncate">
+          <p className="text-sm font-semibold text-foreground truncate">
             {property.brochureName || "Property Brochure"}
           </p>
-          <p className="text-xs text-[var(--text-muted)]">
+          <p className="text-xs text-muted-foreground">
             PDF {property.brochureSize ? `• ${property.brochureSize}` : ""}
           </p>
         </div>
@@ -789,19 +789,19 @@ function BrochureTab({ property }: { property: PropertyBasic }) {
       </div>
 
       {/* PDF Viewer */}
-      <div className="rounded-lg overflow-hidden border border-[var(--border)]">
-        <div className="bg-[var(--navy)] px-4 py-2 flex items-center justify-between">
-          <span className="text-white text-xs font-medium">PDF Preview</span>
+      <div className="rounded-lg overflow-hidden border border-border">
+        <div className="bg-primary px-4 py-2 flex items-center justify-between">
+          <span className="text-inverse text-xs font-medium">PDF Preview</span>
           <a
             href={toMediaBrochureUrl(property.brochureUrl)}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[var(--gold)] text-xs font-semibold hover:underline flex items-center gap-1"
+            className="text-accent text-xs font-semibold hover:underline flex items-center gap-1"
           >
             Open Full <ExternalLink className="w-3 h-3" />
           </a>
         </div>
-        <div className="h-[500px] overflow-auto bg-gray-100">
+        <div className="h-[500px] overflow-auto bg-secondary">
           <iframe
             src={toMediaBrochureUrl(property.brochureUrl)}
             className="w-full h-full border-0"

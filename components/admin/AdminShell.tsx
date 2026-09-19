@@ -68,18 +68,18 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
   }
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
+    <div className="flex h-screen bg-muted overflow-hidden">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          className="fixed inset-0 bg-scrim z-40 lg:hidden"
           onClick={closeSidebar}
         />
       )}
 
       {/* Sidebar — collapsed by default, expands on hover (fixed, overlays content) */}
       <aside
-        className={`group/sidebar fixed inset-y-0 left-0 z-50 w-[68px] hover:w-[260px] bg-[var(--navy)] flex flex-col transition-all duration-300 ease-in-out ${
+        className={`group/sidebar fixed inset-y-0 left-0 z-50 w-[68px] hover:w-[260px] bg-primary flex flex-col transition-all duration-300 ease-in-out ${
           sidebarOpen ? "!w-[260px] translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
@@ -109,8 +109,8 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
                 title={item.label}
                 className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${
                   active
-                    ? "bg-[var(--gold)]/15 text-[var(--gold)]"
-                    : "text-white/60 hover:text-white hover:bg-white/5"
+                    ? "bg-accent/15 text-accent"
+                    : "text-inverse-muted hover:text-inverse hover:bg-inverse/5"
                 }`}
               >
                 <item.icon className="w-5 h-5 shrink-0" />
@@ -123,7 +123,7 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
         </nav>
 
         {/* Bottom section — always visible */}
-        <div className="px-2 group-hover/sidebar:px-3 pb-4 space-y-1 border-t border-white/10 pt-3">
+        <div className="px-2 group-hover/sidebar:px-3 pb-4 space-y-1 border-t border-inverse/10 pt-3">
           {adminRole === "SUPER_ADMIN" && (
             <Link
               href="/admin/accounts"
@@ -131,8 +131,8 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
               title="Admin Accounts"
               className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${
                 isActive("/admin/accounts")
-                  ? "bg-[var(--gold)]/15 text-[var(--gold)]"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "bg-accent/15 text-accent"
+                  : "text-inverse-muted hover:text-inverse hover:bg-inverse/5"
               }`}
             >
               <Users className="w-5 h-5 shrink-0" />
@@ -147,8 +147,8 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
             title="Account Settings"
             className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-colors ${
               isActive("/admin/account")
-                ? "bg-[var(--gold)]/15 text-[var(--gold)]"
-                : "text-white/60 hover:text-white hover:bg-white/5"
+                ? "bg-accent/15 text-accent"
+                : "text-inverse-muted hover:text-inverse hover:bg-inverse/5"
             }`}
           >
             <UserCog className="w-5 h-5 shrink-0" />
@@ -158,13 +158,13 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
           </Link>
 
           {/* Divider */}
-          <div className="border-t border-white/10 my-2 group-hover/sidebar:my-0 group-hover/sidebar:border-t group-hover/sidebar:mt-2 group-hover/sidebar:pt-3" />
+          <div className="border-t border-inverse/10 my-2 group-hover/sidebar:my-0 group-hover/sidebar:border-t group-hover/sidebar:mt-2 group-hover/sidebar:pt-3" />
 
           {/* Logout */}
           <button
             onClick={handleLogout}
             title="Logout"
-            className="flex items-center gap-3 w-full px-3 py-3 rounded-lg text-sm font-medium text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors cursor-pointer"
+            className="flex items-center gap-3 w-full px-3 py-3 rounded-lg text-sm font-medium text-destructive hover:bg-destructive/10 transition-colors duration-200 cursor-pointer"
           >
             <LogOut className="w-5 h-5 shrink-0" />
             <span className="whitespace-nowrap opacity-0 group-hover/sidebar:opacity-100 transition-opacity duration-200">
@@ -177,24 +177,24 @@ export default function AdminShell({ children, adminEmail }: AdminShellProps) {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden lg:ml-[68px]">
         {/* Header */}
-        <header className="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 sm:px-6 shrink-0">
+        <header className="h-16 bg-card border-b border-border flex items-center justify-between px-4 sm:px-6 shrink-0">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setSidebarOpen(true)}
-              className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+              className="lg:hidden p-1.5 rounded-lg hover:bg-secondary transition-colors"
               aria-label="Open menu"
             >
-              <Menu className="w-5 h-5 text-gray-600" />
+              <Menu className="w-5 h-5 text-muted-foreground" />
             </button>
-            <h1 className="text-sm sm:text-base font-serif font-bold text-[var(--navy)]">
+            <h1 className="text-sm sm:text-base font-serif font-bold text-primary">
               Property Fifth Admin Portal
             </h1>
           </div>
 
           <div className="flex items-center gap-4">
             <div className="hidden sm:block text-right">
-              <p className="text-xs text-gray-500">{adminEmail}</p>
-              <p className={`text-[0.65rem] font-medium ${adminRole === "SUPER_ADMIN" ? "text-amber-600" : "text-gray-400"}`}>{adminRole === "SUPER_ADMIN" ? "Super Admin" : "Admin"}</p>
+              <p className="text-xs text-muted-foreground">{adminEmail}</p>
+              <p className={`text-[0.65rem] font-medium ${adminRole === "SUPER_ADMIN" ? "text-warning" : "text-muted-foreground"}`}>{adminRole === "SUPER_ADMIN" ? "Super Admin" : "Admin"}</p>
             </div>
           </div>
         </header>

@@ -2,9 +2,10 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { loginAction } from "@/app/actions/auth";
 import { useSnackbar } from "@/components/snackbar/snackbar-provider";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, Loader2 } from "lucide-react";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -31,83 +32,88 @@ export default function LoginForm() {
   }
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
-      {/* Full-screen background image — hidden on mobile */}
-      <img
-        src="/images/bg/admin-login-bg.webp"
-        alt=""
-        className="hidden lg:block absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="hidden lg:block absolute inset-0 bg-[#0a1628]/0" />
+    <div className="relative min-h-screen w-full flex items-center justify-center lg:justify-end overflow-hidden bg-background">
+      {/* Background Image — Desktop Only */}
+      <div className="hidden lg:block absolute inset-0 w-full h-full">
+        <Image
+          src="/images/bg/admin-login-bg.webp"
+          alt="Admin Background"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+      </div>
 
-      {/* Floating login card — full screen on mobile, right-side card on desktop */}
-      <div className="relative z-10 h-full flex items-center justify-center lg:justify-end p-0 lg:p-4 sm:lg:p-6 lg:p-8">
-        <div className="w-full h-full lg:max-w-[480px] lg:h-[calc(100vh-4rem)] bg-white lg:rounded-[28px] lg:shadow-2xl px-6 sm:px-10 py-6 flex flex-col overflow-hidden">
-          {/* Logo */}
-          <div className="flex justify-center mb-2">
-            <img
-              src="/images/logo/pf-logo1.webp"
-              alt="Property Fifth"
-              className="h-18 sm:h-22 mb-5"
-            />
-          </div>
-
-          {/* Header */}
-          <div className="text-center mb-5">
-            <h1 className="text-xl sm:text-2xl font-serif font-bold text-[#0a1628] tracking-tight">
-              Admin Login
+      {/* Floating Login Card Panel */}
+      <div className="relative z-10 w-full min-h-screen lg:min-h-0 lg:max-w-[460px] lg:m-6 flex flex-col justify-center">
+        <div className="w-full bg-card lg:rounded-3xl lg:shadow-2xl border-0 lg:border border-border p-6 sm:p-10 flex flex-col justify-between">
+          
+          {/* Header & Logo */}
+          <div className="flex flex-col items-center text-center mb-6">
+            <div className="relative w-40 h-16 mb-4">
+              <Image
+                src="/images/logo/pf-logo1.webp"
+                alt="Property Fifth"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <h1 className="text-2xl font-serif font-bold text-primary tracking-tight">
+              Admin Portal
             </h1>
-            <p className="text-xs text-gray-500 mt-1">
-              Welcome back! Please login to access your admin panel.
+            <p className="text-xs text-muted-foreground mt-1">
+              Welcome back! Please enter your credentials.
             </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-3.5">
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="block text-xs font-semibold text-[#0a1628] mb-1.5">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email Field */}
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-xs font-semibold text-primary">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email address"
+                  placeholder="admin@propertyfifth.com"
                   autoComplete="email"
                   required
                   disabled={isPending}
-                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 border border-gray-200 rounded-xl text-xs sm:text-sm text-[#0a1628] placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-[#0a1628] focus:border-[#0a1628] transition-all disabled:opacity-50"
+                  className="w-full h-11 pl-10 pr-4 text-xs sm:text-sm bg-background rounded-xl border border-border focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all disabled:opacity-50"
                 />
               </div>
             </div>
 
-            {/* Password */}
-            <div>
-              <label htmlFor="password" className="block text-xs font-semibold text-[#0a1628] mb-1.5">
+            {/* Password Field */}
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="text-xs font-semibold text-primary">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter your password"
+                  placeholder="••••••••"
                   autoComplete="current-password"
                   required
                   disabled={isPending}
-                  className="w-full pl-10 pr-10 py-2.5 sm:py-3 border border-gray-200 rounded-xl text-xs sm:text-sm text-[#0a1628] placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-[#0a1628] focus:border-[#0a1628] transition-all disabled:opacity-50"
+                  className="w-full h-11 pl-10 pr-11 text-xs sm:text-sm bg-background rounded-xl border border-border focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-all disabled:opacity-50"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground hover:text-primary transition-colors"
                   tabIndex={-1}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -115,57 +121,45 @@ export default function LoginForm() {
             </div>
 
             {/* Remember Me */}
-            <label htmlFor="remember" className="flex items-center gap-2 cursor-pointer select-none">
-              <div className="relative flex items-center justify-center w-4 h-4">
+            <div className="flex items-center justify-between pt-1">
+              <label htmlFor="remember" className="flex items-center gap-2.5 cursor-pointer select-none">
                 <input
                   id="remember"
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
                   disabled={isPending}
-                  className="peer sr-only"
+                  className="w-4 h-4 rounded border-border text-accent focus:ring-accent accent-accent cursor-pointer"
                 />
-                {/* Custom Box */}
-                <div className="absolute inset-0 rounded-[5px] border border-gray-300 bg-white peer-checked:bg-[#c8963e] peer-checked:border-[#c8963e] transition-all" />
+                <span className="text-xs text-muted-foreground font-medium">Remember me</span>
+              </label>
+            </div>
 
-                {/* Custom White Tick */}
-                <svg
-                  className="relative w-2.5 h-2.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth="3.5"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-              <span className="text-xs text-gray-500 font-normal">Remember me</span>
-            </label>
-
-            {/* Submit */}
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={isPending}
-              className="w-full mt-5 mb-8 flex items-center justify-center gap-2 bg-[#0a1628] hover:bg-[#0f1f3a] text-white py-3 px-4 rounded-xl text-xs sm:text-sm font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              className="btn-gold w-full h-11 mt-2 text-xs sm:text-sm font-semibold tracking-wide uppercase disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isPending ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span className="inline-flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin" />
                   Logging in...
-                </>
+                </span>
               ) : (
-                <>
+                <span className="inline-flex items-center gap-2">
                   <Lock className="w-4 h-4" />
-                  Login to Admin
-                </>
+                  Sign In to Dashboard
+                </span>
               )}
             </button>
           </form>
 
           {/* Footer */}
-          <div className="mt-5 text-center text-[11px] text-gray-400">
-            &copy; 2024 Property Fifth. All rights reserved.
+          <div className="mt-8 text-center text-[11px] text-muted-foreground">
+            &copy; {new Date().getFullYear()} Property Fifth. All rights reserved.
           </div>
+
         </div>
       </div>
     </div>

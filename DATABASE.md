@@ -638,3 +638,66 @@ Before changing the database:
 2. Confirm the change is actually required.
 3. Only then update the ORM schema/migration.
 4. Do not introduce duplicate fields that represent the same UI data.
+
+---
+
+# 9. CommunityPost
+
+Stores posts/questions created by defence personnel in the community discussion section.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| `id` | UUID | Yes | Unique post ID |
+| `customerId` | UUID | Yes | Author (must be DEFENCE_PERSONNEL) |
+| `title` | String | Yes | Post title/question |
+| `content` | Text | Yes | Detailed description |
+| `createdAt` | DateTime | Yes | Post creation time |
+| `updatedAt` | DateTime | Yes | Last update time |
+
+# 10. CommunityComment
+
+Stores comments/replies to community posts.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| `id` | UUID | Yes | Unique comment ID |
+| `postId` | UUID | Yes | The post being commented on |
+| `customerId` | UUID | Yes | Author |
+| `content` | Text | Yes | Comment body |
+| `createdAt` | DateTime | Yes | Comment creation time |
+| `updatedAt` | DateTime | Yes | Last update time |
+
+# 11. CommunityLike
+
+Stores likes on community posts.
+
+| Field | Type | Required | Description |
+|---|---|---:|---|
+| `id` | UUID | Yes | Unique like ID |
+| `postId` | UUID | Yes | The post being liked |
+| `customerId` | UUID | Yes | The user who liked the post |
+| `createdAt` | DateTime | Yes | Like timestamp |
+
+### Constraint
+A customer can like a post only once. UNIQUE(postId, customerId)
+
+### Indexes
+- `@@index([customerId])` — author's posts lookup (My Discussions tab).
+- `@@index([createdAt(sort: Desc)])` — supports recency ordering / feed fallbacks.
+
+### Community Feed (light-weight, no Redis)
+The `/defence` community feed is served by `GET /api/feed` backed by
+`lib/feed/community-feed.ts`. The ranking score is calculated directly inside
+a single SQL query (no external cache, no extra tables):
+
+```text
+Score = (Total Likes x 2) + (Total Comments x 5) - (Hours Since Created x 1.5)
+```
+
+- Counts come from `COUNT(DISTINCT ...)` over `CommunityLike`/`CommunityComment`.
+- Keyset (cursor) pagination on `(score DESC, id DESC)` with `limit` 1–20
+  (default 10): every page is one bounded query, 1000+ posts never load into RAM.
+- Identity for `likedByMe`/`commentedByMe` is resolved server-side from the
+  first-party `visitorId` cookie; client-supplied user ids are never trusted.
+- Deleted posts need no filter: deletes are hard deletes (row no longer exists).
+- There are no private/draft posts in this schema — all community posts are public.

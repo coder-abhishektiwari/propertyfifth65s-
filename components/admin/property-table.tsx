@@ -151,19 +151,19 @@ export default function PropertyTable({
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search properties..."
-            className="w-full pl-10 pr-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/30 focus:border-[var(--gold)] transition-colors"
+            className="w-full pl-10 pr-3 py-2.5 text-sm border border-border rounded-lg bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/30 focus:border-[var(--gold)] transition-colors cursor-pointer"
+          className="px-3 py-2.5 text-sm border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors cursor-pointer"
         >
           <option value="all">All Status</option>
           <option value="published">Published</option>
@@ -178,7 +178,7 @@ export default function PropertyTable({
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/30 focus:border-[var(--gold)] transition-colors cursor-pointer"
+          className="px-3 py-2.5 text-sm border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors cursor-pointer"
         >
           <option value="all">All Type</option>
           <option value="APARTMENT">Apartment</option>
@@ -192,7 +192,7 @@ export default function PropertyTable({
         <select
           value={locationFilter}
           onChange={(e) => setLocationFilter(e.target.value)}
-          className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/30 focus:border-[var(--gold)] transition-colors cursor-pointer"
+          className="px-3 py-2.5 text-sm border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors cursor-pointer"
         >
           <option value="all">All Locations</option>
           {uniqueCities.map((city) => (
@@ -208,7 +208,7 @@ export default function PropertyTable({
             setTypeFilter("all");
             setLocationFilter("all");
           }}
-          className="inline-flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-[var(--navy)] border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium text-muted-foreground hover:text-primary border border-border rounded-lg hover:border-border-strong transition-colors cursor-pointer"
         >
           <Filter className="w-3.5 h-3.5" />
           Reset
@@ -216,16 +216,16 @@ export default function PropertyTable({
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         {filtered.length === 0 ? (
           <div className="text-center py-16 px-6">
-            <Building2 className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-sm font-semibold text-gray-700 mb-1">
+            <Building2 className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-sm font-semibold text-foreground mb-1">
               {properties.length === 0
                 ? "No properties found"
                 : "No matching properties"}
             </h3>
-            <p className="text-xs text-gray-400 mb-5 max-w-sm mx-auto">
+            <p className="text-xs text-muted-foreground mb-5 max-w-sm mx-auto">
               {properties.length === 0
                 ? "Add your first property to start managing your listings."
                 : "Try adjusting your search or filter criteria."}
@@ -233,7 +233,7 @@ export default function PropertyTable({
             {properties.length === 0 && (
               <Link
                 href="/admin/properties/new"
-                className="inline-flex items-center gap-2 bg-[var(--navy)] hover:bg-[var(--navy-light)] text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-colors"
+                className="inline-flex items-center gap-2 bg-primary hover:bg-navy-light text-inverse text-xs font-semibold px-4 py-2.5 rounded-lg transition-colors"
               >
                 Add Property
               </Link>
@@ -243,32 +243,32 @@ export default function PropertyTable({
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50/50">
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">
+                <tr className="border-b border-border bg-muted/50">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">
                     Property
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden md:table-cell">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden md:table-cell">
                     Location
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden lg:table-cell">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden lg:table-cell">
                     Type
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden xl:table-cell">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden xl:table-cell">
                     Configuration
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden sm:table-cell">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden sm:table-cell">
                     Price
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">
                     Published
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden sm:table-cell">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden sm:table-cell">
                     Status
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden lg:table-cell">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden lg:table-cell">
                     Featured
                   </th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">
                     Actions
                   </th>
                 </tr>
@@ -279,11 +279,11 @@ export default function PropertyTable({
                   return (
                     <tr
                       key={property.id}
-                      className="hover:bg-gray-50/50 transition-colors"
+                      className="hover:bg-muted/50 transition-colors"
                     >
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-14 h-10 rounded-lg bg-gray-100 overflow-hidden shrink-0 relative">
+                          <div className="w-14 h-10 rounded-lg bg-secondary overflow-hidden shrink-0 relative">
                             <PropertyPlaceholder className="absolute inset-0" />
                             {coverImage && (
                               <img
@@ -295,11 +295,11 @@ export default function PropertyTable({
                             )}
                           </div>
                           <div className="min-w-0">
-                            <p className="font-semibold text-[var(--navy)] truncate">
+                            <p className="font-semibold text-primary truncate">
                               {property.name}
                             </p>
                             {property.reraNumber && (
-                              <p className="text-xs text-gray-400 truncate">
+                              <p className="text-xs text-muted-foreground truncate">
                                 RERA: {property.reraNumber}
                               </p>
                             )}
@@ -308,50 +308,50 @@ export default function PropertyTable({
                       </td>
                       <td className="px-5 py-4 hidden md:table-cell">
                         <div className="flex items-start gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-gray-400 mt-0.5 shrink-0" />
-                          <span className="text-xs text-gray-600 leading-relaxed">
+                          <MapPin className="w-3.5 h-3.5 text-muted-foreground mt-0.5 shrink-0" />
+                          <span className="text-xs text-muted-foreground leading-relaxed">
                             {property.locality}
                             {property.city && `, ${property.city}`}
                           </span>
                         </div>
                       </td>
                       <td className="px-5 py-4 hidden lg:table-cell">
-                        <span className="text-xs text-gray-600">
+                        <span className="text-xs text-muted-foreground">
                           {property.propertyType.replace(/_/g, " ")}
                         </span>
                       </td>
                       <td className="px-5 py-4 hidden xl:table-cell">
-                        <span className="text-xs text-gray-600">
+                        <span className="text-xs text-muted-foreground">
                           {property.configuration || "—"}
                         </span>
                       </td>
                       <td className="px-5 py-4 hidden sm:table-cell">
                         {property.priceMin ? (
                           <div>
-                            <span className="text-sm font-bold text-[var(--gold)]">
+                            <span className="text-sm font-bold text-accent">
                               {formatPrice(Number(property.priceMin))}
                             </span>
                             {property.priceLabel && (
-                              <span className="text-xs text-gray-400 ml-1">
+                              <span className="text-xs text-muted-foreground ml-1">
                                 {property.priceLabel}
                               </span>
                             )}
                           </div>
                         ) : (
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-muted-foreground">
                             Price Not Disclosed
                           </span>
                         )}
                       </td>
                       <td className="px-5 py-4">
                         {actionLoading === property.id ? (
-                          <span className="text-xs text-gray-400">Updating...</span>
+                          <span className="text-xs text-muted-foreground">Updating...</span>
                         ) : (
                           <span
                             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                               property.published
-                                ? "bg-green-50 text-green-700 border border-green-200"
-                                : "bg-gray-100 text-gray-600 border border-gray-200"
+                                ? "bg-success-bg text-success border border-success-border"
+                                : "bg-secondary text-muted-foreground border border-border"
                             }`}
                           >
                             {property.published ? "Published" : "Draft"}
@@ -363,16 +363,16 @@ export default function PropertyTable({
                           <span
                             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                               property.status === "NEW_LAUNCH"
-                                ? "bg-blue-50 text-blue-700 border border-blue-200"
+                                ? "bg-info-bg text-info border border-info-border"
                                 : property.status === "SOLD_OUT"
-                                  ? "bg-red-50 text-red-700 border border-red-200"
-                                  : "bg-amber-50 text-amber-700 border border-amber-200"
+                                  ? "bg-destructive-bg text-destructive border border-destructive-border"
+                                  : "bg-warning-bg text-warning border border-warning-border"
                             }`}
                           >
                             {getStatusLabel(property.status)}
                           </span>
                         ) : (
-                          <span className="text-xs text-gray-400">—</span>
+                          <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </td>
                       <td className="px-5 py-4 hidden lg:table-cell">
@@ -385,8 +385,8 @@ export default function PropertyTable({
                             <Star
                               className={`w-4 h-4 ${
                                 property.featured
-                                  ? "text-[var(--gold)] fill-[var(--gold)]"
-                                  : "text-gray-300 hover:text-[var(--gold)]"
+                                  ? "text-accent fill-[var(--gold)]"
+                                  : "text-muted-foreground hover:text-accent"
                               } transition-colors`}
                             />
                           </button>
@@ -400,9 +400,9 @@ export default function PropertyTable({
                                 openMenuId === property.id ? null : property.id
                               )
                             }
-                            className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+                            className="p-1.5 rounded-lg hover:bg-secondary transition-colors cursor-pointer"
                           >
-                            <MoreVertical className="w-4 h-4 text-gray-500" />
+                            <MoreVertical className="w-4 h-4 text-muted-foreground" />
                           </button>
 
                           {openMenuId === property.id && (
@@ -411,18 +411,18 @@ export default function PropertyTable({
                                 className="fixed inset-0 z-40"
                                 onClick={() => setOpenMenuId(null)}
                               />
-                              <div className="absolute right-0 top-full mt-1 z-50 w-48 bg-white border border-gray-200 rounded-xl shadow-lg py-1.5 animate-fade-in">
+                              <div className="absolute right-0 top-full mt-1 z-50 w-48 bg-card border border-border rounded-xl shadow-lg py-1.5 animate-fade-in">
                                 <Link
                                   href={`/admin/properties/${property.id}/edit`}
                                   onClick={() => setOpenMenuId(null)}
-                                  className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                                  className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
                                 >
                                   <Pencil className="w-3.5 h-3.5" />
                                   Edit Property
                                 </Link>
                                 <button
                                   onClick={() => handleTogglePublished(property.id)}
-                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
                                 >
                                   {property.published ? (
                                     <>
@@ -438,20 +438,20 @@ export default function PropertyTable({
                                 </button>
                                 <button
                                   onClick={() => handleToggleFeatured(property.id)}
-                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer"
+                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
                                 >
                                   <Star
-                                    className={`w-3.5 h-3.5 ${property.featured ? "fill-[var(--gold)] text-[var(--gold)]" : ""}`}
+                                    className={`w-3.5 h-3.5 ${property.featured ? "fill-[var(--gold)] text-accent" : ""}`}
                                   />
                                   {property.featured ? "Unfeature" : "Mark Featured"}
                                 </button>
-                                <div className="border-t border-gray-100 my-1.5" />
+                                <div className="border-t border-border-light my-1.5" />
                                 <button
                                   onClick={() => {
                                     setOpenMenuId(null);
                                     setDeleteConfirmId(property.id);
                                   }}
-                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-destructive hover:bg-destructive-bg transition-colors cursor-pointer"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
                                   Delete Property
@@ -470,7 +470,7 @@ export default function PropertyTable({
         )}
 
         {filtered.length > 0 && (
-          <div className="px-5 py-3 border-t border-gray-200 text-xs text-gray-500">
+          <div className="px-5 py-3 border-t border-border text-xs text-muted-foreground">
             Showing {filtered.length} of {totalCount} properties
             {filtered.length !== totalCount && " (filtered)"}
           </div>
@@ -481,30 +481,31 @@ export default function PropertyTable({
       {deleteConfirmId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-scrim"
             onClick={() => !deleting && setDeleteConfirmId(null)}
           />
-          <div className="relative bg-white rounded-2xl shadow-xl max-w-md w-full p-6 animate-fade-in">
+          <div className="relative bg-card rounded-2xl shadow-xl max-w-md w-full p-6 animate-fade-in ring-1 ring-border/40">
             <button
               onClick={() => !deleting && setDeleteConfirmId(null)}
-              className="absolute top-4 right-4 p-1 text-gray-400 hover:text-gray-600 cursor-pointer"
+              className="absolute top-4 right-4 p-1.5 text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors cursor-pointer"
+              aria-label="Close"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center shrink-0">
-                <AlertTriangle className="w-5 h-5 text-red-500" />
+              <div className="w-10 h-10 rounded-full bg-destructive-bg flex items-center justify-center shrink-0 ring-1 ring-destructive-border/30">
+                <AlertTriangle className="w-5 h-5 text-destructive" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-gray-900">
+                <h3 className="text-base font-bold text-foreground">
                   Delete Property
                 </h3>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-xs text-muted-foreground mt-0.5">
                   This action cannot be undone.
                 </p>
               </div>
             </div>
-            <p className="text-sm text-gray-600 mb-6">
+            <p className="text-sm text-muted-foreground mb-6">
               Are you sure you want to permanently delete this property? All
               associated images will also be removed. If this property has
               callback requests, deletion will be blocked.
@@ -513,14 +514,14 @@ export default function PropertyTable({
               <button
                 onClick={() => setDeleteConfirmId(null)}
                 disabled={deleting}
-                className="px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                className="px-4 py-2 text-sm font-medium text-foreground bg-transparent border border-border hover:bg-secondary rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Cancel
               </button>
               <button
                 onClick={handleDelete}
                 disabled={deleting}
-                className="px-4 py-2 text-sm font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+                className="px-4 py-2 text-sm font-semibold text-inverse bg-destructive hover:bg-destructive/90 active:scale-[0.98] rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
               >
                 {deleting ? "Deleting..." : "Delete Property"}
               </button>

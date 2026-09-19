@@ -485,11 +485,11 @@ export default function PropertyForm({
     setForm((p) => ({ ...p, bankApproved: (p.bankApproved || []).filter((_, idx) => idx !== i) }));
 
   const inputClass =
-    "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/30 focus:border-[var(--gold)] transition-colors";
+    "w-full px-3 py-2.5 text-sm border border-border rounded-lg bg-card text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors";
   const selectClass =
-    "w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/30 focus:border-[var(--gold)] transition-colors appearance-none cursor-pointer";
-  const labelClass = "block text-xs font-semibold text-gray-700 mb-1.5";
-  const hintClass = "text-xs text-gray-400 mt-0.5";
+    "w-full px-3 py-2.5 text-sm border border-border rounded-lg bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 focus:border-accent transition-colors appearance-none cursor-pointer";
+  const labelClass = "block text-xs font-semibold text-foreground mb-1.5";
+  const hintClass = "text-xs text-muted-foreground mt-0.5";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -499,15 +499,15 @@ export default function PropertyForm({
           <button
             type="button"
             onClick={() => router.push("/admin/properties")}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+            className="p-2 rounded-lg hover:bg-secondary transition-colors cursor-pointer"
           >
-            <ArrowLeft className="w-4 h-4 text-gray-600" />
+            <ArrowLeft className="w-4 h-4 text-muted-foreground" />
           </button>
           <div>
-            <h1 className="text-xl font-serif font-bold text-[var(--navy)]">
+            <h1 className="text-xl font-serif font-bold text-primary">
               {mode === "create" ? "Add New Property" : "Edit Property"}
             </h1>
-            <p className="text-xs text-gray-500 mt-0.5">
+            <p className="text-xs text-muted-foreground mt-0.5">
               {mode === "create"
                 ? "Fill in the details to create a new property listing"
                 : `Editing: ${initialData?.name || "Property"}`}
@@ -522,8 +522,8 @@ export default function PropertyForm({
                 onClick={() => setField("published", !form.published)}
                 className={`inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer ${
                   form.published
-                    ? "bg-green-50 text-green-700 border border-green-200 hover:bg-green-100"
-                    : "bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100"
+                    ? "bg-success-bg text-success border border-success-border hover:bg-success-bg"
+                    : "bg-muted text-muted-foreground border border-border hover:bg-secondary"
                 }`}
               >
                 {form.published ? "Published" : "Draft"}
@@ -533,8 +533,8 @@ export default function PropertyForm({
                 onClick={() => setField("featured", !form.featured)}
                 className={`p-2 rounded-lg transition-colors cursor-pointer ${
                   form.featured
-                    ? "bg-[var(--gold)]/10 text-[var(--gold)]"
-                    : "bg-gray-50 text-gray-400 hover:bg-gray-100"
+                    ? "bg-accent/10 text-accent"
+                    : "bg-muted text-muted-foreground hover:bg-secondary"
                 }`}
               >
                 <Star
@@ -549,7 +549,7 @@ export default function PropertyForm({
                 type="button"
                 disabled={submitting}
                 onClick={(e) => handleSubmit(e, false)}
-                className="inline-flex items-center gap-2 border border-gray-200 hover:bg-gray-50 text-gray-700 text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors cursor-pointer shrink-0 disabled:opacity-50"
+                className="inline-flex items-center gap-2 border border-border hover:bg-muted text-foreground text-sm font-semibold px-4 py-2.5 rounded-lg transition-colors cursor-pointer shrink-0 disabled:opacity-50"
               >
                 <Save className="w-4 h-4" />
                 Save as Draft
@@ -557,7 +557,7 @@ export default function PropertyForm({
               <button
                 type="submit"
                 disabled={submitting}
-                className="inline-flex items-center gap-2 bg-[var(--navy)] hover:bg-[var(--navy-light)] disabled:opacity-50 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer shrink-0"
+                className="inline-flex items-center gap-2 bg-primary hover:bg-navy-light disabled:opacity-50 text-inverse text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer shrink-0"
               >
                 <Eye className="w-4 h-4" />
                 {submitting ? "Publishing..." : "Publish"}
@@ -567,7 +567,7 @@ export default function PropertyForm({
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center gap-2 bg-[var(--navy)] hover:bg-[var(--navy-light)] disabled:opacity-50 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer shrink-0"
+              className="inline-flex items-center gap-2 bg-primary hover:bg-navy-light disabled:opacity-50 text-inverse text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors cursor-pointer shrink-0"
             >
               <Save className="w-4 h-4" />
               {submitting ? "Saving..." : "Save Changes"}
@@ -578,12 +578,12 @@ export default function PropertyForm({
 
       {/* Messages */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3 rounded-lg">
+        <div className="bg-destructive-bg border border-destructive-border text-destructive text-sm px-4 py-3 rounded-lg">
           {error}
         </div>
       )}
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-lg">
+        <div className="bg-success-bg border border-success-border text-success text-sm px-4 py-3 rounded-lg">
           {success}
         </div>
       )}
@@ -592,10 +592,10 @@ export default function PropertyForm({
         {/* Main content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Basic Information */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <button type="button" onClick={() => toggleSection("basic")} className="w-full flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer">
-              <h3 className="text-sm font-bold text-[var(--navy)]">Basic Information</h3>
-              {sections.basic ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          <div className="bg-card rounded-xl border border-border p-5">
+            <button type="button" onClick={() => toggleSection("basic")} className="w-full flex items-center justify-between py-3 border-b border-border-light cursor-pointer">
+              <h3 className="text-sm font-bold text-primary">Basic Information</h3>
+              {sections.basic ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
             </button>
             {sections.basic && (
               <div className="pt-4 space-y-4">
@@ -696,10 +696,10 @@ export default function PropertyForm({
           </div>
 
           {/* Location */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <button type="button" onClick={() => toggleSection("location")} className="w-full flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer">
-              <h3 className="text-sm font-bold text-[var(--navy)]">Location</h3>
-              {sections.location ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          <div className="bg-card rounded-xl border border-border p-5">
+            <button type="button" onClick={() => toggleSection("location")} className="w-full flex items-center justify-between py-3 border-b border-border-light cursor-pointer">
+              <h3 className="text-sm font-bold text-primary">Location</h3>
+              {sections.location ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
             </button>
             {sections.location && (
               <div className="pt-4 space-y-4">
@@ -799,10 +799,10 @@ export default function PropertyForm({
           </div>
 
           {/* Pricing */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <button type="button" onClick={() => toggleSection("pricing")} className="w-full flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer">
-              <h3 className="text-sm font-bold text-[var(--navy)]">Pricing</h3>
-              {sections.pricing ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          <div className="bg-card rounded-xl border border-border p-5">
+            <button type="button" onClick={() => toggleSection("pricing")} className="w-full flex items-center justify-between py-3 border-b border-border-light cursor-pointer">
+              <h3 className="text-sm font-bold text-primary">Pricing</h3>
+              {sections.pricing ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
             </button>
             {sections.pricing && (
               <div className="pt-4 space-y-4">
@@ -846,10 +846,10 @@ export default function PropertyForm({
           </div>
 
           {/* Property Details */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <button type="button" onClick={() => toggleSection("details")} className="w-full flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer">
-              <h3 className="text-sm font-bold text-[var(--navy)]">Property Details</h3>
-              {sections.details ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          <div className="bg-card rounded-xl border border-border p-5">
+            <button type="button" onClick={() => toggleSection("details")} className="w-full flex items-center justify-between py-3 border-b border-border-light cursor-pointer">
+              <h3 className="text-sm font-bold text-primary">Property Details</h3>
+              {sections.details ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
             </button>
             {sections.details && (
               <div className="pt-4 space-y-4">
@@ -956,10 +956,10 @@ export default function PropertyForm({
           </div>
 
           {/* Descriptions & Content */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <button type="button" onClick={() => toggleSection("descriptions")} className="w-full flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer">
-              <h3 className="text-sm font-bold text-[var(--navy)]">Descriptions & Content</h3>
-              {sections.descriptions ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          <div className="bg-card rounded-xl border border-border p-5">
+            <button type="button" onClick={() => toggleSection("descriptions")} className="w-full flex items-center justify-between py-3 border-b border-border-light cursor-pointer">
+              <h3 className="text-sm font-bold text-primary">Descriptions & Content</h3>
+              {sections.descriptions ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
             </button>
             {sections.descriptions && (
               <div className="pt-4 space-y-4">
@@ -1001,13 +1001,13 @@ export default function PropertyForm({
                     <button
                       type="button"
                       onClick={addHighlight}
-                      className="text-xs font-medium text-[var(--gold)] hover:text-[var(--gold-dark)] cursor-pointer"
+                      className="text-xs font-medium text-accent hover:text-accent-strong cursor-pointer"
                     >
                       + Add
                     </button>
                   </div>
                   {(form.highlights || []).length === 0 && (
-                    <p className="text-xs text-gray-400 mb-2">No highlights added</p>
+                    <p className="text-xs text-muted-foreground mb-2">No highlights added</p>
                   )}
                   <div className="space-y-2">
                     {(form.highlights || []).map((h, i) => (
@@ -1022,7 +1022,7 @@ export default function PropertyForm({
                         <button
                           type="button"
                           onClick={() => removeHighlight(i)}
-                          className="p-1.5 text-gray-400 hover:text-red-500 cursor-pointer shrink-0"
+                          className="p-1.5 text-muted-foreground hover:text-destructive cursor-pointer shrink-0"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -1038,13 +1038,13 @@ export default function PropertyForm({
                     <button
                       type="button"
                       onClick={addAmenity}
-                      className="text-xs font-medium text-[var(--gold)] hover:text-[var(--gold-dark)] cursor-pointer"
+                      className="text-xs font-medium text-accent hover:text-accent-strong cursor-pointer"
                     >
                       + Add
                     </button>
                   </div>
                   {(form.amenities || []).length === 0 && (
-                    <p className="text-xs text-gray-400 mb-2">No amenities added</p>
+                    <p className="text-xs text-muted-foreground mb-2">No amenities added</p>
                   )}
                   <div className="space-y-2">
                     {(form.amenities || []).map((a, i) => (
@@ -1059,7 +1059,7 @@ export default function PropertyForm({
                         <button
                           type="button"
                           onClick={() => removeAmenity(i)}
-                          className="p-1.5 text-gray-400 hover:text-red-500 cursor-pointer shrink-0"
+                          className="p-1.5 text-muted-foreground hover:text-destructive cursor-pointer shrink-0"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -1075,13 +1075,13 @@ export default function PropertyForm({
                     <button
                       type="button"
                       onClick={addSpec}
-                      className="text-xs font-medium text-[var(--gold)] hover:text-[var(--gold-dark)] cursor-pointer"
+                      className="text-xs font-medium text-accent hover:text-accent-strong cursor-pointer"
                     >
                       + Add
                     </button>
                   </div>
                   {(form.specifications || []).length === 0 && (
-                    <p className="text-xs text-gray-400 mb-2">No specifications added</p>
+                    <p className="text-xs text-muted-foreground mb-2">No specifications added</p>
                   )}
                   <div className="space-y-2">
                     {(form.specifications || []).map((s, i) => (
@@ -1103,7 +1103,7 @@ export default function PropertyForm({
                         <button
                           type="button"
                           onClick={() => removeSpec(i)}
-                          className="p-1.5 text-gray-400 hover:text-red-500 cursor-pointer shrink-0"
+                          className="p-1.5 text-muted-foreground hover:text-destructive cursor-pointer shrink-0"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -1119,13 +1119,13 @@ export default function PropertyForm({
                     <button
                       type="button"
                       onClick={addBank}
-                      className="text-xs font-medium text-[var(--gold)] hover:text-[var(--gold-dark)] cursor-pointer"
+                      className="text-xs font-medium text-accent hover:text-accent-strong cursor-pointer"
                     >
                       + Add
                     </button>
                   </div>
                   {(form.bankApproved || []).length === 0 && (
-                    <p className="text-xs text-gray-400 mb-2">No banks added</p>
+                    <p className="text-xs text-muted-foreground mb-2">No banks added</p>
                   )}
                   <div className="space-y-2">
                     {(form.bankApproved || []).map((b, i) => (
@@ -1147,7 +1147,7 @@ export default function PropertyForm({
                         <button
                           type="button"
                           onClick={() => removeBank(i)}
-                          className="p-1.5 text-gray-400 hover:text-red-500 cursor-pointer shrink-0"
+                          className="p-1.5 text-muted-foreground hover:text-destructive cursor-pointer shrink-0"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -1163,10 +1163,10 @@ export default function PropertyForm({
         {/* Sidebar: Media */}
         <div className="space-y-6">
           {/* Images */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <button type="button" onClick={() => toggleSection("media")} className="w-full flex items-center justify-between py-3 border-b border-gray-100 cursor-pointer">
-              <h3 className="text-sm font-bold text-[var(--navy)]">Property Images</h3>
-              {sections.media ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          <div className="bg-card rounded-xl border border-border p-5">
+            <button type="button" onClick={() => toggleSection("media")} className="w-full flex items-center justify-between py-3 border-b border-border-light cursor-pointer">
+              <h3 className="text-sm font-bold text-primary">Property Images</h3>
+              {sections.media ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
             </button>
             {sections.media && (
               <div className="pt-4 space-y-4">
@@ -1182,17 +1182,17 @@ export default function PropertyForm({
                   type="button"
                   onClick={() => imageInputRef.current?.click()}
                   disabled={uploadingImage || !propertyId}
-                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-200 rounded-lg py-6 text-sm text-gray-500 hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors cursor-pointer disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-border rounded-lg py-6 text-sm text-muted-foreground hover:border-accent hover:text-accent transition-colors cursor-pointer disabled:opacity-50"
                 >
                   <Upload className="w-4 h-4" />
                   {uploadingImage ? "Uploading..." : "Upload Images"}
                 </button>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-muted-foreground">
                   JPG, PNG, WebP. Max 10MB each.
                 </p>
 
                 {!propertyId && mode === "create" && (
-                  <p className="text-xs text-amber-600 bg-amber-50 border border-amber-200 px-3 py-2 rounded-lg">
+                  <p className="text-xs text-warning bg-warning-bg border border-warning-border px-3 py-2 rounded-lg">
                     Save the property first to upload images.
                   </p>
                 )}
@@ -1203,11 +1203,11 @@ export default function PropertyForm({
                       key={img.id}
                       className={`relative flex items-center gap-3 p-2 rounded-lg border ${
                         img.isCover
-                          ? "border-[var(--gold)] bg-[var(--gold)]/5"
-                          : "border-gray-100"
+                          ? "border-accent bg-accent/5"
+                          : "border-border-light"
                       }`}
                     >
-                      <div className="w-16 h-12 rounded bg-gray-100 overflow-hidden shrink-0 relative">
+                      <div className="w-16 h-12 rounded bg-secondary overflow-hidden shrink-0 relative">
                         <PropertyPlaceholder className="absolute inset-0" />
                         <img
                           src={toAdminImage(img.imageUrl, propertySlug)}
@@ -1217,11 +1217,11 @@ export default function PropertyForm({
                         />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs text-gray-600 truncate">
+                        <p className="text-xs text-muted-foreground truncate">
                           {img.imageUrl.split("/").pop()}
                         </p>
                         {img.isCover && (
-                          <span className="text-[0.65rem] font-semibold text-[var(--gold)]">
+                          <span className="text-[0.65rem] font-semibold text-accent">
                             Cover Image
                           </span>
                         )}
@@ -1231,7 +1231,7 @@ export default function PropertyForm({
                           type="button"
                           onClick={() => handleReorderImage(index, "up")}
                           disabled={index === 0}
-                          className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30 cursor-pointer"
+                          className="p-1 text-muted-foreground hover:text-muted-foreground disabled:opacity-30 cursor-pointer"
                         >
                           <GripVertical className="w-3.5 h-3.5 rotate-180" />
                         </button>
@@ -1239,7 +1239,7 @@ export default function PropertyForm({
                           type="button"
                           onClick={() => handleReorderImage(index, "down")}
                           disabled={index === images.length - 1}
-                          className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30 cursor-pointer"
+                          className="p-1 text-muted-foreground hover:text-muted-foreground disabled:opacity-30 cursor-pointer"
                         >
                           <GripVertical className="w-3.5 h-3.5" />
                         </button>
@@ -1247,7 +1247,7 @@ export default function PropertyForm({
                           <button
                             type="button"
                             onClick={() => handleSetCover(img.id)}
-                            className="p-1 text-gray-400 hover:text-[var(--gold)] cursor-pointer"
+                            className="p-1 text-muted-foreground hover:text-accent cursor-pointer"
                             title="Set as cover"
                           >
                             <Star className="w-3.5 h-3.5" />
@@ -1256,7 +1256,7 @@ export default function PropertyForm({
                         <button
                           type="button"
                           onClick={() => handleDeleteImage(img.id)}
-                          className="p-1 text-gray-400 hover:text-red-500 cursor-pointer"
+                          className="p-1 text-muted-foreground hover:text-destructive cursor-pointer"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
@@ -1267,8 +1267,8 @@ export default function PropertyForm({
 
                 {images.length === 0 && propertyId && (
                   <div className="text-center py-6">
-                    <ImageIcon className="w-8 h-8 text-gray-200 mx-auto mb-2" />
-                    <p className="text-xs text-gray-400">No images uploaded yet</p>
+                    <ImageIcon className="w-8 h-8 text-border mx-auto mb-2" />
+                    <p className="text-xs text-muted-foreground">No images uploaded yet</p>
                   </div>
                 )}
               </div>
@@ -1276,8 +1276,8 @@ export default function PropertyForm({
           </div>
 
           {/* Brochure */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="text-sm font-bold text-[var(--navy)] pb-3 border-b border-gray-100">
+          <div className="bg-card rounded-xl border border-border p-5">
+            <h3 className="text-sm font-bold text-primary pb-3 border-b border-border-light">
               Property Brochure
             </h3>
             <div className="pt-4 space-y-3">
@@ -1290,18 +1290,18 @@ export default function PropertyForm({
               />
 
               {brochure ? (
-                <div className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 bg-gray-50/50">
-                  <FileText className="w-8 h-8 text-red-400 shrink-0" />
+                <div className="flex items-center gap-3 p-3 rounded-lg border border-border-light bg-muted/50">
+                  <FileText className="w-8 h-8 text-destructive shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-gray-700 truncate">
+                    <p className="text-xs font-medium text-foreground truncate">
                       {brochure.name}
                     </p>
-                    <p className="text-[0.65rem] text-gray-400">{brochure.size}</p>
+                    <p className="text-[0.65rem] text-muted-foreground">{brochure.size}</p>
                   </div>
                   <button
                     type="button"
                     onClick={handleDeleteBrochure}
-                    className="p-1.5 text-gray-400 hover:text-red-500 cursor-pointer"
+                    className="p-1.5 text-muted-foreground hover:text-destructive cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -1311,13 +1311,13 @@ export default function PropertyForm({
                   type="button"
                   onClick={() => brochureInputRef.current?.click()}
                   disabled={uploadingBrochure || !propertyId}
-                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-gray-200 rounded-lg py-6 text-sm text-gray-500 hover:border-[var(--gold)] hover:text-[var(--gold)] transition-colors cursor-pointer disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-border rounded-lg py-6 text-sm text-muted-foreground hover:border-accent hover:text-accent transition-colors cursor-pointer disabled:opacity-50"
                 >
                   <Upload className="w-4 h-4" />
                   {uploadingBrochure ? "Uploading..." : "Upload Brochure PDF"}
                 </button>
               )}
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-muted-foreground">
                 PDF only. Max 25MB.
               </p>
             </div>
@@ -1328,39 +1328,39 @@ export default function PropertyForm({
       {/* Upload Progress Dialog */}
       {uploadProgress && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-          <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-full max-w-sm mx-4 space-y-4">
+          <div className="absolute inset-0 bg-scrim-soft backdrop-blur-sm" />
+          <div className="relative bg-card rounded-2xl shadow-2xl p-6 w-full max-w-sm mx-4 space-y-4">
             <div className="flex items-center gap-3">
               {uploadProgress.current === uploadProgress.total &&
               uploadProgress.loaded >= uploadProgress.totalSize ? (
-                <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
+                <CheckCircle2 className="w-5 h-5 text-success shrink-0" />
               ) : (
-                <Loader2 className="w-5 h-5 text-[var(--gold)] animate-spin shrink-0" />
+                <Loader2 className="w-5 h-5 text-accent animate-spin shrink-0" />
               )}
-              <h4 className="text-sm font-bold text-[var(--navy)]">
+              <h4 className="text-sm font-bold text-primary">
                 {uploadProgress.type === "image" ? "Uploading Images" : "Uploading Brochure"}
               </h4>
             </div>
 
             <div className="space-y-2">
-              <p className="text-xs text-gray-600 truncate">
+              <p className="text-xs text-muted-foreground truncate">
                 {uploadProgress.fileName}
               </p>
               {uploadProgress.type === "image" ? (
                 <div className="flex items-center justify-between">
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-muted-foreground">
                     Image {uploadProgress.current} of {uploadProgress.total}
                   </p>
                   <p className={`text-[0.65rem] font-medium px-2 py-0.5 rounded-full ${
                     uploadProgress.status.includes("Converting")
-                      ? "bg-amber-50 text-amber-600"
-                      : "bg-blue-50 text-blue-600"
+                      ? "bg-warning-bg text-warning"
+                      : "bg-info-bg text-info"
                   }`}>
                     {uploadProgress.status}
                   </p>
                 </div>
               ) : (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-muted-foreground">
                   {(uploadProgress.loaded / (1024 * 1024)).toFixed(1)} MB of{" "}
                   {(uploadProgress.totalSize / (1024 * 1024)).toFixed(1)} MB
                 </p>
@@ -1368,10 +1368,10 @@ export default function PropertyForm({
             </div>
 
             {/* Linear Progress Bar */}
-            <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+            <div className="w-full bg-secondary rounded-full h-2 overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-300 ease-out ${
-                  uploadProgress.status.includes("Converting") ? "bg-amber-400" : "bg-[var(--gold)]"
+                  uploadProgress.status.includes("Converting") ? "bg-accent" : "bg-accent"
                 }`}
                 style={{
                   width: `${
@@ -1385,7 +1385,7 @@ export default function PropertyForm({
               />
             </div>
 
-            <p className="text-[0.65rem] text-gray-400 text-center">
+            <p className="text-[0.65rem] text-muted-foreground text-center">
               Please do not close this page
             </p>
           </div>

@@ -98,7 +98,7 @@ export default function AdminAccountsClient() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="w-8 h-8 border-2 border-[var(--gold)]/30 border-t-[var(--gold)] rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-accent/30 border-t-accent rounded-full animate-spin" />
       </div>
     );
   }
@@ -106,9 +106,9 @@ export default function AdminAccountsClient() {
   if (!superAdmin) {
     return (
       <div className="text-center py-20">
-        <Shield className="w-14 h-14 text-gray-300 mx-auto mb-4" />
-        <h3 className="text-lg font-bold text-gray-700 mb-2">Access Restricted</h3>
-        <p className="text-sm text-gray-500">Only super admins can manage admin accounts.</p>
+        <Shield className="w-14 h-14 text-muted-foreground mx-auto mb-4" />
+        <h3 className="text-lg font-bold text-foreground mb-2">Access Restricted</h3>
+        <p className="text-sm text-muted-foreground">Only super admins can manage admin accounts.</p>
       </div>
     );
   }
@@ -118,12 +118,12 @@ export default function AdminAccountsClient() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-serif font-bold text-[var(--navy)]">Admin Accounts</h1>
-          <p className="text-sm text-gray-500 mt-1">Manage admin accounts, create new admins, and reset passwords.</p>
+          <h1 className="text-2xl font-serif font-bold text-primary">Admin Accounts</h1>
+          <p className="text-sm text-muted-foreground mt-1">Manage admin accounts, create new admins, and reset passwords.</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 bg-[var(--navy)] text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer"
+          className="flex items-center gap-2 bg-primary text-inverse text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           Add Admin
@@ -133,53 +133,53 @@ export default function AdminAccountsClient() {
       {/* Message */}
       {message.text && (
         <div className={`mb-6 px-4 py-3 rounded-lg text-sm font-medium ${
-          message.type === "success" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-700 border border-red-200"
+          message.type === "success" ? "bg-success-bg text-success border border-success-border" : "bg-destructive-bg text-destructive border border-destructive-border"
         }`}>
           {message.text}
         </div>
       )}
 
       {/* Admins List */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         {admins.length === 0 ? (
           <div className="text-center py-16">
-            <Users className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-sm font-semibold text-gray-700">No admin accounts found</h3>
+            <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-sm font-semibold text-foreground">No admin accounts found</h3>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50/50">
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">Admin</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden md:table-cell">Role</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden lg:table-cell">Created</th>
-                  <th className="text-right text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">Actions</th>
+                <tr className="border-b border-border bg-muted/50">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">Admin</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden md:table-cell">Role</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden lg:table-cell">Created</th>
+                  <th className="text-right text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {admins.map((admin) => (
-                  <tr key={admin.id} className="hover:bg-gray-50/50 transition-colors">
+                  <tr key={admin.id} className="hover:bg-muted/50 transition-colors">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-[var(--navy)] flex items-center justify-center shrink-0">
-                          <span className="text-xs font-bold text-white">{getInitials(admin.name)}</span>
+                        <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0">
+                          <span className="text-xs font-bold text-inverse">{getInitials(admin.name)}</span>
                         </div>
                         <div>
-                          <p className="font-semibold text-[var(--navy)]">{admin.name}</p>
-                          <p className="text-xs text-gray-400">{admin.email}</p>
+                          <p className="font-semibold text-primary">{admin.name}</p>
+                          <p className="text-xs text-muted-foreground">{admin.email}</p>
                         </div>
                       </div>
                     </td>
                     <td className="px-5 py-4 hidden md:table-cell">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        admin.role === "SUPER_ADMIN" ? "bg-amber-50 text-amber-700 border border-amber-200" : "bg-blue-50 text-blue-700 border border-blue-200"
+                        admin.role === "SUPER_ADMIN" ? "bg-warning-bg text-warning border border-warning-border" : "bg-info-bg text-info border border-info-border"
                       }`}>
                         {admin.role === "SUPER_ADMIN" ? "Super Admin" : "Admin"}
                       </span>
                     </td>
                     <td className="px-5 py-4 hidden lg:table-cell">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-muted-foreground">
                         {new Date(admin.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                       </span>
                     </td>
@@ -187,7 +187,7 @@ export default function AdminAccountsClient() {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => { setShowReset(admin.id); setResetPassword(""); }}
-                          className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--navy)] hover:text-[var(--gold)] transition-colors cursor-pointer"
+                          className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-accent transition-colors cursor-pointer"
                         >
                           <Key className="w-3.5 h-3.5" />
                           Reset Password
@@ -196,7 +196,7 @@ export default function AdminAccountsClient() {
                           <button
                             onClick={() => handleDelete(admin.id)}
                             disabled={submitting}
-                            className="inline-flex items-center gap-1.5 text-xs font-medium text-red-500 hover:text-red-700 transition-colors cursor-pointer disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-destructive hover:text-destructive transition-colors cursor-pointer disabled:opacity-50"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             Delete
@@ -215,59 +215,59 @@ export default function AdminAccountsClient() {
       {/* Create Admin Modal */}
       {showCreate && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setShowCreate(false)} />
-          <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-              <h3 className="text-sm font-bold text-gray-900">Create Admin Account</h3>
-              <button onClick={() => setShowCreate(false)} className="p-1 hover:bg-gray-100 rounded cursor-pointer">
-                <X className="w-5 h-5 text-gray-500" />
+          <div className="absolute inset-0 bg-scrim" onClick={() => setShowCreate(false)} />
+          <div className="relative bg-card rounded-xl shadow-xl w-full max-w-md">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+              <h3 className="text-sm font-bold text-foreground">Create Admin Account</h3>
+              <button onClick={() => setShowCreate(false)} className="p-1 hover:bg-secondary rounded cursor-pointer">
+                <X className="w-5 h-5 text-muted-foreground" />
               </button>
             </div>
             <form onSubmit={handleCreate} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1.5">Name</label>
+                <label className="block text-xs font-semibold text-foreground mb-1.5">Name</label>
                 <input
                   type="text"
                   value={createForm.name}
                   onChange={(e) => setCreateForm((p) => ({ ...p, name: e.target.value }))}
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/20 focus:border-[var(--gold)]"
+                  className="w-full border border-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
                   placeholder="Full name"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1.5">Email</label>
+                <label className="block text-xs font-semibold text-foreground mb-1.5">Email</label>
                 <input
                   type="email"
                   value={createForm.email}
                   onChange={(e) => setCreateForm((p) => ({ ...p, email: e.target.value }))}
-                  className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/20 focus:border-[var(--gold)]"
+                  className="w-full border border-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
                   placeholder="admin@example.com"
                   required
                 />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1.5">Password</label>
+                <label className="block text-xs font-semibold text-foreground mb-1.5">Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={createForm.password}
                     onChange={(e) => setCreateForm((p) => ({ ...p, password: e.target.value }))}
-                    className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/20 focus:border-[var(--gold)] pr-10"
+                    className="w-full border border-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent pr-10"
                     placeholder="Min 6 characters"
                     required
                     minLength={6}
                   />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer">
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground cursor-pointer">
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
               <div className="flex gap-3 pt-2">
-                <button type="button" onClick={() => setShowCreate(false)} className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                <button type="button" onClick={() => setShowCreate(false)} className="flex-1 px-4 py-2.5 text-sm font-medium text-foreground border border-border rounded-lg hover:bg-muted transition-colors cursor-pointer">
                   Cancel
                 </button>
-                <button type="submit" disabled={submitting} className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-[var(--navy)] rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer disabled:opacity-50">
+                <button type="submit" disabled={submitting} className="flex-1 px-4 py-2.5 text-sm font-medium text-inverse bg-primary rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer disabled:opacity-50">
                   {submitting ? "Creating..." : "Create Account"}
                 </button>
               </div>
@@ -279,37 +279,37 @@ export default function AdminAccountsClient() {
       {/* Reset Password Modal */}
       {showReset && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setShowReset(null)} />
-          <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-              <h3 className="text-sm font-bold text-gray-900">Reset Password</h3>
-              <button onClick={() => setShowReset(null)} className="p-1 hover:bg-gray-100 rounded cursor-pointer">
-                <X className="w-5 h-5 text-gray-500" />
+          <div className="absolute inset-0 bg-scrim" onClick={() => setShowReset(null)} />
+          <div className="relative bg-card rounded-xl shadow-xl w-full max-w-md">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+              <h3 className="text-sm font-bold text-foreground">Reset Password</h3>
+              <button onClick={() => setShowReset(null)} className="p-1 hover:bg-secondary rounded cursor-pointer">
+                <X className="w-5 h-5 text-muted-foreground" />
               </button>
             </div>
             <form onSubmit={handleResetPassword} className="p-6 space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-gray-700 mb-1.5">New Password</label>
+                <label className="block text-xs font-semibold text-foreground mb-1.5">New Password</label>
                 <div className="relative">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={resetPassword}
                     onChange={(e) => setResetPassword(e.target.value)}
-                    className="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/20 focus:border-[var(--gold)] pr-10"
+                    className="w-full border border-border rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent pr-10"
                     placeholder="Min 6 characters"
                     required
                     minLength={6}
                   />
-                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer">
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground cursor-pointer">
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
               <div className="flex gap-3 pt-2">
-                <button type="button" onClick={() => setShowReset(null)} className="flex-1 px-4 py-2.5 text-sm font-medium text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                <button type="button" onClick={() => setShowReset(null)} className="flex-1 px-4 py-2.5 text-sm font-medium text-foreground border border-border rounded-lg hover:bg-muted transition-colors cursor-pointer">
                   Cancel
                 </button>
-                <button type="submit" disabled={submitting} className="flex-1 px-4 py-2.5 text-sm font-medium text-white bg-[var(--navy)] rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer disabled:opacity-50">
+                <button type="submit" disabled={submitting} className="flex-1 px-4 py-2.5 text-sm font-medium text-inverse bg-primary rounded-lg hover:bg-[var(--navy-dark)] transition-colors cursor-pointer disabled:opacity-50">
                   {submitting ? "Resetting..." : "Reset Password"}
                 </button>
               </div>

@@ -1,76 +1,44 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import Image from "next/image";
-import {
-  Shield,
-  Users,
-  Award,
-  Handshake,
-  BarChart3,
-  Search,
-  Headphones,
-} from "lucide-react";
-import { toMediaImageUrl } from "@/lib/property-utils";
 
 export const metadata: Metadata = {
   title: "About Us | Property Fifth",
   description:
-    "Learn about Property Fifth — a premium real estate advisory firm committed to helping you make confident property decisions.",
+    "Learn about Property Fifth — a specialised real estate advisory firm dedicated to Defence and Paramilitary personnel and their families.",
 };
 
-const BELIEFS = [
+const WHY_US = [
   {
-    icon: Shield,
-    title: "Integrity",
-    desc: "Honest advice and complete transparency in every interaction.",
+    num: "01",
+    title: "Exclusive Focus",
+    desc: "We work exclusively with Defence and Paramilitary personnel, allowing our advisory approach to remain closely aligned with their requirements.",
   },
   {
-    icon: Users,
-    title: "Client First",
-    desc: "Your goals come first. We listen, understand and deliver accordingly.",
+    num: "02",
+    title: "Luxury Portfolio",
+    desc: "We curate premium and luxury projects with attention to quality, location, lifestyle, developer credentials and long-term considerations.",
   },
   {
-    icon: Award,
-    title: "Excellence",
-    desc: "We are committed to the highest standards in research, service and follow-through.",
-  },
-  {
-    icon: Handshake,
-    title: "Long-Term Relationships",
-    desc: "We believe in lasting partnerships built on trust, performance and mutual respect.",
-  },
-];
-
-const EXPERTISE = [
-  {
-    icon: BarChart3,
-    title: "Market Knowledge",
-    desc: "In-depth understanding of micro-markets to help you identify the best opportunities.",
-  },
-  {
-    icon: Search,
-    title: "Expert Advisory",
-    desc: "Data-driven insights and strategic advice for informed decisions.",
-  },
-  {
-    icon: Headphones,
-    title: "End-to-End Support",
-    desc: "From shortlisting to possession, we are with you at every step.",
+    num: "03",
+    title: "Trusted Guidance",
+    desc: "We bring a professional, transparent and personalised approach to every stage of the property journey.",
   },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="relative bg-[var(--navy)] overflow-hidden mt-16 lg:mt-18">
+      {/* Hero — Unchanged as requested */}
+      <section className="relative bg-primary overflow-hidden mt-16 lg:mt-18">
         <div className="flex flex-col lg:flex-row min-h-[400px] lg:min-h-[480px]">
           <div className="relative z-10 w-full lg:w-1/2 flex items-center">
             <div className="container-site py-12 lg:py-20">
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                About<span className="text-[var(--gold)]"> Us</span>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-inverse leading-tight mb-6">
+                About<span className="text-accent"> Us</span>
               </h1>
-              <div className="w-16 h-[3px] bg-[var(--gold)] mb-8" />
-              <p className="text-white/60 text-base leading-relaxed max-w-md">
+              <div className="w-16 h-[3px] bg-accent mb-8" />
+              <p className="text-inverse-muted text-base leading-relaxed max-w-md">
                 We are a premium real estate advisory firm committed to helping you make confident property decisions that shape your future.
               </p>
             </div>
@@ -84,64 +52,69 @@ export default function AboutPage() {
               className="object-cover object-center"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--navy)] via-[var(--navy)]/1 to-transparent lg:block hidden" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[var(--navy)] via-transparent to-[var(--navy)] lg:hidden" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/1 to-transparent lg:block hidden" />
+            <div className="absolute inset-0 bg-gradient-to-b from-primary via-transparent to-primary lg:hidden" />
           </div>
         </div>
       </section>
 
-      {/* Who We Are */}
-      <section className="section-py bg-white">
-        <div className="container-site">
-          <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-center">
-            <div className="w-full lg:w-1/2">
-              <h2 className="heading-lg mb-2">Who We Are</h2>
-              <div className="w-12 h-0.5 bg-[var(--gold)] mb-6" />
-              <div className="space-y-4 text-sm text-[var(--text-muted)] leading-relaxed">
-                <p>
-                  Property Fifth is a boutique real estate advisory firm specialising in premium and high-value properties across India.
-                </p>
-                <p>
-                  We work with NRIs, investors, business owners and defence families — providing expert guidance with complete transparency.
-                </p>
-                <p>
-                  Our goal is simple — to help you find the right property, at the right value, with complete confidence.
-                </p>
-              </div>
+      {/* Intro — About Property Fifth */}
+      <section className="bg-card py-[65px] lg:py-[90px] px-[7%] lg:px-[8%]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[35px] lg:gap-[70px] items-center">
+          <div>
+            <p className="uppercase tracking-[4px] text-[13px] font-bold text-accent-strong mb-[22px]">
+              About Property Fifth
+            </p>
+            <h2 className="font-serif text-[38px] lg:text-[46px] leading-[1.15] font-normal text-primary mb-[22px]">
+              Real Estate Advisory With a Purpose.
+            </h2>
+            <div className="space-y-[18px] text-[18px] text-muted-foreground leading-[1.6]">
+              <p>
+                Property Fifth is a specialised real estate advisory firm dedicated to helping Defence and Paramilitary personnel and their families discover exceptional luxury and premium properties.
+              </p>
+              <p>
+                Our approach is built around understanding our clients—not simply selling them a property. From carefully curated projects to personalised guidance, we aim to make every property decision clear, informed and seamless.
+              </p>
             </div>
-            <div className="w-full lg:w-1/2">
-              <div className="relative aspect-[16/10] rounded-lg overflow-hidden">
-                <Image
-                  src={toMediaImageUrl("/images/bg/bg.webp")}
-                  alt="Premium real estate development"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-              </div>
+          </div>
+          <div>
+            <div className="border-l-[3px] border-gold-light pl-[30px] py-[25px]">
+              <p className="font-serif text-[23px] lg:text-[27px] text-primary leading-snug">
+                “A property is more than an address. It is a decision about your family, your future and your legacy.”
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What We Believe In */}
-      <section className="section-py bg-[var(--bg-muted)]">
-        <div className="container-site">
-          <h2 className="heading-lg mb-2">What We Believe In</h2>
-          <div className="w-12 h-0.5 bg-[var(--gold)] mb-10" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {BELIEFS.map((item) => (
+      {/* Why Property Fifth — Dark Cards */}
+      <section className="bg-navy text-inverse py-[65px] lg:py-[90px] px-[7%] lg:px-[8%]">
+        <div className="max-w-7xl mx-auto">
+          <div className="max-w-[720px] mb-[55px]">
+            <p className="uppercase tracking-[4px] text-[13px] font-bold text-gold-light mb-[22px]">
+              Why Property Fifth
+            </p>
+            <h2 className="font-serif text-[38px] lg:text-[46px] leading-[1.15] font-normal mb-[22px]">
+              A Different Kind of Real Estate Experience.
+            </h2>
+            <p className="text-[17px] text-inverse-muted leading-[1.6]">
+              Our exclusive focus allows us to bring together luxury real estate, specialised understanding and a service culture shaped by years of working with the Defence and Law Enforcement ecosystem.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-[25px]">
+            {WHY_US.map((item) => (
               <div
-                key={item.title}
-                className="bg-white border border-[var(--border)] rounded-lg p-6 text-center hover:shadow-md transition-shadow"
+                key={item.num}
+                className=" p-[38px_30px] min-h-[260px] bg-card/[0.025]"
               >
-                <div className="w-12 h-12 mx-auto mb-4 rounded-full bg-[var(--gold)]/10 flex items-center justify-center">
-                  <item.icon className="w-5 h-5 text-[var(--gold)]" />
-                </div>
-                <h3 className="font-serif text-sm font-bold text-[var(--text)] mb-2">
+                <p className="text-gold-light text-[13px] tracking-[3px] font-bold">
+                  {item.num}
+                </p>
+                <h3 className="font-serif text-[28px] font-normal text-inverse mt-[18px] mb-[12px]">
                   {item.title}
                 </h3>
-                <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+                <p className="text-inverse-muted leading-[1.6]">
                   {item.desc}
                 </p>
               </div>
@@ -150,33 +123,63 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Expertise */}
-      <section className="section-py bg-white">
-        <div className="container-site">
-          <h2 className="heading-lg mb-2">Our Expertise</h2>
-          <div className="w-12 h-0.5 bg-[var(--gold)] mb-4" />
-          <p className="text-sm text-[var(--text-muted)] leading-relaxed max-w-2xl mb-10">
-            With deep market knowledge and a strong network, we provide end-to-end advisory across residential, commercial and investment properties.
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {EXPERTISE.map((item) => (
-              <div
-                key={item.title}
-                className="flex items-start gap-4 p-5 bg-[var(--bg-muted)] rounded-lg"
-              >
-                <div className="w-10 h-10 rounded-full bg-[var(--gold)]/10 flex items-center justify-center shrink-0">
-                  <item.icon className="w-5 h-5 text-[var(--gold)]" />
-                </div>
-                <div>
-                  <h3 className="font-serif text-sm font-bold text-[var(--text)] mb-1">
-                    {item.title}
-                  </h3>
-                  <p className="text-xs text-[var(--text-muted)] leading-relaxed">
-                    {item.desc}
-                  </p>
-                </div>
+      {/* Our Foundation — DSS Solutions */}
+      <section className="bg-accent-soft py-[65px] lg:py-[90px] px-[7%] lg:px-[8%]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-[35px] lg:gap-[70px] items-center">
+          <div>
+            <p className="uppercase tracking-[4px] text-[13px] font-bold text-accent-strong mb-[22px]">
+              Our Foundation
+            </p>
+            <h2 className="font-serif text-[38px] lg:text-[46px] leading-[1.15] font-normal text-primary mb-[22px]">
+              Backed by a Decade of Defence-Sector Experience.
+            </h2>
+            <p className="text-[18px] text-muted-foreground leading-[1.6]">
+              Property Fifth is led by an{" "}
+              <span className="text-accent-strong font-bold">Ex-Army Officer</span>{" "}
+              and is a sister concern of DSS Solutions.
+            </p>
+          </div>
+
+          <div>
+            <div className="bg-card p-[48px] shadow-lg">
+              <h3 className="font-serif text-[34px] font-normal text-primary mb-[15px]">
+                DSS Solutions
+              </h3>
+              <div className="space-y-[16px] text-muted-foreground leading-[1.6]">
+                <p>
+                  For over a decade, DSS Solutions has worked with organisations and professionals across the{" "}
+                  <span className="text-accent-strong font-bold">Defence and Law Enforcement sectors</span>, providing technology and IT solutions tailored to their operational requirements.
+                </p>
+                <p>
+                  This long-standing association gives Property Fifth a strong understanding of the community we serve and reinforces the values at the heart of our approach:{" "}
+                  <strong className="text-primary">trust, discipline, confidentiality, professionalism and service.</strong>
+                </p>
               </div>
-            ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Vision */}
+      <section className="bg-card py-[65px] lg:py-[90px] px-[7%] lg:px-[8%]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-[35px] lg:gap-[70px] items-center">
+          <div>
+            <div className="border-l-[3px] border-gold-light pl-[30px] py-[25px]">
+              <p className="font-serif text-[23px] lg:text-[27px] text-primary leading-snug">
+                Curated properties. Personalised advice. A relationship built on trust.
+              </p>
+            </div>
+          </div>
+          <div>
+            <p className="uppercase tracking-[4px] text-[13px] font-bold text-accent-strong mb-[22px]">
+              Our Vision
+            </p>
+            <h2 className="font-serif text-[38px] lg:text-[46px] leading-[1.15] font-normal text-primary mb-[22px]">
+              Building a Trusted Luxury Real Estate Platform for the Service Community.
+            </h2>
+            <p className="text-[18px] text-muted-foreground leading-[1.6]">
+              Our vision is to become a trusted luxury real estate advisory partner for Defence and Paramilitary personnel and their families—connecting them with exceptional properties and a level of service worthy of their trust.
+            </p>
           </div>
         </div>
       </section>

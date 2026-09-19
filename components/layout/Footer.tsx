@@ -73,13 +73,12 @@ export default function Footer() {
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent" />
         <div className="relative container-site py-10 lg:py-14 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="text-center lg:text-left">
-            <h2 className="text-2xl lg:text-3xl font-serif font-bold text-[var(--navy)]">
-              Let&apos;s Find the <span className="text-[var(--gold)]">Right</span>
+            <h2 className="text-2xl lg:text-3xl font-serif font-bold text-primary">
+              Discover Your Next <span className="text-accent">Address</span>
               <br />
-              Property for You.
             </h2>
-            <p className="text-sm text-[var(--text-muted)] mt-2">
-              Book a confidential consultation with our experts today.
+            <p className="text-sm text-muted-foreground mt-2">
+              Explore a carefully curated selection of luxury residences with Property Fifth.
             </p>
           </div>
           <div className="flex flex-col items-center gap-3 shrink-0">
@@ -89,7 +88,7 @@ export default function Footer() {
             </IdentityGate>
             <a
               href="tel:+919877155088"
-              className="flex items-center gap-2 bg-white rounded-full px-5 py-2.5 shadow-md text-[var(--navy)] font-semibold text-sm hover:shadow-lg transition-shadow"
+              className="inline-flex items-center gap-2 bg-card rounded-full px-5 py-2.5 shadow hover:shadow-md text-primary font-semibold text-sm hover:-translate-y-px transition-all duration-200 border border-border"
             >
               <Phone className="w-4 h-4" />
               +91 98771 55088
@@ -99,18 +98,18 @@ export default function Footer() {
       </div>
 
       {/* Main Footer */}
-      <div className="bg-[var(--navy-dark)]">
+      <div className="bg-navy-dark">
         <div className="container-site py-10 lg:py-16">
           {/* Brand — mobile: full width above grid, desktop: inside grid */}
           <div className="text-center sm:text-left mb-8 lg:hidden">
             <Link href="/" className="inline-block mb-3">
               <img
-                src="/images/logo/pf-logo.webp"
+                src="/images/logo/pf-logo-notext.webp"
                 alt="Property Fifth"
                 className="h-16 mx-auto sm:mx-0"
               />
             </Link>
-            <p className="text-[0.7rem] leading-relaxed text-white/50 mb-4 max-w-[200px] mx-auto sm:mx-0">
+            <p className="text-[0.7rem] leading-relaxed text-inverse-muted mb-4 max-w-[200px] mx-auto sm:mx-0">
               Premium real estate advisory committed to helping you find spaces that define your future.
             </p>
             <div className="flex items-center gap-3 justify-center sm:justify-start">
@@ -119,7 +118,7 @@ export default function Footer() {
                   key={s.label}
                   href={s.href}
                   aria-label={s.label}
-                  className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-[var(--gold)] hover:border-[var(--gold)] transition-colors"
+                  className="w-8 h-8 rounded-full border border-inverse/20 flex items-center justify-center text-inverse-muted hover:text-accent hover:border-accent transition-colors"
                 >
                   <s.Icon className="w-3.5 h-3.5" />
                 </a>
@@ -133,12 +132,12 @@ export default function Footer() {
             <div className="hidden lg:block">
               <Link href="/" className="inline-block mb-3">
                 <img
-                  src="/images/logo/pf-logo.webp"
+                  src="/images/logo/pf-logo-notext.webp"
                   alt="Property Fifth"
                   className="h-20"
                 />
               </Link>
-              <p className="text-[0.7rem] leading-relaxed text-white/50 mb-4 max-w-[200px]">
+              <p className="text-[0.7rem] leading-relaxed text-inverse-muted mb-4 max-w-[200px]">
                 Premium real estate advisory committed to helping you find spaces that define your future.
               </p>
               <div className="flex items-center gap-3">
@@ -147,7 +146,7 @@ export default function Footer() {
                     key={s.label}
                     href={s.href}
                     aria-label={s.label}
-                    className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 hover:text-[var(--gold)] hover:border-[var(--gold)] transition-colors"
+                    className="w-8 h-8 rounded-full border border-1 flex items-center justify-center text-inverse-muted hover:text-accent hover:border-accent transition-colors"
                   >
                     <s.Icon className="w-3.5 h-3.5" />
                   </a>
@@ -157,7 +156,7 @@ export default function Footer() {
 
             {/* Quick Links */}
             <div className="text-center sm:text-left">
-              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-white uppercase mb-3">
+              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-inverse uppercase mb-3">
                 Quick Links
               </h4>
               <ul className="space-y-1.5">
@@ -166,14 +165,14 @@ export default function Footer() {
                     {link.href === "/properties" ? (
                       <IdentityGate
                         href={link.href}
-                        className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
+                        className="text-sm text-inverse-muted hover:text-accent transition-colors"
                       >
                         {link.label}
                       </IdentityGate>
                     ) : (
                       <Link
                         href={link.href}
-                        className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
+                        className="text-sm text-inverse-muted hover:text-accent transition-colors"
                       >
                         {link.label}
                       </Link>
@@ -185,7 +184,7 @@ export default function Footer() {
 
             {/* Services */}
             <div className="text-center sm:text-left">
-              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-white uppercase mb-3">
+              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-inverse uppercase mb-3">
                 Services
               </h4>
               <ul className="space-y-1.5">
@@ -193,7 +192,7 @@ export default function Footer() {
                   <li key={s}>
                     <Link
                       href="/services"
-                      className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
+                      className="text-sm text-inverse-muted hover:text-accent transition-colors"
                     >
                       {s}
                     </Link>
@@ -204,7 +203,7 @@ export default function Footer() {
 
             {/* Locations */}
             <div className="text-center sm:text-left">
-              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-white uppercase mb-3">
+              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-inverse uppercase mb-3">
                 Popular Locations
               </h4>
               <ul className="space-y-1.5">
@@ -212,7 +211,7 @@ export default function Footer() {
                   <li key={l}>
                     <IdentityGate
                       href="/properties"
-                      className="text-sm text-white/60 hover:text-[var(--gold)] transition-colors"
+                      className="text-sm text-inverse-muted hover:text-accent transition-colors"
                     >
                       {l}
                     </IdentityGate>
@@ -223,41 +222,41 @@ export default function Footer() {
 
             {/* Contact */}
             <div className="text-center sm:text-left">
-              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-white uppercase mb-3">
+              <h4 className="text-[0.65rem] font-bold tracking-[0.15em] text-inverse uppercase mb-3">
                 Get In Touch
               </h4>
               <ul className="space-y-2.5">
                 <li className="flex items-start gap-2 justify-center sm:justify-start">
-                  <MapPin className="w-3.5 h-3.5 text-[var(--gold)] mt-0.5 shrink-0" />
+                  <MapPin className="w-3.5 h-3.5 text-accent mt-0.5 shrink-0" />
                   <a
                     href="https://www.google.com/maps/search/?api=1&query=30.6613276,76.8350666"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-white/60 hover:text-[var(--gold)] transition-colors leading-relaxed text-center sm:text-left"
+                    className="text-xs text-inverse-muted hover:text-accent transition-colors leading-relaxed text-center sm:text-left"
                   >
                     #27, Level - II, Corporate Complex, CITY COURT, Near Kalka Highway, Panchkula (Chandigarh)
                   </a>
                 </li>
                 <li className="flex items-start gap-2 justify-center sm:justify-start">
-                  <Phone className="w-3.5 h-3.5 text-[var(--gold)] shrink-0 mt-0.5" />
-                  <div className="flex flex-col text-xs text-white/60">
-                    <a href="tel:+919877155088" className="hover:text-[var(--gold)] transition-colors">
+                  <Phone className="w-3.5 h-3.5 text-accent shrink-0 mt-0.5" />
+                  <div className="flex flex-col text-xs text-inverse-muted">
+                    <a href="tel:+919877155088" className="hover:text-accent transition-colors">
                       +91 98771 55088
                     </a>
-                    <a href="tel:01762409555" className="hover:text-[var(--gold)] transition-colors">
-                      01762 409555 <span className="text-[0.6rem] text-white/40">(Landline)</span>
+                    <a href="tel:01762409555" className="hover:text-accent transition-colors">
+                      01762 409555 <span className="text-[0.6rem] text-inverse-faint">(Landline)</span>
                     </a>
                   </div>
                 </li>
                 <li className="flex items-center gap-2 justify-center sm:justify-start">
-                  <Mail className="w-3.5 h-3.5 text-[var(--gold)] shrink-0" />
-                  <a href="mailto:propertyfifth@dsssolutions.in" className="text-xs text-white/60 hover:text-[var(--gold)] transition-colors">
+                  <Mail className="w-3.5 h-3.5 text-accent shrink-0" />
+                  <a href="mailto:propertyfifth@dsssolutions.in" className="text-xs text-inverse-muted hover:text-accent transition-colors">
                     propertyfifth@dsssolutions.in
                   </a>
                 </li>
                 <li className="flex items-center gap-2 justify-center sm:justify-start">
-                  <Globe className="w-3.5 h-3.5 text-[var(--gold)] shrink-0" />
-                  <a href="https://dsssolutions.in" target="_blank" rel="noopener noreferrer" className="text-xs text-white/60 hover:text-[var(--gold)] transition-colors">
+                  <Globe className="w-3.5 h-3.5 text-accent shrink-0" />
+                  <a href="https://dsssolutions.in" target="_blank" rel="noopener noreferrer" className="text-xs text-inverse-muted hover:text-accent transition-colors">
                     dsssolutions.in
                   </a>
                 </li>
@@ -267,12 +266,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10">
+        <div>
           <div className="container-site py-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <p className="text-[0.65rem] text-white/40 text-center sm:text-left">
+            <p className="text-[0.65rem] text-inverse-faint text-center sm:text-left">
               &copy; 2026 Property Fifth. All Rights Reserved.
             </p>
-            <p className="text-[0.65rem] text-white/40 text-center sm:text-right">
+            <p className="text-[0.65rem] text-inverse-faint text-center sm:text-right">
               A Real Estate Initiative by DSS Solutions.
             </p>
           </div>

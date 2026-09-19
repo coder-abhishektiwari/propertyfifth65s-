@@ -72,11 +72,11 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-bold tracking-wider uppercase text-[var(--text)]">Filters</h3>
+        <h3 className="text-sm font-bold tracking-wider uppercase text-foreground">Filters</h3>
         {hasActiveFilters && (
           <button
             onClick={clearAllFilters}
-            className="text-[0.7rem] font-semibold text-[var(--gold)] hover:underline cursor-pointer"
+            className="text-[0.7rem] font-semibold text-accent hover:underline cursor-pointer"
           >
             RESET
           </button>
@@ -85,7 +85,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
 
       {/* Search */}
       <div>
-        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-[var(--text-muted)] mb-2 block">
+        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-muted-foreground mb-2 block">
           Search
         </label>
         <form onSubmit={handleSearch} className="relative">
@@ -94,9 +94,9 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
             placeholder="Search properties..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
-            className="w-full border border-[var(--border)] rounded px-3 py-2 text-xs text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)]"
+            className="field-input !min-h-[2.5rem] !py-2 !text-xs pr-9"
           />
-          <button type="submit" className="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--gold)] cursor-pointer">
+          <button type="submit" className="absolute right-1.5 top-1/2 -translate-y-1/2 icon-btn !w-8 !h-8 cursor-pointer" aria-label="Search properties">
             <Search className="w-3.5 h-3.5" />
           </button>
         </form>
@@ -104,7 +104,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
 
       {/* Property Type */}
       <div>
-        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-[var(--text-muted)] mb-2 block">
+        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-muted-foreground mb-2 block">
           Property Type
         </label>
         <div className="space-y-2">
@@ -117,7 +117,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
                 onChange={() => updateParams("propertyType", currentType === type.value ? "" : type.value)}
                 className="w-3.5 h-3.5 accent-[var(--gold)]"
               />
-              <span className="text-xs text-[var(--text-muted)]">{type.label}</span>
+              <span className="text-xs text-muted-foreground">{type.label}</span>
             </label>
           ))}
         </div>
@@ -125,7 +125,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
 
       {/* Budget */}
       <div>
-        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-[var(--text-muted)] mb-2 block">
+        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-muted-foreground mb-2 block">
           Budget
         </label>
         <div className="flex items-center gap-2">
@@ -134,23 +134,23 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
             placeholder="Min Price"
             value={currentPriceMin}
             onChange={(e) => updateParams("priceMin", e.target.value)}
-            className="w-1/2 border border-[var(--border)] rounded px-3 py-2 text-xs text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)]"
+            className="field-input !min-h-[2.5rem] !py-2 !text-xs w-1/2"
           />
-          <span className="text-[var(--text-muted)] text-xs">—</span>
+          <span className="text-muted-foreground text-xs">—</span>
           <input
             type="number"
             placeholder="Max Price"
             value={currentPriceMax}
             onChange={(e) => updateParams("priceMax", e.target.value)}
-            className="w-1/2 border border-[var(--border)] rounded px-3 py-2 text-xs text-[var(--text)] placeholder:text-[var(--text-light)] focus:outline-none focus:border-[var(--gold)]"
+            className="field-input !min-h-[2.5rem] !py-2 !text-xs w-1/2"
           />
         </div>
-        <p className="text-[0.6rem] text-[var(--text-light)] mt-1">Price in INR (e.g., 3500000)</p>
+        <p className="text-[0.6rem] text-muted-foreground mt-1">Price in INR (e.g., 3500000)</p>
       </div>
 
       {/* Location / City */}
       <div>
-        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-[var(--text-muted)] mb-2 block">
+        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-muted-foreground mb-2 block">
           Location
         </label>
         <div className="space-y-2">
@@ -163,7 +163,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
                 onChange={() => updateParams("city", currentCity === city ? "" : city)}
                 className="w-3.5 h-3.5 accent-[var(--gold)]"
               />
-              <span className="text-xs text-[var(--text-muted)]">{city}</span>
+              <span className="text-xs text-muted-foreground">{city}</span>
             </label>
           ))}
         </div>
@@ -171,7 +171,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
 
       {/* Status */}
       <div>
-        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-[var(--text-muted)] mb-2 block">
+        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-muted-foreground mb-2 block">
           Status
         </label>
         <div className="space-y-2">
@@ -184,7 +184,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
                 onChange={() => updateParams("status", currentStatus === status.value ? "" : status.value)}
                 className="w-3.5 h-3.5 accent-[var(--gold)]"
               />
-              <span className="text-xs text-[var(--text-muted)]">{status.label}</span>
+              <span className="text-xs text-muted-foreground">{status.label}</span>
             </label>
           ))}
         </div>
@@ -192,7 +192,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
 
       {/* Purpose */}
       <div>
-        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-[var(--text-muted)] mb-2 block">
+        <label className="text-[0.65rem] font-bold tracking-wider uppercase text-muted-foreground mb-2 block">
           Purpose
         </label>
         <div className="space-y-2">
@@ -205,7 +205,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
                 onChange={() => updateParams("purpose", currentPurpose === purpose.value ? "" : purpose.value)}
                 className="w-3.5 h-3.5 accent-[var(--gold)]"
               />
-              <span className="text-xs text-[var(--text-muted)]">{purpose.label}</span>
+              <span className="text-xs text-muted-foreground">{purpose.label}</span>
             </label>
           ))}
         </div>
@@ -237,11 +237,11 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
       {/* Mobile Overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/50" onClick={() => setMobileOpen(false)} />
-          <div className="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white overflow-y-auto p-5">
+          <div className="absolute inset-0 bg-scrim" onClick={() => setMobileOpen(false)} />
+          <div className="absolute right-0 top-0 bottom-0 w-80 max-w-[85vw] bg-card overflow-y-auto p-5">
             <div className="flex items-center justify-between mb-5">
               <h3 className="text-sm font-bold uppercase">Filters</h3>
-              <button onClick={() => setMobileOpen(false)} className="p-1 hover:bg-[var(--bg-muted)] rounded cursor-pointer">
+              <button onClick={() => setMobileOpen(false)} className="icon-btn !w-9 !h-9 cursor-pointer" aria-label="Close filters">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -252,7 +252,7 @@ export default function PropertyFilters({ cities }: PropertyFiltersProps) {
 
       {/* Desktop Sidebar */}
       <aside className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-24 bg-white border border-[var(--border)] rounded-lg p-5">
+        <div className="sticky top-24 card-premium p-5">
           {filterContent}
         </div>
       </aside>

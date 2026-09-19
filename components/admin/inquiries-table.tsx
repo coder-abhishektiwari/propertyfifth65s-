@@ -51,22 +51,22 @@ export default function InquiriesTable({ inquiries, total }: InquiriesTableProps
     <div>
       {/* Summary */}
       <div className="grid grid-cols-2 gap-3 mb-8">
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="bg-card rounded-xl border border-border p-5">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-[var(--gold)]/10 flex items-center justify-center">
-              <Mail className="w-5 h-5 text-[var(--gold)]" />
+            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+              <Mail className="w-5 h-5 text-accent" />
             </div>
-            <span className="text-2xl font-bold text-[var(--navy)]">{total}</span>
+            <span className="text-2xl font-bold text-primary">{total}</span>
           </div>
-          <p className="text-sm font-medium text-gray-700">Total Inquiries</p>
-          <p className="text-xs text-gray-400 mt-0.5">All time</p>
+          <p className="text-sm font-medium text-foreground">Total Inquiries</p>
+          <p className="text-xs text-muted-foreground mt-0.5">All time</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
+        <div className="bg-card rounded-xl border border-border p-5">
           <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-full bg-[var(--gold)]/10 flex items-center justify-center">
-              <Calendar className="w-5 h-5 text-[var(--gold)]" />
+            <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+              <Calendar className="w-5 h-5 text-accent" />
             </div>
-            <span className="text-2xl font-bold text-[var(--navy)]">
+            <span className="text-2xl font-bold text-primary">
               {inquiries.filter((i) => {
                 const d = new Date(i.createdAt);
                 const now = new Date();
@@ -74,42 +74,42 @@ export default function InquiriesTable({ inquiries, total }: InquiriesTableProps
               }).length}
             </span>
           </div>
-          <p className="text-sm font-medium text-gray-700">Today</p>
-          <p className="text-xs text-gray-400 mt-0.5">Submitted today</p>
+          <p className="text-sm font-medium text-foreground">Today</p>
+          <p className="text-xs text-muted-foreground mt-0.5">Submitted today</p>
         </div>
       </div>
 
       {/* Search */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+      <div className="bg-card rounded-xl border border-border p-4 mb-4">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             placeholder="Search by name, email, phone, or query..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-8 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/20 focus:border-[var(--gold)]"
+            className="w-full pl-10 pr-8 py-2.5 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
           />
         </div>
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-100 bg-gray-50/50">
-                <th className="text-left px-5 py-3 font-medium text-gray-500">Name</th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">Contact</th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">Query</th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">Type</th>
-                <th className="text-left px-5 py-3 font-medium text-gray-500">Date</th>
+              <tr className="border-b border-border-light bg-muted/50">
+                <th className="text-left px-5 py-3 font-medium text-muted-foreground">Name</th>
+                <th className="text-left px-5 py-3 font-medium text-muted-foreground">Contact</th>
+                <th className="text-left px-5 py-3 font-medium text-muted-foreground">Query</th>
+                <th className="text-left px-5 py-3 font-medium text-muted-foreground">Type</th>
+                <th className="text-left px-5 py-3 font-medium text-muted-foreground">Date</th>
               </tr>
             </thead>
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-gray-400">
+                  <td colSpan={5} className="px-5 py-12 text-center text-muted-foreground">
                     No inquiries found.
                   </td>
                 </tr>
@@ -117,34 +117,34 @@ export default function InquiriesTable({ inquiries, total }: InquiriesTableProps
                 filtered.map((inquiry) => (
                   <tr
                     key={inquiry.id}
-                    className="border-b border-gray-50 hover:bg-gray-50/50 transition-colors"
+                    className="border-b border-border-light hover:bg-muted/50 transition-colors"
                   >
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-2">
-                        <User className="w-4 h-4 text-gray-400" />
-                        <span className="font-medium text-[var(--navy)]">{inquiry.name}</span>
+                        <User className="w-4 h-4 text-muted-foreground" />
+                        <span className="font-medium text-primary">{inquiry.name}</span>
                       </div>
                     </td>
                     <td className="px-5 py-4">
                       <div className="space-y-1">
-                        <p className="text-gray-700">{inquiry.email}</p>
+                        <p className="text-foreground">{inquiry.email}</p>
                         {inquiry.phone && (
-                          <p className="text-gray-400 text-xs">{inquiry.phone}</p>
+                          <p className="text-muted-foreground text-xs">{inquiry.phone}</p>
                         )}
                       </div>
                     </td>
                     <td className="px-5 py-4 max-w-xs">
-                      <p className="text-gray-700 truncate" title={inquiry.query || ""}>
+                      <p className="text-foreground truncate" title={inquiry.query || ""}>
                         {inquiry.query || "—"}
                       </p>
                     </td>
-                    <td className="px-5 py-4 text-xs text-gray-400">
+                    <td className="px-5 py-4 text-xs text-muted-foreground">
                       {inquiry.customer?.category === "NRI_UHNI" ? "NRI / UHNI" : inquiry.customer?.category === "DEFENCE_PERSONNEL" ? "Defence Personnel" : "—"}
                     </td>
                     <td className="px-5 py-4">
                       <div>
-                        <p className="text-gray-700">{formatDate(inquiry.createdAt)}</p>
-                        <p className="text-gray-400 text-xs">{formatTime(inquiry.createdAt)}</p>
+                        <p className="text-foreground">{formatDate(inquiry.createdAt)}</p>
+                        <p className="text-muted-foreground text-xs">{formatTime(inquiry.createdAt)}</p>
                       </div>
                     </td>
                   </tr>
@@ -154,8 +154,8 @@ export default function InquiriesTable({ inquiries, total }: InquiriesTableProps
           </table>
         </div>
         {filtered.length > 0 && (
-          <div className="px-5 py-3 border-t border-gray-100 bg-gray-50/30">
-            <p className="text-xs text-gray-400">
+          <div className="px-5 py-3 border-t border-border-light bg-muted/30">
+            <p className="text-xs text-muted-foreground">
               Showing {filtered.length} of {total} inquiry{total !== 1 ? "ies" : ""}
             </p>
           </div>

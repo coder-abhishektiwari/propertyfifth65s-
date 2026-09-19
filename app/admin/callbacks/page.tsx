@@ -32,8 +32,8 @@ export default async function AdminCallbacksPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-serif font-bold text-[var(--navy)]">Call Back Requests (For a Property)</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage all callback requests made by users for specific properties.</p>
+        <h1 className="text-2xl font-serif font-bold text-primary">Call Back Requests (For a Property)</h1>
+        <p className="text-sm text-muted-foreground mt-1">Manage all callback requests made by users for specific properties.</p>
       </div>
       <CallbackTable requests={requests} total={total} stats={stats} />
     </div>

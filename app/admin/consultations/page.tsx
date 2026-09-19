@@ -32,8 +32,8 @@ export default async function AdminConsultationsPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-serif font-bold text-[var(--navy)]">Consultation Requests</h1>
-        <p className="text-sm text-gray-500 mt-1">Manage and track property consultation requests from interested clients.</p>
+        <h1 className="text-2xl font-serif font-bold text-primary">Consultation Requests</h1>
+        <p className="text-sm text-muted-foreground mt-1">Manage and track property consultation requests from interested clients.</p>
       </div>
       <ConsultationTable requests={requests} total={total} stats={stats} />
     </div>

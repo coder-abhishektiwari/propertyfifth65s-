@@ -51,14 +51,14 @@ export function SnackbarProvider({ children }: { children: ReactNode }) {
             className={`
               pointer-events-auto
               px-5 py-3 rounded-xl shadow-lg text-sm font-medium
-              flex items-center gap-2
-              animate-in fade-in slide-in-from-bottom-2 duration-300
+              flex items-center gap-2 max-w-sm
+              animate-in fade-in slide-in-from-bottom-2 duration-200
               ${
                 snackbar.type === "success"
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-success text-inverse"
                   : snackbar.type === "error"
-                    ? "bg-red-600 text-white"
-                    : "bg-[#0a1628] text-white"
+                    ? "bg-destructive text-inverse"
+                    : "bg-primary text-inverse"
               }
             `}
           >

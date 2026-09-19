@@ -51,7 +51,7 @@ export default function PropertyGallery({ images, propertyName, onOpenLightbox }
   return (
     <div className="relative">
       {/* Main Image */}
-      <div className="relative aspect-[16/10] rounded-lg overflow-hidden bg-[var(--bg-muted)]">
+      <div className="relative aspect-[16/10] rounded-lg overflow-hidden bg-muted">
         <Image
           src={toMediaImageUrl(sorted[selectedIndex].imageUrl)}
           alt={`${propertyName} - Image ${selectedIndex + 1}`}
@@ -66,14 +66,14 @@ export default function PropertyGallery({ images, propertyName, onOpenLightbox }
           <>
             <button
               onClick={goPrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-colors cursor-pointer z-10"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-scrim-soft hover:bg-black/60 text-inverse flex items-center justify-center transition-colors cursor-pointer z-10"
               aria-label="Previous image"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={goNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition-colors cursor-pointer z-10"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-scrim-soft hover:bg-black/60 text-inverse flex items-center justify-center transition-colors cursor-pointer z-10"
               aria-label="Next image"
             >
               <ChevronRight className="w-5 h-5" />
@@ -84,14 +84,14 @@ export default function PropertyGallery({ images, propertyName, onOpenLightbox }
         {/* View All Photos */}
         <button
           onClick={() => onOpenLightbox(selectedIndex)}
-          className="absolute bottom-3 left-3 flex items-center gap-2 bg-black/50 hover:bg-black/70 text-white text-xs font-semibold px-3 py-2 rounded transition-colors cursor-pointer z-10"
+          className="absolute bottom-3 left-3 flex items-center gap-2 bg-scrim hover:bg-black/70 text-inverse text-xs font-semibold px-3 py-2 rounded transition-colors cursor-pointer z-10"
         >
           <Camera className="w-4 h-4" />
           View All Photos ({sorted.length})
         </button>
 
         {/* Image Counter */}
-        <div className="absolute bottom-3 right-3 bg-black/50 text-white text-xs font-medium px-2.5 py-1 rounded z-10">
+        <div className="absolute bottom-3 right-3 bg-scrim text-inverse text-xs font-medium px-2.5 py-1 rounded z-10">
           {selectedIndex + 1} / {sorted.length}
         </div>
       </div>
@@ -105,7 +105,7 @@ export default function PropertyGallery({ images, propertyName, onOpenLightbox }
               onClick={() => setSelectedIndex(i)}
               className={`relative shrink-0 w-16 h-12 rounded overflow-hidden border-2 transition-colors cursor-pointer ${
                 i === selectedIndex
-                  ? "border-[var(--gold)]"
+                  ? "border-accent"
                   : "border-transparent opacity-60 hover:opacity-100"
               }`}
             >
@@ -173,12 +173,12 @@ export function PropertyLightbox({ images, propertyName, initialIndex, isOpen, o
     <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 shrink-0">
-        <span className="text-white text-sm font-medium">
+        <span className="text-inverse text-sm font-medium">
           {currentIndex + 1} / {sorted.length}
         </span>
         <button
           onClick={onClose}
-          className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+          className="w-10 h-10 rounded-full bg-card/10 hover:bg-card/20 text-inverse flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Close gallery"
         >
           <X className="w-5 h-5" />
@@ -203,14 +203,14 @@ export function PropertyLightbox({ images, propertyName, initialIndex, isOpen, o
         <>
           <button
             onClick={goPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-card/10 hover:bg-card/20 text-inverse flex items-center justify-center transition-colors cursor-pointer"
             aria-label="Previous image"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={goNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-card/10 hover:bg-card/20 text-inverse flex items-center justify-center transition-colors cursor-pointer"
             aria-label="Next image"
           >
             <ChevronRight className="w-6 h-6" />
@@ -227,7 +227,7 @@ export function PropertyLightbox({ images, propertyName, initialIndex, isOpen, o
               onClick={() => setCurrentIndex(i)}
               className={`relative shrink-0 w-14 h-10 rounded overflow-hidden border-2 transition-all cursor-pointer ${
                 i === currentIndex
-                  ? "border-[var(--gold)] opacity-100"
+                  ? "border-accent opacity-100"
                   : "border-transparent opacity-50 hover:opacity-80"
               }`}
             >

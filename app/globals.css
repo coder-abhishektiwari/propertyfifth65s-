@@ -10,6 +10,7 @@
   --navy: #091c35;
   --navy-light: #144a83;
   --navy-dark: #04142b;
+  --navy-deep: #0a1628;
 
   /* Gold / Accent */
   --gold: #c8963e;
@@ -29,30 +30,142 @@
   /* Borders */
   --border: #e5e7eb;
   --border-light: #f0f0f0;
+  --border-strong: #d6dae0;
 
   /* Misc */
-  --radius: 0.5rem;
-  --radius-lg: 1rem;
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.12);
+  --radius: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --shadow-sm: 0 1px 2px rgba(9, 28, 53, 0.06);
+  --shadow: 0 1px 3px rgba(9, 28, 53, 0.07), 0 1px 2px rgba(9, 28, 53, 0.05);
+  --shadow-md: 0 6px 16px rgba(9, 28, 53, 0.09), 0 2px 6px rgba(9, 28, 53, 0.06);
+  --shadow-lg: 0 12px 32px rgba(9, 28, 53, 0.14), 0 4px 10px rgba(9, 28, 53, 0.07);
+  --transition-fast: 150ms ease;
   --transition: 200ms ease;
+  --transition-slow: 250ms ease;
+
+  /* ── Semantic tokens: ONLY colour source for components ── */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --primary: var(--navy);
+  --primary-foreground: #ffffff;
+  --secondary: var(--bg-alt);
+  --secondary-foreground: var(--navy);
+  --muted: var(--bg-muted);
+  --muted-foreground: var(--text-muted);
+  --card: #ffffff;
+  --card-foreground: var(--text);
+  --accent: var(--gold);
+  --accent-foreground: #ffffff;
+  --accent-soft: #faf5ea;
+  --accent-strong: var(--gold-dark);
+  --ring: var(--gold);
+  --input: var(--border);
+  --destructive: #dc2626;
+  --destructive-bg: #fef2f2;
+  --destructive-border: #fecaca;
+  --success: #15803d;
+  --success-bg: #f0fdf4;
+  --success-border: #bbf7d0;
+  --warning: #b45309;
+  --warning-bg: #fffbeb;
+  --warning-border: #fde68a;
+  --info: #1d4ed8;
+  --info-bg: #eff6ff;
+  --info-border: #bfdbfe;
+  --violet: #6d28d9;
+  --violet-bg: #f5f3ff;
+  --violet-border: #ddd6fe;
+  --whatsapp: #25d366;
+  --whatsapp-dark: #1da851;
+  --inverse: #ffffff;
+  --inverse-muted: #cbd5e1;
+  --inverse-faint: #94a3b8;
+  --scrim: rgba(2, 7, 14, 0.5);
+  --scrim-soft: rgba(2, 7, 14, 0.4);
+  --overlay-deep: #02070e;
 }
 
 @theme inline {
-  --color-background: var(--bg);
-  --color-foreground: var(--text);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-strong: var(--accent-strong);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-destructive-bg: var(--destructive-bg);
+  --color-destructive-border: var(--destructive-border);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-success-border: var(--success-border);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-warning-border: var(--warning-border);
+  --color-info: var(--info);
+  --color-info-bg: var(--info-bg);
+  --color-info-border: var(--info-border);
+  --color-violet: var(--violet);
+  --color-violet-bg: var(--violet-bg);
+  --color-violet-border: var(--violet-border);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-dark: var(--whatsapp-dark);
+  --color-inverse: var(--inverse);
+  --color-inverse-muted: var(--inverse-muted);
+  --color-inverse-faint: var(--inverse-faint);
+  --color-scrim: var(--scrim);
+  --color-scrim-soft: var(--scrim-soft);
+  --color-overlay-deep: var(--overlay-deep);
+  --color-navy: var(--navy);
+  --color-navy-light: var(--navy-light);
+  --color-navy-dark: var(--navy-dark);
+  --color-navy-deep: var(--navy-deep);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 /* ─── Base ─────────────────────────────────────────── */
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--bg);
-  color: var(--text);
+  background: var(--background);
+  color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* ─── Typography ───────────────────────────────────── */
@@ -97,7 +210,9 @@ body {
   font-size: 2rem;
   font-weight: 700;
   line-height: 1.2;
-  color: var(--text);
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  text-wrap: balance;
 }
 
 @media (min-width: 768px) {
@@ -111,7 +226,9 @@ body {
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.3;
-  color: var(--text);
+  letter-spacing: -0.01em;
+  color: var(--foreground);
+  text-wrap: balance;
 }
 
 @media (min-width: 768px) {
@@ -125,7 +242,8 @@ body {
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.4;
-  color: var(--text);
+  letter-spacing: -0.005em;
+  color: var(--foreground);
 }
 
 /* ─── Button Base ──────────────────────────────────── */
@@ -134,24 +252,41 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: var(--navy);
-  color: #ffffff;
+  min-height: 2.75rem;
+  padding: 0.875rem 1.75rem;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
   font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: var(--radius);
-  border: 1px solid var(--navy);
+  border: 1px solid var(--primary);
+  box-shadow: var(--shadow);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: background-color var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition-fast);
   text-decoration: none;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .btn-primary:hover {
   background-color: var(--navy-light);
   border-color: var(--navy-light);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.99);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-outline {
@@ -159,25 +294,41 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent;
-  color: var(--navy);
+  min-height: 2.75rem;
+  padding: 0.875rem 1.75rem;
+  background-color: var(--card);
+  color: var(--primary);
   font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: var(--radius);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition-fast);
   text-decoration: none;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .btn-outline:hover {
-  border-color: var(--navy);
-  background-color: var(--navy);
-  color: #ffffff;
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-outline:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.btn-outline:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-gold {
@@ -185,24 +336,41 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.75rem;
+  min-height: 2.75rem;
+  padding: 0.875rem 1.75rem;
   background-color: transparent;
-  color: var(--gold);
+  color: var(--accent-strong);
   font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: var(--radius);
-  border: 1px solid var(--gold);
+  border: 1px solid var(--accent);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: background-color var(--transition), border-color var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition-fast);
   text-decoration: none;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .btn-gold:hover {
-  background-color: var(--gold);
-  color: #ffffff;
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-foreground);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-gold:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.btn-gold:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btn-whatsapp {
@@ -210,24 +378,188 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #25D366;
-  color: #ffffff;
+  min-height: 2.75rem;
+  padding: 0.875rem 1.75rem;
+  background-color: var(--whatsapp);
+  color: var(--inverse);
   font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: var(--radius);
-  border: 1px solid #25D366;
+  border: 1px solid var(--whatsapp);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: background-color var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition-fast);
   text-decoration: none;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .btn-whatsapp:hover {
-  background-color: #1da851;
-  border-color: #1da851;
+  background-color: var(--whatsapp-dark);
+  border-color: var(--whatsapp-dark);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-whatsapp:active {
+  transform: translateY(0) scale(0.99);
+}
+
+.btn-whatsapp:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ─── Premium shared surfaces ─────────────────────── */
+.card-premium {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  transition: box-shadow var(--transition), border-color var(--transition), transform var(--transition-fast);
+}
+
+.card-premium:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.field-input {
+  width: 100%;
+  min-height: 2.875rem;
+  padding: 0.75rem 1rem;
+  background: var(--card);
+  border: 1px solid var(--input);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--foreground);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.field-input::placeholder {
+  color: var(--text-light);
+}
+
+.field-input:hover {
+  border-color: var(--border-strong);
+}
+
+.field-input:focus {
+  outline: none;
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 22%, transparent);
+}
+
+.field-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--muted);
+}
+
+.field-input[aria-invalid="true"] {
+  border-color: var(--destructive);
+}
+
+.field-input[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--destructive) 18%, transparent);
+}
+
+.field-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--foreground);
+  margin-bottom: 0.375rem;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  color: var(--muted-foreground);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.icon-btn:hover {
+  background: var(--muted);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+
+.icon-btn:active {
+  transform: scale(0.96);
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  color: var(--muted-foreground);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.badge-success {
+  background: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success);
+}
+
+.badge-warning {
+  background: var(--warning-bg);
+  border-color: var(--warning-border);
+  color: var(--warning);
+}
+
+.badge-info {
+  background: var(--info-bg);
+  border-color: var(--info-border);
+  color: var(--info);
+}
+
+.badge-violet {
+  background: var(--violet-bg);
+  border-color: var(--violet-border);
+  color: var(--violet);
+}
+
+.badge-destructive {
+  background: var(--destructive-bg);
+  border-color: var(--destructive-border);
+  color: var(--destructive);
+}
+
+.badge-accent {
+  background: var(--accent-soft);
+  border-color: var(--warning-border);
+  color: var(--accent-strong);
 }
 
 /* ─── Animations ───────────────────────────────────── */

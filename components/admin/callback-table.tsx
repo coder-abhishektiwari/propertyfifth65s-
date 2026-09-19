@@ -58,33 +58,33 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
       {/* Summary Cards */}
       <div className="grid grid-cols-3 xl:grid-cols-5 gap-3 mb-8">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-white rounded-xl border border-gray-200 p-5">
+          <div key={stat.label} className="bg-card rounded-xl border border-border p-5">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-[var(--gold)]/10 flex items-center justify-center">
-                {(() => { const Icon = STAT_ICONS[stat.key]; return <Icon className="w-5 h-5 text-[var(--gold)]" />; })()}
+              <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                {(() => { const Icon = STAT_ICONS[stat.key]; return <Icon className="w-5 h-5 text-accent" />; })()}
               </div>
-              <span className="text-2xl font-bold text-[var(--navy)]">{stat.value}</span>
+              <span className="text-2xl font-bold text-primary">{stat.value}</span>
             </div>
-            <p className="text-sm font-medium text-gray-700">{stat.label}</p>
-            <p className="text-xs text-gray-400 mt-0.5">{stat.sub}</p>
+            <p className="text-sm font-medium text-foreground">{stat.label}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{stat.sub}</p>
           </div>
         ))}
       </div>
 
       {/* Search & Filter */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-4">
+      <div className="bg-card rounded-xl border border-border p-4 mb-4">
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search by name, phone, or property..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-8 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/20 focus:border-[var(--gold)]"
+              className="w-full pl-10 pr-8 py-2.5 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent"
             />
             {search && (
-              <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 cursor-pointer">
+              <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-muted-foreground cursor-pointer">
                 <X className="w-4 h-4" />
               </button>
             )}
@@ -92,7 +92,7 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2.5 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--gold)]/20 focus:border-[var(--gold)] bg-white"
+            className="px-3 py-2.5 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent bg-card"
           >
             <option value="ALL">All Status</option>
             <option value="NEW">Pending</option>
@@ -104,12 +104,12 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
       </div>
 
       {/* Table */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
         {filtered.length === 0 ? (
           <div className="text-center py-16 px-6">
-            <Phone className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-sm font-semibold text-gray-700 mb-1">No callback requests found</h3>
-            <p className="text-xs text-gray-400 max-w-sm mx-auto">
+            <Phone className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-sm font-semibold text-foreground mb-1">No callback requests found</h3>
+            <p className="text-xs text-muted-foreground max-w-sm mx-auto">
               {search || statusFilter !== "ALL" ? "Try adjusting your search or filter." : "Callback requests from property pages will appear here."}
             </p>
           </div>
@@ -117,35 +117,35 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50/50">
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">Name & Contact</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden md:table-cell">Property</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden lg:table-cell">Category</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden xl:table-cell">Requested On</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3 hidden xl:table-cell">Preferred Time</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">Status</th>
-                  <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">Action</th>
+                <tr className="border-b border-border bg-muted/50">
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">Name & Contact</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden md:table-cell">Property</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden lg:table-cell">Category</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden xl:table-cell">Requested On</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3 hidden xl:table-cell">Preferred Time</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">Status</th>
+                  <th className="text-left text-xs font-semibold text-muted-foreground uppercase tracking-wider px-5 py-3">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filtered.map((request) => (
-                  <tr key={request.id} className="hover:bg-gray-50/50 transition-colors">
+                  <tr key={request.id} className="hover:bg-muted/50 transition-colors">
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-[var(--navy)] flex items-center justify-center shrink-0">
-                          <span className="text-xs font-bold text-white">{getInitials(request.name)}</span>
+                        <div className="w-9 h-9 rounded-full bg-primary flex items-center justify-center shrink-0">
+                          <span className="text-xs font-bold text-inverse">{getInitials(request.name)}</span>
                         </div>
                         <div className="min-w-0">
-                          <p className="font-semibold text-[var(--navy)] truncate">{request.name}</p>
-                          {request.phone && <p className="text-xs text-gray-400 truncate">{request.phone}</p>}
+                          <p className="font-semibold text-primary truncate">{request.name}</p>
+                          {request.phone && <p className="text-xs text-muted-foreground truncate">{request.phone}</p>}
                         </div>
                       </div>
                     </td>
                     <td className="px-5 py-4 hidden md:table-cell">
                       <div className="min-w-0">
-                        <p className="text-xs font-medium text-gray-700 truncate">{request.property?.name || "—"}</p>
+                        <p className="text-xs font-medium text-foreground truncate">{request.property?.name || "—"}</p>
                         {request.property?.locality && (
-                          <p className="text-xs text-gray-400 truncate">{request.property.locality}{request.property.city && `, ${request.property.city}`}</p>
+                          <p className="text-xs text-muted-foreground truncate">{request.property.locality}{request.property.city && `, ${request.property.city}`}</p>
                         )}
                       </div>
                     </td>
@@ -156,13 +156,13 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
                     </td>
                     <td className="px-5 py-4 hidden xl:table-cell">
                       <div>
-                        <p className="text-xs text-gray-600">{formatDate(request.createdAt)}</p>
-                        <p className="text-xs text-gray-400">{formatTime(request.createdAt)}</p>
+                        <p className="text-xs text-muted-foreground">{formatDate(request.createdAt)}</p>
+                        <p className="text-xs text-muted-foreground">{formatTime(request.createdAt)}</p>
                       </div>
                     </td>
                     <td className="px-5 py-4 hidden xl:table-cell">
-                      <span className="text-xs text-gray-600">{request.preferredDate ? formatDate(request.preferredDate) : "Flexible"}</span>
-                      {request.preferredTime && <p className="text-xs text-gray-400">{request.preferredTime}</p>}
+                      <span className="text-xs text-muted-foreground">{request.preferredDate ? formatDate(request.preferredDate) : "Flexible"}</span>
+                      {request.preferredTime && <p className="text-xs text-muted-foreground">{request.preferredTime}</p>}
                     </td>
                     <td className="px-5 py-4">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCallbackStatusLabelClass(request.status)}`}>
@@ -175,7 +175,7 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
                           <button
                             onClick={() => handleStatusUpdate(request.id, "CONTACTED")}
                             disabled={isPending}
-                            className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--navy)] hover:text-[var(--gold)] transition-colors cursor-pointer disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-accent transition-colors cursor-pointer disabled:opacity-50"
                           >
                             <Phone className="w-3.5 h-3.5" />
                             Contacted
@@ -185,7 +185,7 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
                           <button
                             onClick={() => handleStatusUpdate(request.id, "CALLBACK_SCHEDULED")}
                             disabled={isPending}
-                            className="inline-flex items-center gap-1.5 text-xs font-medium text-[var(--navy)] hover:text-[var(--gold)] transition-colors cursor-pointer disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:text-accent transition-colors cursor-pointer disabled:opacity-50"
                           >
                             <Clock className="w-3.5 h-3.5" />
                             Schedule
@@ -195,17 +195,17 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
                           <button
                             onClick={() => handleStatusUpdate(request.id, "COMPLETED")}
                             disabled={isPending}
-                            className="inline-flex items-center gap-1.5 text-xs font-medium text-green-600 hover:text-green-700 transition-colors cursor-pointer disabled:opacity-50"
+                            className="inline-flex items-center gap-1.5 text-xs font-medium text-success hover:text-success transition-colors cursor-pointer disabled:opacity-50"
                           >
                             <CheckCircle className="w-3.5 h-3.5" />
                             Complete
                           </button>
                         )}
                         {request.status === "COMPLETED" && (
-                          <span className="text-xs text-gray-400">Done</span>
+                          <span className="text-xs text-muted-foreground">Done</span>
                         )}
                         {request.status === "CANCELLED" && (
-                          <span className="text-xs text-gray-400">—</span>
+                          <span className="text-xs text-muted-foreground">—</span>
                         )}
                       </div>
                     </td>
@@ -217,7 +217,7 @@ export default function CallbackTable({ requests, total, stats }: CallbackTableP
         )}
 
         {filtered.length > 0 && (
-          <div className="px-5 py-3 border-t border-gray-200 text-xs text-gray-500">
+          <div className="px-5 py-3 border-t border-border text-xs text-muted-foreground">
             Showing {filtered.length} of {total} requests
           </div>
         )}

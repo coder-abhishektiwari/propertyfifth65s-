@@ -79,17 +79,17 @@ export default async function AdminPropertiesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-          <h1 className="text-2xl font-serif font-bold text-[var(--navy)]">
+          <h1 className="text-2xl font-serif font-bold text-primary">
             Property Management
           </h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             Manage all your properties, update details and publish or unpublish
             listings.
           </p>
         </div>
         <Link
           href="/admin/properties/new"
-          className="inline-flex items-center gap-2 bg-[var(--navy)] hover:bg-[var(--navy-light)] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shrink-0"
+          className="inline-flex items-center gap-2 bg-primary hover:bg-navy-light text-inverse text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shrink-0"
         >
           <Plus className="w-4 h-4" />
           Add New Property
@@ -101,18 +101,18 @@ export default async function AdminPropertiesPage() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="bg-white rounded-xl border border-gray-200 p-5"
+            className="bg-card rounded-xl border border-border p-5"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-[var(--gold)]/10 flex items-center justify-center">
-                <stat.icon className="w-5 h-5 text-[var(--gold)]" />
+              <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                <stat.icon className="w-5 h-5 text-accent" />
               </div>
-              <span className="text-2xl font-bold text-[var(--navy)]">
+              <span className="text-2xl font-bold text-primary">
                 {stat.value}
               </span>
             </div>
-            <p className="text-sm font-medium text-gray-700">{stat.label}</p>
-            <p className="text-xs text-gray-400 mt-0.5">{stat.sub}</p>
+            <p className="text-sm font-medium text-foreground">{stat.label}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{stat.sub}</p>
           </div>
         ))}
       </div>

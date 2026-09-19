@@ -8,6 +8,7 @@ import {
   TrendingUp,
   Briefcase,
   Handshake,
+  Calendar
 } from "lucide-react";
 import FeaturedPropertiesCarousel from "@/components/FeaturedPropertiesCarousel";
 import { getFeaturedProperties } from "@/lib/properties";
@@ -88,22 +89,22 @@ export default async function HomePage() {
   return (
     <>
       {/* ─── Hero Section ──────────────────────── */}
-      <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-[var(--navy)] pt-16 lg:pt-[4.5rem]">
+      <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-primary pt-16 lg:pt-[4.5rem]">
         <div className="hero-overlay absolute inset-0 z-10" />
 
         <div className="relative z-20 container-site py-20 lg:py-22 flex items-center">
           <div className="max-w-xl">
-            <p className="text-[var(--gold)] text-xs font-semibold tracking-[0.2em] uppercase mb-4">
+            <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase mb-4">
               Premium Properties. Trusted Advisory.
             </p>
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-[1.15]">
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-inverse leading-[1.15]">
               Discover Properties
               <br />
               That Match
               <br />
-              <span className="text-[var(--gold)]">Your Mission.</span>
+              <span className="text-accent">Your Mission.</span>
             </h1>
-            <p className="mt-5 text-white/60 text-sm leading-relaxed max-w-md">
+            <p className="mt-5 text-inverse-muted text-sm leading-relaxed max-w-md">
               Premium Real Estate Opportunities , strategic investments and trusted advisory - thoughtfully curated for defence personnel, veterans and their families
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -111,9 +112,10 @@ export default async function HomePage() {
                 Explore Properties
                 <ArrowRight className="w-4 h-4" />
               </IdentityGate>
-              <IdentityGate href="/consultation" className="btn-gold inline-flex items-center gap-2">
+              <IdentityGate href="/consultation" className="hidden lg:inline-flex items-center justify-center gap-2 min-h-[2.75rem] bg-gradient-to-r from-accent to-accent-strong hover:from-gold-light hover:to-accent text-primary font-bold rounded-lg text-[0.8rem] tracking-wide uppercase px-5 cursor-pointer shadow-md shadow-accent/20 transition-all duration-200 hover:-translate-y-px hover:shadow-lg active:translate-y-0 active:scale-[0.99]">
+                <Calendar className="w-3.5 h-3.5" />
+
                 Book a Consultation
-                <ArrowRight className="w-4 h-4" />
               </IdentityGate>
             </div>
           </div>
@@ -121,18 +123,18 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Featured Properties (Auto Sliding Carousel) ───────────────────────── */}
-      <section className="section-py bg-[var(--bg)]">
+      <section className="section-py bg-background">
         <div className="container-site">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-[var(--gold)] text-xs font-semibold tracking-[0.2em] uppercase mb-1">
+              <p className="text-accent text-xs font-semibold tracking-[0.2em] uppercase mb-1">
                 Exceptional Properties. Extraordinary Living.
               </p>
               <h2 className="heading-lg">Featured Opportunity</h2>
             </div>
             <IdentityGate
               href="/properties"
-              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-[var(--navy)] hover:text-[var(--gold)] transition-colors"
+              className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold tracking-wider uppercase text-primary hover:text-accent transition-colors"
             >
               View All Properties
               <ArrowRight className="w-4 h-4" />
@@ -144,20 +146,20 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Why Choose Property Fifth ─────────────────── */}
-      <section className="section-py bg-[var(--bg-muted)]">
+      <section className="section-py bg-muted">
         <div className="container-site">
-          <p className="text-center text-[var(--gold)] text-xs font-semibold tracking-[0.2em] uppercase mb-2">
+          <p className="eyebrow text-center mb-2">
             Why Choose Property Fifth?
           </p>
-          <div className="h-px bg-[var(--gold)] w-16 mx-auto mb-10" />
+          <div className="h-px bg-accent w-16 mx-auto mb-10" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
             {REASONS.map((r) => (
-              <div key={r.num} className="bg-white border border-[var(--border)] rounded-lg p-5 text-center hover:shadow-md transition-shadow">
-                <span className="font-serif text-4xl lg:text-5xl font-bold text-[var(--gold)] leading-none">
+              <div key={r.num} className="card-premium p-6 text-center">
+                <span className="font-serif text-4xl lg:text-5xl font-bold text-accent leading-none tracking-tight">
                   {r.num}
                 </span>
-                <h3 className="font-serif text-sm font-bold mt-3 mb-2 text-[var(--text)]">{r.title}</h3>
-                <p className="text-xs text-[var(--text-muted)] leading-relaxed">{r.desc}</p>
+                <h3 className="font-serif text-sm font-bold mt-3 mb-2 text-foreground">{r.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{r.desc}</p>
               </div>
             ))}
           </div>
@@ -165,19 +167,19 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Our Services ─────────────────────────────── */}
-      <section className="section-py bg-[var(--bg)]">
+      <section className="section-py bg-background">
         <div className="container-site">
           <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16 items-start">
             <div>
-              <p className="text-[var(--text-muted)] text-xs font-semibold tracking-[0.15em] uppercase mb-2">
+              <p className="text-muted-foreground text-xs font-semibold tracking-[0.15em] uppercase mb-2">
                 Our Services
               </p>
               <h2 className="heading-lg">
                 Solutions That
                 <br />
-                Move You <span className="text-[var(--gold)]">Forward.</span>
+                Move You <span className="text-accent">Forward.</span>
               </h2>
-              <p className="mt-3 text-sm text-[var(--text-muted)] leading-relaxed max-w-xs">
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-xs">
                 Comprehensive real estate advisory services tailored to your goals.
               </p>
               <Link href="/services" className="btn-primary mt-6">
@@ -189,13 +191,13 @@ export default async function HomePage() {
               {SERVICES.map((s) => (
                 <div
                   key={s.title}
-                  className="bg-white border border-[var(--border)] rounded-lg p-5 hover:shadow-md transition-shadow"
+                  className="card-premium p-6"
                 >
-                  <div className="w-10 h-10 rounded-full bg-[var(--gold)]  flex items-center justify-center mb-4">
+                  <div className="w-11 h-11 rounded-xl bg-accent text-inverse flex items-center justify-center mb-4 shadow-sm">
                     <s.icon className="w-5 h-5" />
                   </div>
                   <h3 className="font-serif text-sm font-bold mb-2">{s.title}</h3>
-                  <p className="text-xs text-[var(--text-muted)] leading-relaxed">{s.desc}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed">{s.desc}</p>
                 </div>
               ))}
             </div>
@@ -204,19 +206,19 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Featured Locations ────────────────────────── */}
-      <section className="section-py bg-[var(--bg-muted)]">
+      <section className="section-py bg-muted">
         <div className="container-site">
           <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16 items-start">
             <div>
-              <p className="text-[var(--text-muted)] text-xs font-semibold tracking-[0.15em] uppercase mb-2">
+              <p className="eyebrow mb-2">
                 Featured Locations
               </p>
               <h2 className="heading-lg">
                 Prime Locations.
                 <br />
-                Promising <span className="text-[var(--gold)]">Futures.</span>
+                Promising <span className="text-accent">Futures.</span>
               </h2>
-              <p className="mt-3 text-sm text-[var(--text-muted)] leading-relaxed max-w-xs">
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-xs">
                 Carefully selected locations with excellent connectivity, infrastructure and growth potential.
               </p>
               <IdentityGate href="/properties" className="btn-primary mt-6 inline-flex items-center gap-2">
@@ -230,19 +232,19 @@ export default async function HomePage() {
                   <IdentityGate
                     key={loc.name}
                     href={`/properties?city=${encodeURIComponent(loc.name)}`}
-                    className="group relative rounded-lg overflow-hidden h-44 block text-left"
+                    className="group relative rounded-xl overflow-hidden h-44 block text-left border border-border shadow hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                   >
                     <Image
                       src={loc.image}
                       alt={loc.name}
                       fill
                       sizes="(max-width: 768px) 50vw, 25vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="object-cover group-hover:scale-[1.04] transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-scrim via-scrim-soft/20 to-transparent z-10" />
                     <div className="absolute bottom-0 left-0 p-3 z-20">
-                      <h3 className="text-white text-xs font-bold tracking-wider uppercase">{loc.name}</h3>
-                      <p className="text-white/60 text-[0.65rem] mt-0.5">{loc.subtitle}</p>
+                      <h3 className="text-inverse text-xs font-bold tracking-wider uppercase">{loc.name}</h3>
+                      <p className="text-inverse-muted text-[0.65rem] mt-0.5">{loc.subtitle}</p>
                     </div>
                   </IdentityGate>
                 ))}
@@ -253,15 +255,15 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Defence Officers ──────────────────────────── */}
-      <section className="relative bg-[#06101E] overflow-hidden py-16 lg:py-24 border-y border-white/5">
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[var(--gold)]/5 blur-[120px] rounded-full pointer-events-none" />
+      <section className="relative bg-navy-dark overflow-hidden py-16 lg:py-24 border-y border-inverse/5">
+        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="container-site relative z-10">
-          <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-12 backdrop-blur-sm shadow-2xl">
+          <div className="bg-inverse/[0.02] rounded-2xl p-6 sm:p-8 lg:p-12 backdrop-blur-sm shadow-2xl">
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               <div className="lg:col-span-5 relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-[var(--gold)]/30 to-transparent rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500" />
-                <div className="relative rounded-xl overflow-hidden aspect-[4/5] w-full border border-white/10 shadow-2xl">
+                <div className="absolute -inset-1 bg-gradient-to-r from-accent/30 to-transparent rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-500" />
+                <div className="relative rounded-xl overflow-hidden aspect-[4/5] w-full shadow-2xl">
                   <Image
                     src="/images/sections/defence-officers.webp"
                     alt="Defence Officers & Families"
@@ -269,13 +271,13 @@ export default async function HomePage() {
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className="object-cover transform group-hover:scale-105 transition duration-700 ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#06101E]/80 via-transparent to-transparent z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/80 via-transparent to-transparent z-10" />
 
-                  <div className="absolute bottom-4 left-4 right-4 p-3 bg-black/40 backdrop-blur-md rounded-lg border border-white/10 flex items-center gap-3 z-20">
-                    <div className="w-8 h-8 rounded-full bg-[var(--gold)]/20 border border-[var(--gold)]/50 flex items-center justify-center shrink-0">
-                      <Shield className="w-4 h-4 text-[var(--gold)]" />
+                  <div className="absolute bottom-4 left-4 right-4 p-3 bg-scrim-soft backdrop-blur-md rounded-lg flex items-center gap-3 z-20">
+                    <div className="w-8 h-8 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                      <Shield className="w-4 h-4 text-accent" />
                     </div>
-                    <span className="text-xs font-medium text-white/90">
+                    <span className="text-xs font-medium text-inverse/90">
                       Trusted Advisory for Armed Forces
                     </span>
                   </div>
@@ -283,21 +285,21 @@ export default async function HomePage() {
               </div>
 
               <div className="lg:col-span-7 flex flex-col justify-center">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--gold)]/10 border border-[var(--gold)]/20 w-fit mb-4">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--gold)]" />
-                  <span className="text-xs font-semibold uppercase tracking-wider text-[var(--gold)]">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 w-fit mb-4">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                  <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                     Honor & Excellence
                   </span>
                 </div>
 
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight">
+                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-inverse leading-tight">
                   A Dedicated Approach for{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--gold)] via-[#f3e0aa] to-[var(--gold)]">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-gold-light to-accent">
                     Defence Officers & Their Families
                   </span>
                 </h2>
 
-                <p className="mt-4 text-white/60 text-sm sm:text-base leading-relaxed max-w-xl">
+                <p className="mt-4 text-inverse-muted text-sm sm:text-base leading-relaxed max-w-xl">
                   We understand the core values of trust, discipline, and long-term planning.
                   Our specialized desk provides complete clarity, remote convenience, and end-to-end guidance.
                 </p>
@@ -306,12 +308,12 @@ export default async function HomePage() {
                   {DEFENCE_CHECKLIST.map((item) => (
                     <div
                       key={item}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[var(--gold)]/30 hover:bg-white/[0.05] transition-all duration-300"
+                      className="flex items-center gap-3 p-3 rounded-xl bg-inverse/[0.03] hover:bg-inverse/[0.05] transition-all duration-300"
                     >
-                      <div className="w-6 h-6 rounded-lg bg-[var(--gold)]/15 border border-[var(--gold)]/30 flex items-center justify-center shrink-0">
-                        <Check className="w-3.5 h-3.5 text-[var(--gold)]" />
+                      <div className="w-6 h-6 rounded-lg bg-accent/15 border border-accent/30 flex items-center justify-center shrink-0">
+                        <Check className="w-3.5 h-3.5 text-accent" />
                       </div>
-                      <span className="text-white/80 text-xs sm:text-sm font-medium">
+                      <span className="text-inverse/80 text-xs sm:text-sm font-medium">
                         {item}
                       </span>
                     </div>
@@ -324,20 +326,20 @@ export default async function HomePage() {
       </section>
 
       {/* ─── Testimonials ─────────────────────────────── */}
-      <section className="section-py bg-[var(--bg)]">
+      <section className="section-py bg-background">
         <div className="container-site">
-          <p className="text-center text-[var(--text-muted)] text-xs font-semibold tracking-[0.15em] uppercase mb-2">
+          <p className="eyebrow text-center mb-2">
             What Our Clients Say
           </p>
-          <div className="h-px bg-[var(--gold)] w-16 mx-auto mb-10" />
+          <div className="h-px bg-accent w-16 mx-auto mb-10" />
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {TESTIMONIALS.map((t) => (
-              <div key={t.author} className="bg-white border border-[var(--border)] rounded-lg p-6 relative">
-                <span className="font-serif text-5xl text-[var(--gold)] leading-none absolute top-4 left-5">&ldquo;</span>
-                <p className="text-sm text-[var(--text-muted)] leading-relaxed mt-6 mb-4 italic">
+              <div key={t.author} className="bg-card border border-border rounded-lg p-6 relative">
+                <span className="font-serif text-5xl text-accent leading-none absolute top-4 left-5">&ldquo;</span>
+                <p className="text-sm text-muted-foreground leading-relaxed mt-6 mb-4 italic">
                   {t.text}
                 </p>
-                <p className="text-xs font-semibold text-[var(--text)]">— {t.author}</p>
+                <p className="text-xs font-semibold text-foreground">— {t.author}</p>
               </div>
             ))}
           </div>

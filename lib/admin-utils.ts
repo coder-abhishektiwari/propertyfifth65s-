@@ -18,8 +18,8 @@ export function getPropertyStatusLabel(status: PropertyStatus): string {
 }
 
 export function getPropertyStatusLabelClass(status: PropertyStatus): string {
-  if (status === "SOLD_OUT") return "bg-red-50 text-red-700 border border-red-200";
-  return "bg-green-50 text-green-700 border border-green-200";
+  if (status === "SOLD_OUT") return "badge-status badge-destructive";
+  return "badge-status badge-success";
 }
 
 export function getConsultationStatusLabel(
@@ -40,17 +40,17 @@ export function getConsultationStatusLabelClass(
 ): string {
   switch (status) {
     case "NEW":
-      return "bg-amber-50 text-amber-700 border border-amber-200";
+      return "badge-status badge-warning";
     case "CONTACTED":
-      return "bg-blue-50 text-blue-700 border border-blue-200";
+      return "badge-status badge-info";
     case "SCHEDULED":
-      return "bg-purple-50 text-purple-700 border border-purple-200";
+      return "badge-status badge-violet";
     case "COMPLETED":
-      return "bg-green-50 text-green-700 border border-green-200";
+      return "badge-status badge-success";
     case "CANCELLED":
-      return "bg-red-50 text-red-700 border border-red-200";
+      return "badge-status badge-destructive";
     default:
-      return "bg-gray-50 text-gray-700 border border-gray-200";
+      return "badge-status";
   }
 }
 
@@ -72,17 +72,17 @@ export function getCallbackStatusLabelClass(
 ): string {
   switch (status) {
     case "NEW":
-      return "bg-amber-50 text-amber-700 border border-amber-200";
+      return "badge-status badge-warning";
     case "CONTACTED":
-      return "bg-blue-50 text-blue-700 border border-blue-200";
+      return "badge-status badge-info";
     case "CALLBACK_SCHEDULED":
-      return "bg-purple-50 text-purple-700 border border-purple-200";
+      return "badge-status badge-violet";
     case "COMPLETED":
-      return "bg-green-50 text-green-700 border border-green-200";
+      return "badge-status badge-success";
     case "CANCELLED":
-      return "bg-gray-50 text-gray-600 border border-gray-200";
+      return "badge-status";
     default:
-      return "bg-gray-50 text-gray-700 border border-gray-200";
+      return "badge-status";
   }
 }
 
@@ -100,10 +100,10 @@ export function getCategoryLabel(category: CustomerCategory): string {
 export function getCategoryLabelClass(category: CustomerCategory): string {
   switch (category) {
     case "NRI_UHNI":
-      return "bg-blue-50 text-blue-700 border border-blue-200";
+      return "badge-status badge-info";
     case "DEFENCE_PERSONNEL":
-      return "bg-orange-50 text-orange-700 border border-orange-200";
+      return "badge-status badge-warning";
     default:
-      return "bg-gray-50 text-gray-700 border border-gray-200";
+      return "badge-status";
   }
 }
