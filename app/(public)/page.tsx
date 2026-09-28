@@ -181,7 +181,7 @@ export default async function HomePage() {
               <h2 className="heading-lg">
                 Solutions That
                 <br />
-                Move You <span className="text-accent">Forward.</span>
+                Take You <span className="text-accent">Forward.</span>
               </h2>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-xs">
                 Comprehensive real estate advisory services tailored to your goals.
