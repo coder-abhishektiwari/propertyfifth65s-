@@ -53,11 +53,11 @@ const DEFENCE_CHECKLIST = [
 const TESTIMONIALS = [
   {
     text: "As an NRI, I was sceptical about buying property remotely. Property Fifth made the entire process seamless, transparent and stress-free.",
-    author: "Rohan Mehta, Himanchal",
+    author: "Rohan Mehta, Himachal",
   },
   {
     text: "They understand the unique needs of Defence families. From shortlisting to possession, their support has been exceptional.",
-    author: "Col. Arvind Singh (Retd.)",
+    author: "Col. Arvind Singh (Retd.), Greater Noida",
   },
   {
     text: "The team understood exactly what I was looking for and presented options that genuinely matched my requirements. Their guidance made the decision much easier.",
