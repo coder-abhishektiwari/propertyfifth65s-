@@ -155,7 +155,7 @@ export default function ContactPage() {
               <div className="flex items-start gap-2 p-3 bg-warning-bg border border-warning-border rounded-lg mb-6">
                 <AlertCircle className="w-4 h-4 text-warning mt-0.5 shrink-0" />
                 <p className="text-xs text-warning leading-relaxed">
-                  This form is for <strong>site-related issues</strong> and <strong>technical support</strong> only and For property queries or consultations, Cick on Book Consultation.
+                  This form is for <strong>site-related issues</strong> and <strong>technical support</strong> only and For property queries or consultations, Click on Book Consultation.
                 </p>
               </div>
 
