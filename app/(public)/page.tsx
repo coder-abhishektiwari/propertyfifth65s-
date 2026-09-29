@@ -36,7 +36,7 @@ const SERVICES = [
 ];
 
 const LOCATIONS = [
-  { name: "DUBAI", subtitle: "Premium Residences & Investments", image: "/images/locations/gurugram.webp" },
+  { name: "DUBAI", subtitle: "Premium Residences & Investments Opportunities", image: "/images/locations/gurugram.webp" },
   { name: "DELHI NCR", subtitle: "The Heart of Opportunity", image: "/images/locations/delhi-ncr.webp" },
   { name: "GURGAON", subtitle: "The Future-Ready City", image: "/images/locations/pune.webp" },
   { name: "GREATER NOIDA", subtitle: "India's Innovation Hub", image: "/images/locations/bangalore.webp" },
