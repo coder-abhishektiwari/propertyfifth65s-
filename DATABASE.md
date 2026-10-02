@@ -511,6 +511,7 @@ Search/filter
 → priceMin/priceMax
 → configuration
 → areaMin/areaMax
+→ amenities
 ```
 
 ## Property Detail

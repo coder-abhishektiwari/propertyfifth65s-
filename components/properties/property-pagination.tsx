@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -11,6 +12,7 @@ interface PropertyPaginationProps {
 export default function PropertyPagination({ currentPage, totalPages }: PropertyPaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
 
   if (totalPages <= 1) return null;
 
@@ -21,7 +23,9 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
     } else {
       params.delete("page");
     }
-    router.push(`/properties?${params.toString()}`);
+    startTransition(() => {
+      router.replace(`/properties?${params.toString()}`, { scroll: false });
+    });
   }
 
   // Generate page numbers to display
@@ -41,11 +45,11 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
   }
 
   return (
-    <div className="flex items-center justify-center gap-1.5 mt-10">
+    <div className={`flex items-center justify-center gap-1.5 mt-10 transition-opacity ${isPending ? "opacity-60" : "opacity-100"}`}>
       {/* Previous */}
       <button
         onClick={() => goToPage(currentPage - 1)}
-        disabled={currentPage <= 1}
+        disabled={currentPage <= 1 || isPending}
         className="w-9 h-9 rounded flex items-center justify-center border border-border text-muted-foreground hover:border-accent hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         aria-label="Previous page"
       >
@@ -62,7 +66,8 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
           <button
             key={page}
             onClick={() => goToPage(page)}
-            className={`w-9 h-9 rounded flex items-center justify-center text-xs font-medium transition-colors cursor-pointer ${
+            disabled={isPending}
+            className={`w-9 h-9 rounded flex items-center justify-center text-xs font-medium transition-colors cursor-pointer disabled:cursor-not-allowed ${
               currentPage === page
                 ? "bg-primary text-inverse border border-primary"
                 : "border border-border text-muted-foreground hover:border-accent hover:text-accent"
@@ -76,7 +81,7 @@ export default function PropertyPagination({ currentPage, totalPages }: Property
       {/* Next */}
       <button
         onClick={() => goToPage(currentPage + 1)}
-        disabled={currentPage >= totalPages}
+        disabled={currentPage >= totalPages || isPending}
         className="w-9 h-9 rounded flex items-center justify-center border border-border text-muted-foreground hover:border-accent hover:text-accent disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
         aria-label="Next page"
       >

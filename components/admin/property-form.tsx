@@ -25,6 +25,7 @@ import {
   type ActionResponse,
 } from "@/lib/actions/admin-property-actions";
 import PropertyPlaceholder from "@/components/property-placeholder";
+import AmenityPicker from "@/components/admin/amenity-picker";
 
 const PROPERTY_TYPES = [
   { value: "APARTMENT", label: "Apartment" },
@@ -71,6 +72,7 @@ interface PropertyFormProps {
   initialImages?: ImageRecord[];
   initialBrochure?: BrochureRecord;
   propertySlug?: string;
+  amenityOptions?: string[];
 }
 
 function toAdminImage(url: string, slug?: string): string {
@@ -89,10 +91,12 @@ export default function PropertyForm({
   initialImages = [],
   initialBrochure = null,
   propertySlug,
+  amenityOptions = [],
 }: PropertyFormProps) {
   const router = useRouter();
   const imageInputRef = useRef<HTMLInputElement>(null);
   const brochureInputRef = useRef<HTMLInputElement>(null);
+  const [availableAmenities, setAvailableAmenities] = useState<string[]>(amenityOptions);
 
   const [form, setForm] = useState<PropertyFormData>({
     name: initialData?.name || "",
@@ -458,11 +462,14 @@ export default function PropertyForm({
   const removeHighlight = (i: number) =>
     setForm((p) => ({ ...p, highlights: (p.highlights || []).filter((_, idx) => idx !== i) }));
 
-  const addAmenity = () => setForm((p) => ({ ...p, amenities: [...(p.amenities || []), ""] }));
-  const updateAmenity = (i: number, v: string) =>
-    setForm((p) => ({ ...p, amenities: (p.amenities || []).map((a, idx) => (idx === i ? v : a)) }));
-  const removeAmenity = (i: number) =>
-    setForm((p) => ({ ...p, amenities: (p.amenities || []).filter((_, idx) => idx !== i) }));
+  const updateAmenities = (next: string[]) => {
+    setForm((p) => ({ ...p, amenities: next }));
+    setAvailableAmenities((prev) => {
+      const known = new Set(prev.map((item) => item.toLowerCase()));
+      const additions = next.filter((item) => !known.has(item.toLowerCase()));
+      return additions.length > 0 ? [...prev, ...additions] : prev;
+    });
+  };
 
   const addSpec = () =>
     setForm((p) => ({ ...p, specifications: [...(p.specifications || []), { label: "", value: "" }] }));
@@ -1035,37 +1042,16 @@ export default function PropertyForm({
                 <div>
                   <div className="flex items-center justify-between mb-2">
                     <label className={labelClass}>Amenities</label>
-                    <button
-                      type="button"
-                      onClick={addAmenity}
-                      className="text-xs font-medium text-accent hover:text-accent-strong cursor-pointer"
-                    >
-                      + Add
-                    </button>
+                    <span className="text-[0.7rem] text-muted-foreground">
+                      Search, press Enter, or create a new amenity
+                    </span>
                   </div>
-                  {(form.amenities || []).length === 0 && (
-                    <p className="text-xs text-muted-foreground mb-2">No amenities added</p>
-                  )}
-                  <div className="space-y-2">
-                    {(form.amenities || []).map((a, i) => (
-                      <div key={i} className="flex items-center gap-2">
-                        <input
-                          type="text"
-                          value={a}
-                          onChange={(e) => updateAmenity(i, e.target.value)}
-                          className={inputClass}
-                          placeholder="e.g. Swimming Pool"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => removeAmenity(i)}
-                          className="p-1.5 text-muted-foreground hover:text-destructive cursor-pointer shrink-0"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    ))}
-                  </div>
+                  <AmenityPicker
+                    value={form.amenities || []}
+                    onChange={updateAmenities}
+                    options={availableAmenities}
+                    inputClassName={inputClass}
+                  />
                 </div>
 
                 {/* Specifications */}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ChevronDown } from "lucide-react";
 
@@ -13,6 +14,7 @@ const SORT_OPTIONS = [
 export default function PropertySort() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
   const currentSort = searchParams.get("sort") || "featured";
 
   function handleSort(value: string) {
@@ -23,7 +25,9 @@ export default function PropertySort() {
       params.delete("sort");
     }
     params.delete("page");
-    router.push(`/properties?${params.toString()}`);
+    startTransition(() => {
+      router.replace(`/properties?${params.toString()}`, { scroll: false });
+    });
   }
 
   return (
@@ -33,7 +37,8 @@ export default function PropertySort() {
         <select
           value={currentSort}
           onChange={(e) => handleSort(e.target.value)}
-          className="appearance-none bg-card border border-border rounded px-3 py-1.5 pr-7 text-xs text-foreground cursor-pointer focus:outline-none focus:border-accent"
+          disabled={isPending}
+          className="appearance-none bg-card border border-border rounded px-3 py-1.5 pr-7 text-xs text-foreground cursor-pointer focus:outline-none focus:border-accent disabled:opacity-60"
         >
           {SORT_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>

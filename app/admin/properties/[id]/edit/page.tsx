@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { db } from "@/lib/db";
 import PropertyForm from "@/components/admin/property-form";
+import { getUniqueAmenities } from "@/lib/properties";
 
 export const metadata = {
   title: "Edit Property — Admin — Property Fifth",
@@ -31,14 +32,17 @@ function normalizeBanks(raw: unknown): { name: string; logo?: string }[] {
 export default async function EditPropertyPage({ params }: EditPropertyPageProps) {
   const { id } = await params;
 
-  const property = await db.property.findUnique({
-    where: { id },
-    include: {
-      images: {
-        orderBy: { sortOrder: "asc" },
+  const [property, amenityOptions] = await Promise.all([
+    db.property.findUnique({
+      where: { id },
+      include: {
+        images: {
+          orderBy: { sortOrder: "asc" },
+        },
       },
-    },
-  });
+    }),
+    getUniqueAmenities(),
+  ]);
 
   if (!property) {
     notFound();
@@ -106,6 +110,7 @@ export default async function EditPropertyPage({ params }: EditPropertyPageProps
       initialImages={initialImages}
       initialBrochure={initialBrochure}
       propertySlug={property.slug}
+      amenityOptions={amenityOptions}
     />
   );
 }

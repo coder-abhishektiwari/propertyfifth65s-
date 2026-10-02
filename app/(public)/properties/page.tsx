@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { getProperties, getUniqueCities } from "@/lib/properties";
+import { getProperties, getUniqueCities, getUniqueAmenities, getPriceBounds } from "@/lib/properties";
 import type { PropertyType, Purpose, PropertyStatus } from "@prisma/client";
 import PropertyFilters from "@/components/properties/property-filters";
 import PropertyGrid from "@/components/properties/property-grid";
@@ -22,9 +22,20 @@ interface PropertiesPageProps {
     configuration?: string;
     priceMin?: string;
     priceMax?: string;
+    amenities?: string | string[];
     sort?: string;
     page?: string;
   }>;
+}
+
+function parseAmenitiesParam(value?: string | string[]): string[] | undefined {
+  if (!value) return undefined;
+  const raw = Array.isArray(value) ? value : [value];
+  const items = raw
+    .flatMap((item) => item.split(","))
+    .map((item) => item.trim())
+    .filter(Boolean);
+  return items.length > 0 ? items : undefined;
 }
 
 async function PropertiesContent({
@@ -44,6 +55,7 @@ async function PropertiesContent({
     configuration: params.configuration || undefined,
     priceMin: params.priceMin ? Number(params.priceMin) : undefined,
     priceMax: params.priceMax ? Number(params.priceMax) : undefined,
+    amenities: parseAmenitiesParam(params.amenities),
   };
 
   // Parse sort
@@ -71,9 +83,11 @@ async function PropertiesContent({
   const page = params.page ? Math.max(1, Number(params.page)) : 1;
 
   // Fetch data
-  const [result, cities] = await Promise.all([
+  const [result, cities, amenities, priceBounds] = await Promise.all([
     getProperties(filters, { field: sortField, order: sortOrder }, page),
     getUniqueCities(),
+    getUniqueAmenities({ publishedOnly: true }),
+    getPriceBounds(),
   ]);
 
   // Count active filters
@@ -87,7 +101,7 @@ async function PropertiesContent({
         <div className="container-site">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Filters Sidebar */}
-            <PropertyFilters cities={cities} />
+            <PropertyFilters cities={cities} amenities={amenities} priceBounds={priceBounds} />
 
             {/* Property Results */}
             <div className="flex-1 min-w-0">

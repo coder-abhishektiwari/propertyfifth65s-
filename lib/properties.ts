@@ -17,6 +17,7 @@ export interface PropertyFilters {
   priceMin?: number;
   priceMax?: number;
   featured?: boolean;
+  amenities?: string[];
 }
 
 export interface SortOption {
@@ -81,11 +82,37 @@ export async function getProperties(
   }
 
   // Price range filters
-  if (filters.priceMin !== undefined) {
-    where.priceMin = { gte: filters.priceMin };
-  }
-  if (filters.priceMax !== undefined) {
-    where.priceMax = { lte: filters.priceMax };
+  // Undisclosed pricing (priceMin = null) must stay visible when a budget
+  // filter is active — those cards show "price on request" and sort last.
+  const budgetFilterActive =
+    filters.priceMin !== undefined || filters.priceMax !== undefined;
+
+  if (budgetFilterActive) {
+    const disclosedPrice: Prisma.PropertyWhereInput[] = [];
+    if (filters.priceMin !== undefined) {
+      disclosedPrice.push({ priceMin: { gte: filters.priceMin } });
+    }
+    if (filters.priceMax !== undefined) {
+      disclosedPrice.push({ priceMax: { lte: filters.priceMax } });
+    }
+
+    const existingAnd = where.AND
+      ? Array.isArray(where.AND)
+        ? where.AND
+        : [where.AND]
+      : [];
+
+    where.AND = [
+      ...existingAnd,
+      {
+        OR: [
+          // Published price that matches the selected budget
+          ...(disclosedPrice.length > 0 ? [{ AND: disclosedPrice }] : []),
+          // Undisclosed / on-request pricing remains eligible
+          { priceMin: null },
+        ],
+      },
+    ];
   }
 
   // Featured filter
@@ -93,20 +120,60 @@ export async function getProperties(
     where.featured = true;
   }
 
+  // Amenities filter — match selected amenities against Property.amenities JSON
+  // Prisma JSON string_contains does not substring-search arrays on PostgreSQL,
+  // so resolve matching property IDs via SQL first, then apply the normal query.
+  if (filters.amenities && filters.amenities.length > 0) {
+    const amenityLiterals = filters.amenities.map(
+      (amenity) =>
+        Prisma.sql`EXISTS (
+          SELECT 1 FROM jsonb_array_elements_text(a."amenities") AS am(item)
+          WHERE am.item ILIKE ${`%${amenity}%`}
+        )`
+    );
+
+    const rows = await db.$queryRaw<{ id: string }[]>`
+      SELECT a.id FROM "Property" a
+      WHERE a.published = true
+        AND a."amenities" IS NOT NULL
+        AND ${Prisma.join(amenityLiterals, " AND ")}
+    `;
+
+    where.id = { in: rows.map((row) => row.id) };
+  }
+
   // Build orderBy
+  // When a budget filter is on, undisclosed (null priceMin) always sort last.
   let orderBy: Prisma.PropertyOrderByWithRelationInput[];
-  switch (sort.field) {
-    case "featured":
-      orderBy = [{ featured: "desc" }, { createdAt: "desc" }];
-      break;
-    case "createdAt":
-      orderBy = [{ createdAt: sort.order }];
-      break;
-    case "priceMin":
-      orderBy = [{ priceMin: sort.order }];
-      break;
-    default:
-      orderBy = [{ featured: "desc" }, { createdAt: "desc" }];
+  if (budgetFilterActive) {
+    if (sort.field === "priceMin") {
+      orderBy = [{ priceMin: { sort: sort.order, nulls: "last" } }];
+    } else if (sort.field === "createdAt") {
+      orderBy = [
+        { priceMin: { sort: "asc", nulls: "last" } },
+        { createdAt: sort.order },
+      ];
+    } else {
+      orderBy = [
+        { priceMin: { sort: "asc", nulls: "last" } },
+        { featured: "desc" },
+        { createdAt: "desc" },
+      ];
+    }
+  } else {
+    switch (sort.field) {
+      case "featured":
+        orderBy = [{ featured: "desc" }, { createdAt: "desc" }];
+        break;
+      case "createdAt":
+        orderBy = [{ createdAt: sort.order }];
+        break;
+      case "priceMin":
+        orderBy = [{ priceMin: { sort: sort.order, nulls: "last" } }];
+        break;
+      default:
+        orderBy = [{ featured: "desc" }, { createdAt: "desc" }];
+    }
   }
 
   const skip = (page - 1) * PAGE_SIZE;
@@ -146,6 +213,44 @@ export async function getUniqueCities(): Promise<string[]> {
     orderBy: { city: "asc" },
   });
   return result.map((r) => r.city);
+}
+
+/** Unique amenity strings collected from Property.amenities JSON. */
+export async function getUniqueAmenities(options?: {
+  publishedOnly?: boolean;
+}): Promise<string[]> {
+  const where = options?.publishedOnly ? { published: true } : {};
+  const result = await db.property.findMany({
+    where,
+    select: { amenities: true },
+  });
+
+  const unique = new Set<string>();
+  for (const row of result) {
+    if (!Array.isArray(row.amenities)) continue;
+    for (const item of row.amenities) {
+      if (typeof item === "string" && item.trim()) unique.add(item.trim());
+    }
+  }
+
+  return Array.from(unique).sort((a, b) => a.localeCompare(b));
+}
+
+/** Min/max published property prices for the budget range slider. */
+export async function getPriceBounds(): Promise<{ min: number; max: number }> {
+  const result = await db.property.aggregate({
+    where: { published: true, priceMin: { not: null } },
+    _min: { priceMin: true },
+    _max: { priceMin: true },
+  });
+
+  const min = result._min.priceMin != null ? Number(result._min.priceMin) : 0;
+  const max = result._max.priceMin != null ? Number(result._max.priceMin) : 100000000;
+
+  if (max <= min) {
+    return { min: 0, max: 100000000 };
+  }
+  return { min, max };
 }
 
 export async function getUniqueConfigurations(): Promise<string[]> {
