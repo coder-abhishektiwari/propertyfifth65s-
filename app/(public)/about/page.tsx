@@ -98,7 +98,7 @@ export default function AboutPage() {
               A Different Kind of Real Estate Experience.
             </h2>
             <p className="text-[17px] text-inverse-muted leading-[1.6]">
-              Our Exclusive Focus allows us to bring together luxury real estate, specialised understanding and a service culture shaped by years of working with the Defence and Law Enforcement ecosystem.
+              Our Exclusive Focus allows us to combine luxury real estate expertise, specialised sector knowledge and a service culture shaped by years of working with the Defence and Law Enforcement ecosystem.
             </p>
           </div>
 

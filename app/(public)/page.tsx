@@ -36,7 +36,7 @@ const SERVICES = [
 ];
 
 const LOCATIONS = [
-  { name: "DUBAI", subtitle: "Premium Residences & Investments Opportunities", image: "/images/locations/gurugram.webp" },
+  { name: "DUBAI", subtitle: "Premium Residences & Investment Opportunities", image: "/images/locations/gurugram.webp" },
   { name: "DELHI NCR", subtitle: "The Heart of Opportunity", image: "/images/locations/delhi-ncr.webp" },
   { name: "GURGAON", subtitle: "The Future-Ready City", image: "/images/locations/pune.webp" },
   { name: "GREATER NOIDA", subtitle: "India's Innovation Hub", image: "/images/locations/bangalore.webp" },
@@ -53,7 +53,7 @@ const DEFENCE_CHECKLIST = [
 const TESTIMONIALS = [
   {
     text: "As an NRI, I was sceptical about buying property remotely. Property Fifth made the entire process seamless, transparent and stress-free.",
-    author: "Rohan Mehta, Himachal",
+    author: "Rohan Mehta, Himachal Pradesh",
   },
   {
     text: "They understand the unique needs of Defence families. From shortlisting to possession, their support has been exceptional.",
@@ -106,10 +106,10 @@ export default async function HomePage() {
               <br />
               That Match
               <br />
-              <span className="text-accent">Your Mission.</span>
+              <span className="text-accent">Your Vision.</span>
             </h1>
             <p className="mt-5 text-inverse-muted text-sm leading-relaxed max-w-md">
-              Premium Real Estate Opportunities , strategic investments and trusted advisory - thoughtfully curated for defence personnel, veterans and their families
+              Premium Real Estate Opportunities , strategic investments and trusted advisory - thoughtfully curated for defence personnel, veterans and their families.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <IdentityGate href="/properties" className="btn-primary inline-flex items-center gap-2">
@@ -173,15 +173,15 @@ export default async function HomePage() {
       {/* ─── Our Services ─────────────────────────────── */}
       <section className="section-py bg-background">
         <div className="container-site">
-          <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-16 items-start">
+          <div className="grid lg:grid-cols-[1fr_2fr] gap-10  items-start">
             <div>
               <p className="text-muted-foreground text-xs font-semibold tracking-[0.15em] uppercase mb-2">
                 Our Services
               </p>
               <h2 className="heading-lg">
-                Solutions That
+                Advisory Solutions
                 <br />
-                Take You <span className="text-accent">Forward.</span>
+                Designed Around <span className="text-accent">Your Goals.</span>
               </h2>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed max-w-xs">
                 Comprehensive real estate advisory services tailored to your goals.
