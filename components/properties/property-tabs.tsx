@@ -337,7 +337,7 @@ function shouldShowTab(tab: TabName, property: PropertyBasic): boolean {
     case "Gallery":
       return property.images.length > 0;
     case "Brochure":
-      return true;
+      return !!property.brochureUrl;
   }
 }
 

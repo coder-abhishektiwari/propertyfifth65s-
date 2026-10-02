@@ -59,6 +59,7 @@ export default function PropertyTable({
   const [typeFilter, setTypeFilter] = useState("all");
   const [locationFilter, setLocationFilter] = useState("all");
   const [openMenuId, setOpenMenuId] = useState<string | null>(null);
+  const [menuPos, setMenuPos] = useState<{ top: number; right: number } | null>(null);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [deleting, setDeleting] = useState(false);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
@@ -100,9 +101,32 @@ export default function PropertyTable({
     return url;
   }
 
+  function toggleMenu(id: string, e: React.MouseEvent<HTMLButtonElement>) {
+    if (openMenuId === id) {
+      setOpenMenuId(null);
+      setMenuPos(null);
+      return;
+    }
+    const rect = e.currentTarget.getBoundingClientRect();
+    const menuHeight = 220;
+    const spaceBelow = window.innerHeight - rect.bottom;
+    const top =
+      spaceBelow < menuHeight
+        ? Math.max(8, rect.top - menuHeight - 4)
+        : rect.bottom + 4;
+    const right = Math.max(8, window.innerWidth - rect.right);
+    setMenuPos({ top, right });
+    setOpenMenuId(id);
+  }
+
+  function closeMenu() {
+    setOpenMenuId(null);
+    setMenuPos(null);
+  }
+
   async function handleTogglePublished(id: string) {
     setActionLoading(id);
-    setOpenMenuId(null);
+    closeMenu();
     const result = await togglePublished(id);
     if (result.success) {
       router.refresh();
@@ -112,7 +136,7 @@ export default function PropertyTable({
 
   async function handleToggleFeatured(id: string) {
     setActionLoading(id);
-    setOpenMenuId(null);
+    closeMenu();
     const result = await toggleFeatured(id);
     if (result.success) {
       router.refresh();
@@ -393,73 +417,70 @@ export default function PropertyTable({
                         )}
                       </td>
                       <td className="px-5 py-4">
-                        <div className="relative">
-                          <button
-                            onClick={() =>
-                              setOpenMenuId(
-                                openMenuId === property.id ? null : property.id
-                              )
-                            }
-                            className="p-1.5 rounded-lg hover:bg-secondary transition-colors cursor-pointer"
-                          >
-                            <MoreVertical className="w-4 h-4 text-muted-foreground" />
-                          </button>
+                        <button
+                          onClick={(e) => toggleMenu(property.id, e)}
+                          className="p-1.5 rounded-lg hover:bg-secondary transition-colors cursor-pointer"
+                        >
+                          <MoreVertical className="w-4 h-4 text-muted-foreground" />
+                        </button>
 
-                          {openMenuId === property.id && (
-                            <>
-                              <div
-                                className="fixed inset-0 z-40"
-                                onClick={() => setOpenMenuId(null)}
-                              />
-                              <div className="absolute right-0 top-full mt-1 z-50 w-48 bg-card border border-border rounded-xl shadow-lg py-1.5 animate-fade-in">
-                                <Link
-                                  href={`/admin/properties/${property.id}/edit`}
-                                  onClick={() => setOpenMenuId(null)}
-                                  className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-                                >
-                                  <Pencil className="w-3.5 h-3.5" />
-                                  Edit Property
-                                </Link>
-                                <button
-                                  onClick={() => handleTogglePublished(property.id)}
-                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
-                                >
-                                  {property.published ? (
-                                    <>
-                                      <EyeOff className="w-3.5 h-3.5" />
-                                      Unpublish
-                                    </>
-                                  ) : (
-                                    <>
-                                      <Eye className="w-3.5 h-3.5" />
-                                      Publish
-                                    </>
-                                  )}
-                                </button>
-                                <button
-                                  onClick={() => handleToggleFeatured(property.id)}
-                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
-                                >
-                                  <Star
-                                    className={`w-3.5 h-3.5 ${property.featured ? "fill-[var(--gold)] text-accent" : ""}`}
-                                  />
-                                  {property.featured ? "Unfeature" : "Mark Featured"}
-                                </button>
-                                <div className="border-t border-border-light my-1.5" />
-                                <button
-                                  onClick={() => {
-                                    setOpenMenuId(null);
-                                    setDeleteConfirmId(property.id);
-                                  }}
-                                  className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-destructive hover:bg-destructive-bg transition-colors cursor-pointer"
-                                >
-                                  <Trash2 className="w-3.5 h-3.5" />
-                                  Delete Property
-                                </button>
-                              </div>
-                            </>
-                          )}
-                        </div>
+                        {openMenuId === property.id && menuPos && (
+                          <>
+                            <div
+                              className="fixed inset-0 z-[90]"
+                              onClick={closeMenu}
+                            />
+                            <div
+                              className="fixed z-[100] w-48 bg-card border border-border rounded-xl shadow-xl py-1.5 animate-fade-in"
+                              style={{ top: menuPos.top, right: menuPos.right }}
+                            >
+                              <Link
+                                href={`/admin/properties/${property.id}/edit`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
+                              >
+                                <Pencil className="w-3.5 h-3.5" />
+                                Edit Property
+                              </Link>
+                              <button
+                                onClick={() => handleTogglePublished(property.id)}
+                                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
+                              >
+                                {property.published ? (
+                                  <>
+                                    <EyeOff className="w-3.5 h-3.5" />
+                                    Unpublish
+                                  </>
+                                ) : (
+                                  <>
+                                    <Eye className="w-3.5 h-3.5" />
+                                    Publish
+                                  </>
+                                )}
+                              </button>
+                              <button
+                                onClick={() => handleToggleFeatured(property.id)}
+                                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors cursor-pointer"
+                              >
+                                <Star
+                                  className={`w-3.5 h-3.5 ${property.featured ? "fill-[var(--gold)] text-accent" : ""}`}
+                                />
+                                {property.featured ? "Unfeature" : "Mark Featured"}
+                              </button>
+                              <div className="border-t border-border-light my-1.5" />
+                              <button
+                                onClick={() => {
+                                  closeMenu();
+                                  setDeleteConfirmId(property.id);
+                                }}
+                                className="w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-destructive hover:bg-destructive-bg transition-colors cursor-pointer"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                                Delete Property
+                              </button>
+                            </div>
+                          </>
+                        )}
                       </td>
                     </tr>
                   );
