@@ -259,45 +259,17 @@ export default function CustomerIdentityDialog() {
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     type="button"
-                    onClick={() => handleChange("category", "NRI_UHNI")}
-                    className={`relative flex flex-col items-center text-center p-4 rounded-xl border-2 transition-all cursor-pointer ${
-                      form.category === "NRI_UHNI"
-                        ? "border-accent bg-accent/5 shadow-sm"
-                        : "border-border hover:border-border-strong"
-                    }`}
-                  >
-                    <div
-                      className={`absolute top-3 left-3 w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                        form.category === "NRI_UHNI"
-                          ? "border-accent bg-accent"
-                          : "border-border-strong"
-                      }`}
-                    >
-                      {form.category === "NRI_UHNI" && (
-                        <div className="w-1.5 h-1.5 rounded-full bg-card" />
-                      )}
-                    </div>
-                    <Globe className="w-7 h-7 text-accent mb-2" />
-                    <p className="text-xs font-bold text-primary">NRI / UHNI</p>
-                    <p className="text-[0.6rem] text-muted-foreground mt-0.5 leading-tight">
-                      Non-Resident Indian / Ultra High Net Worth Individual
-                    </p>
-                  </button>
-                  <button
-                    type="button"
                     onClick={() => handleChange("category", "DEFENCE_PERSONNEL")}
-                    className={`relative flex flex-col items-center text-center p-4 rounded-xl border-2 transition-all cursor-pointer ${
-                      form.category === "DEFENCE_PERSONNEL"
+                    className={`relative flex flex-col items-center text-center p-4 rounded-xl border-2 transition-all cursor-pointer ${form.category === "DEFENCE_PERSONNEL"
                         ? "border-accent bg-accent/5 shadow-sm"
                         : "border-border hover:border-border-strong"
-                    }`}
+                      }`}
                   >
                     <div
-                      className={`absolute top-3 left-3 w-4 h-4 rounded-full border-2 flex items-center justify-center ${
-                        form.category === "DEFENCE_PERSONNEL"
+                      className={`absolute top-3 left-3 w-4 h-4 rounded-full border-2 flex items-center justify-center ${form.category === "DEFENCE_PERSONNEL"
                           ? "border-accent bg-accent"
                           : "border-border-strong"
-                      }`}
+                        }`}
                     >
                       {form.category === "DEFENCE_PERSONNEL" && (
                         <div className="w-1.5 h-1.5 rounded-full bg-card" />
@@ -309,6 +281,32 @@ export default function CustomerIdentityDialog() {
                       Serving / Retired Defence Personnel & Their Families
                     </p>
                   </button>
+
+                  <button
+                    type="button"
+                    onClick={() => handleChange("category", "NRI_UHNI")}
+                    className={`relative flex flex-col items-center text-center p-4 rounded-xl border-2 transition-all cursor-pointer ${form.category === "NRI_UHNI"
+                        ? "border-accent bg-accent/5 shadow-sm"
+                        : "border-border hover:border-border-strong"
+                      }`}
+                  >
+                    <div
+                      className={`absolute top-3 left-3 w-4 h-4 rounded-full border-2 flex items-center justify-center ${form.category === "NRI_UHNI"
+                          ? "border-accent bg-accent"
+                          : "border-border-strong"
+                        }`}
+                    >
+                      {form.category === "NRI_UHNI" && (
+                        <div className="w-1.5 h-1.5 rounded-full bg-card" />
+                      )}
+                    </div>
+                    <Globe className="w-7 h-7 text-accent mb-2" />
+                    <p className="text-xs font-bold text-primary">NRI / UHNI</p>
+                    <p className="text-[0.6rem] text-muted-foreground mt-0.5 leading-tight">
+                      Non-Resident Indian / Ultra High Net Worth Individual
+                    </p>
+                  </button>
+
                 </div>
               </div>
 
